@@ -6,7 +6,7 @@
 
 ## MIT License
 
-Copyright (c) 2024 [Nombre del Desarrollador]
+Copyright (c) 2024 [David Bonilla & Javi Comes]
 
 Se concede permiso, de forma gratuita, a cualquier persona que obtenga una copia de este software y los archivos de documentación asociados (el "Software"), para utilizar el Software sin restricciones, incluyendo, sin limitación, los derechos de usar, copiar, modificar, fusionar, publicar, distribuir, sublicenciar y/o vender copias del Software, y permitir a las personas a quienes se les proporcione el Software que lo hagan, sujeto a las siguientes condiciones:
 
