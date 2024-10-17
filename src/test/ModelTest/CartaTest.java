@@ -2,6 +2,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+//Tests a poner: 
+//      1. Comrpobar que el numero generado siempre esté en el intervalo de 0 y 9 (10 cartas)
+//      2. 
+
 public class CartaTest {
 
     private Carta cartaRojaNumero;
@@ -17,19 +21,19 @@ public class CartaTest {
     }
 
     @Test
-    public void testCrearCartaNumero() {
+    public void testCartaNumero() {
         assertEquals("r", cartaRojaNumero.getColor(), "El color de la carta debería ser rojo (r)");
         assertEquals("5", cartaRojaNumero.getValor(), "El valor de la carta debería ser 5");
     }
 
     @Test
-    public void testCrearCartaAccionEspecial() {
+    public void testCartaAccionEspecial() {
         assertEquals("b", cartaAzulAccion.getColor(), "El color de la carta debería ser azul (b)");
         assertEquals("skip", cartaAzulAccion.getValor(), "El valor de la carta debería ser skip (acción especial)");
     }
 
     @Test
-    public void testCrearCartaComodin() {
+    public void testCartaComodin() {
         assertNull(cartaComodin.getColor(), "El color de la carta comodín debería ser null");
         assertEquals("+4", cartaComodin.getValor(), "El valor de la carta debería ser +4");
     }
