@@ -2,6 +2,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import main.Model.Carta;
+
 //Tests a poner: 
 //      1. Comrpobar que el numero generado siempre esté en el intervalo de 0 y 9 (10 cartas)
 //      2. 

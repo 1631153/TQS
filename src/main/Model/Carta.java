@@ -1,3 +1,4 @@
+package main.Model;
 
 public class Carta {
     private String color;  // "r" = rojo, "b" = azul, "g" = verde, "y" = amarillo, null = comodín
