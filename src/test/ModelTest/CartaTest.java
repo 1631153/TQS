@@ -61,6 +61,10 @@ public class CartaTest {
         Carta comodinMasCuatro = new Carta(null, "+4");  // Un comodín +4 sin color
         assertEquals("+4", comodinMasCuatro.getValor(), "El comodín +4 debería tener valor '+4' sin color");
         assertNull(comodinMasCuatro.getColor(), "El comodín +4 debería no tener color (null)");
+
+        Carta comodinMasDos = new Carta(null, "+2");  // Un comodín +2 sin color
+        assertEquals("+2", comodinMasDos.getValor(), "El comodín +2 debería tener valor '+2' sin color");
+        assertNull(comodinMasDos.getColor(), "El comodín +2 debería poder tener color (null)");
     }
 
     // 4. Test para verificar que los valores numéricos fuera de rango lanzan excepciones y que un numero válido no pueden ser multicolor
@@ -133,16 +137,10 @@ public class CartaTest {
         Carta cartaAmarilla2 = new Carta("y", "2");
         Carta cartaComodinWild = new Carta(null, "wild");
 
-        assertAll("Compatibilidad comodín",
-            () -> assertTrue(cartaComodin.esCompatible(cartaAmarilla2), 
-                    "El comodín debería ser compatible con la carta amarilla con valor 2"),
-            () -> assertTrue(cartaComodin.esCompatible(cartaRojaNumero),
-                    "El comodín debería ser compatible con la carta roja con valor 5"),
-            () -> assertTrue(cartaComodin.esCompatible(cartaAzulAccion),
-                    "El comodín debería ser compatible con la carta azul de acción especial 'skip'"),
-            () -> assertTrue(cartaComodin.esCompatible(cartaComodinWild),
-                    "El comodín debería ser compatible con otra carta comodín diferente")
-        );
+        assertTrue(cartaComodin.esCompatible(cartaAmarilla2), "El comodín debería ser compatible con la carta amarilla con valor 2");
+        assertTrue(cartaComodin.esCompatible(cartaRojaNumero), "El comodín debería ser compatible con la carta roja con valor 5");
+        assertTrue(cartaComodin.esCompatible(cartaAzulAccion), "El comodín debería ser compatible con la carta azul de acción especial 'skip'");
+        assertTrue(cartaComodin.esCompatible(cartaComodinWild), "El comodín debería ser compatible con otra carta comodín diferente");
     }
 
     // 10. Test para verificar que dos cartas con diferentes colores y valores son incompatibles
