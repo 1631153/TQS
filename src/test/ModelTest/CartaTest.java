@@ -61,10 +61,6 @@ public class CartaTest {
         Carta comodinMasCuatro = new Carta(null, "+4");  // Un comodín +4 sin color
         assertEquals("+4", comodinMasCuatro.getValor(), "El comodín +4 debería tener valor '+4' sin color");
         assertNull(comodinMasCuatro.getColor(), "El comodín +4 debería no tener color (null)");
-
-        Carta comodinMasDos = new Carta(null, "+2");  // Un comodín +2 sin color
-        assertEquals("+2", comodinMasDos.getValor(), "El comodín +2 debería tener valor '+2' sin color");
-        assertNull(comodinMasDos.getColor(), "El comodín +2 debería poder tener color (null)");
     }
 
     // 4. Test para verificar que los valores numéricos fuera de rango lanzan excepciones y que un numero válido no pueden ser multicolor
@@ -103,7 +99,22 @@ public class CartaTest {
         }, "Un comodín +4 no debería tener color");
     }
 
-    // 6. Test para verificar que dos cartas del mismo color son compatibles
+    // 6. Test para verificar que las cartas de acción inválidas lanzan excepciones
+    @Test
+    public void testCartaAccionEspecialInvalida() {
+        // Valores permitidos para cartas especiales (sin incluir comodines)
+        String[] accionesEspeciales = {"skip", "reverse", "+2"};
+        
+        // Probar cartas de acción sin color
+        for (String accion : accionesEspeciales) {
+            // Intentar crear una carta especial sin color debe lanzar una excepción
+            assertThrows(IllegalArgumentException.class, () -> {
+                new Carta(null, accion);  // No debe permitir una carta especial sin color
+            }, "Las cartas especiales deben tener un color válido");
+        }
+    }
+
+    // 7. Test para verificar que dos cartas del mismo color son compatibles
     @Test
     public void testCartaCompatibleMismoColor() {
         Carta cartaRoja7 = new Carta("r", "7");
@@ -112,7 +123,7 @@ public class CartaTest {
         assertTrue(cartaRoja7.esCompatible(cartaRoja8), "Dos cartas del mismo color deberían ser compatibles");
     }
 
-    // 7. Test para verificar que dos cartas con el mismo valor son compatibles
+    // 8. Test para verificar que dos cartas con el mismo valor son compatibles
     @Test
     public void testCartaCompatibleMismoValor() {
         Carta cartaRoja5 = new Carta("r", "5");
@@ -121,7 +132,7 @@ public class CartaTest {
         assertTrue(cartaRoja5.esCompatible(cartaAzul5), "Dos cartas con el mismo valor deberían ser compatibles");
     }
 
-    // 8. Test para verificar que dos cartas especiales iguales de diferente color son compatibles
+    // 9. Test para verificar que dos cartas especiales iguales de diferente color son compatibles
     @Test
     public void testCompatibilidadCartasEspecialesDiferenteColor() {
         Carta cartaRojaSkip = new Carta("r", "skip"); // Carta roja de acción especial "skip"
@@ -131,7 +142,7 @@ public class CartaTest {
                 "Dos cartas especiales iguales pero de diferente color deberían ser compatibles");
     }
 
-    // 9. Test para verificar que un comodín es compatible con cualquier otra carta
+    // 10. Test para verificar que un comodín es compatible con cualquier otra carta
     @Test
     public void testCartaComodinSiempreCompatible() {
         Carta cartaAmarilla2 = new Carta("y", "2");
@@ -143,7 +154,7 @@ public class CartaTest {
         assertTrue(cartaComodin.esCompatible(cartaComodinWild), "El comodín debería ser compatible con otra carta comodín diferente");
     }
 
-    // 10. Test para verificar que dos cartas con diferentes colores y valores son incompatibles
+    // 11. Test para verificar que dos cartas con diferentes colores y valores son incompatibles
     @Test
     public void testCartaIncompatible() {
         Carta cartaRoja9 = new Carta("r", "9");

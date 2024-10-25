@@ -6,12 +6,11 @@ public class Carta {
 
     /*
      * Cartas Numéricas: 
-     *      Las cartas que tienen un valor numérico (del "0" al "9") deben tener un color válido (rojo, azul, verde o amarillo). 
-     *      No pueden ser comodines.
+     *      Las cartas que tienen un valor numérico (del "0" al "9") deben tener un color válido (rojo, azul, verde o amarillo) x2.
      * Cartas Especiales:
-     *      Las cartas de acción especiales como "skip", "reverse" y "+2" pueden tener cualquier color válido o ser multicolor. 
+     *      Las cartas de acción especiales como "skip", "reverse" y "+2" deben tener un color válido (rojo, azul, verde o amarillo) x2. 
      * Comodines: 
-     *      Los comodines (valores "wild" y "+4") no pueden tener un color asociado (es decir, el atributo color debe ser null).
+     *      Los comodines (valores "wild" x4 y "+4" x4) no pueden tener un color asociado (es decir, el atributo color debe ser null).
      */
 
      public Carta(String color, String valor) {
@@ -24,10 +23,7 @@ public class Carta {
         } 
         // Si el color es null, verificamos que el valor no sea numérico
         else if (color == null) {
-            // Si el valor no es uno de los valores especiales, lanzamos una excepción
-            if (!isValorEspecial(valor)) {
-                throw new IllegalArgumentException("Las cartas numéricas no pueden ser comodines (color debe ser no nulo)");
-            }
+            throw new IllegalArgumentException("Las cartas numéricas no pueden ser comodines (color debe ser no nulo)");
         } 
         // Verificamos que el color proporcionado sea válido
         else if (!isColorValido(color)) {
