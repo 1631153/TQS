@@ -1,23 +1,24 @@
 package main.Model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Stack;
+import java.util.Random;
 
 public class Mazo{
-    private List<Carta> mazo;
-    private Stack<Carta> descarte;
+    private static final String[] color = {"r", "b", "g", "y"};
+    private static final String[] valor_numerico = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+    private static final String[] valor_especial = {"skip", "reverse", "+2"};
+    private static final String[] valor_comodin = {"wild", "+4"};
 
-    public Mazo() {} //constructor
-    
-    public void barajar() {} 
+    private final Random mazo;
+
+    private void inicializar(){} //Aquí se aplicarán las probabilidades de la carta
+
+    //constructor
+    public Mazo() {
+        mazo = new Random();
+    } 
+
     public Carta robarCarta() {}
-    private void renovarMazo() {}
 
-    public List<Carta> getMazoCartas() {
-        return mazo.size();
-    }
 
 
 
