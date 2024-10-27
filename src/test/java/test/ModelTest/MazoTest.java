@@ -1,6 +1,11 @@
 package test.ModelTest;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.internal.matchers.Null;
@@ -39,12 +44,45 @@ public class MazoTest {
     @Test
     public void robarCarta_Valor(){
         Carta carta = mazo.robarCarta();
-        assertTrue(carta.getValor().matches("[0-9]|skip|reverse|\\+2|wild|\\+4"), "El valor de la carta deberia ser un numero, especial o comodín")
+        assertTrue(carta.getValor().matches("[0-9]|skip|reverse|\\+2|wild|\\+4"), "El valor de la carta deberia ser un numero, especial o comodín");
     }
 
-   
+    @Test
+    public void probabilidades() {
+        Map<String, Integer> frecuencia = new HashMap<>();
+       
+        //se añade cada carta, sus probabilidades vienen a partir de las veces repetidas
+        frecuencia.put("0", 4);
+        for (int i = 1; i <= 9; i++) {
+            frecuencia.put(String.valueOf(i), 8);
+        }
+        frecuencia.put("skip", 8);
+        frecuencia.put("reverse", 8);
+        frecuencia.put("+2", 8);
+        frecuencia.put("wild", 4);
+        frecuencia.put("+4", 4);
 
+        List<Carta> cartas = mazo.getCartas();
+        Map<String, Integer> frecuenciaCartas = new HashMap<>();
 
+        for (Carta carta : cartas) {
+            String valor = carta.getValor();
+            frecuenciaCartas.put(valor, frecuenciaCartas.getOrDefault(valor, 0) + 1);
+        }
 
+        //Comprobar que la frecuencia de cada tipo es la esperada
+        for (Map.Entry<String, Integer> entry : frecuencia.entrySet()) {
+            String valor = entry.getKey();
+            int cantidadEsperada = entry.getValue();
+            int cantidadObtenida = frecuenciaCartas.getOrDefault(valor, 0);
+
+            assertEquals(cantidadEsperada, cantidadObtenida, "La cantidad de cartas para " + valor + " debería ser " + cantidadEsperada + " pero es " + cantidadObtenida);
+        }
+
+        //https://stackoverflow.com/questions/5027273/how-to-test-if-a-deck-of-cards-has-been-shuffled-enough-in-java
+        //https://codingtechroom.com/tutorial/java-mastering-probability-in-java-a-comprehensive-guide
+        //https://www.baeldung.com/java-probability
+
+    }
 
 }
