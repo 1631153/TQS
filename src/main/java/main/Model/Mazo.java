@@ -50,8 +50,7 @@ public class Mazo{
     } 
 
     
-    //En teoria esto coge una carta al azar de una lista que respta la probabilidad
-    //de cada tipo de carta, pero a saber si funcionará correctamente
+    //En teoria esto coge una carta al azar de una lista que respta la probabilidad de cada tipo de carta
     public Carta robarCarta() {
         int Carta_random = mazo.nextInt(cartas.size());
         return cartas.get(Carta_random);

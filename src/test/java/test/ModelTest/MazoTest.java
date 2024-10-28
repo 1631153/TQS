@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.matchers.Null;
 
 import main.Model.Carta;
 import main.Model.Mazo;
@@ -34,7 +33,7 @@ public class MazoTest {
 
         if (!carta.getValor().equals("wild") && !carta.getValor().equals("+4")) {
             assertNotNull(carta.getColor(), "El color de la carta no debe ser null para cartas que no son comodín");
-            assertTrue(carta.getColor().matches("[rbyg]"), "El color de la carta debería ser rojo, verde, azul o amarillo");
+            assertTrue(carta.getColor().matches("[rgby]"), "El color de la carta debería ser rojo, verde, azul o amarillo");
         }
         else{
             assertNull(carta.getColor(), "El color de la carta comodín debería ser null");
@@ -45,6 +44,7 @@ public class MazoTest {
     public void robarCarta_Valor(){
         Carta carta = mazo.robarCarta();
         assertTrue(carta.getValor().matches("[0-9]|skip|reverse|\\+2|wild|\\+4"), "El valor de la carta deberia ser un numero, especial o comodín");
+        //quitarle algun valor del matches hace que falle algunas veces al ser aleatorio
     }
 
     @Test
@@ -71,17 +71,12 @@ public class MazoTest {
         }
 
         //Comprobar que la frecuencia de cada tipo es la esperada
-        for (Map.Entry<String, Integer> entry : frecuencia.entrySet()) {
-            String valor = entry.getKey();
-            int cantidadEsperada = entry.getValue();
-            int cantidadObtenida = frecuenciaCartas.getOrDefault(valor, 0);
+        for (String entry : frecuencia.keySet()) {
+            int cantidadEsperada = frecuencia.get(entry);
+            int cantidadObtenida = frecuenciaCartas.getOrDefault(entry, 0);
 
-            assertEquals(cantidadEsperada, cantidadObtenida, "La cantidad de cartas para " + valor + " debería ser " + cantidadEsperada + " pero es " + cantidadObtenida);
+            assertEquals(cantidadEsperada, cantidadObtenida, "La cantidad de cartas para " + entry + " debería ser " + cantidadEsperada + " pero es " + cantidadObtenida);
         }
-
-        //https://stackoverflow.com/questions/5027273/how-to-test-if-a-deck-of-cards-has-been-shuffled-enough-in-java
-        //https://codingtechroom.com/tutorial/java-mastering-probability-in-java-a-comprehensive-guide
-        //https://www.baeldung.com/java-probability
 
     }
 
