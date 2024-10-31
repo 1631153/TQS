@@ -29,6 +29,14 @@ public class Partida {
         // Aplicar efecto especial (sin código interno)
     }
 
+    public boolean getSentidoHorario() {
+        return sentidoHorario;
+    }
+
+    public void setSentidoHorario(boolean s) {
+        this.sentidoHorario = s;
+    }
+
     // Método para verificar si la partida ha terminado
     public boolean esFinPartida() {
         return false;  // Placeholder

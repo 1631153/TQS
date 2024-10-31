@@ -23,9 +23,7 @@ public class PartidaTest {
         assertNotNull(partida.getMazo(), "La partida debería tener un mazo inicializado");
     }
 
-   
-
- @Test
+    @Test
     public void testCambiarTurno() {
         int turnoInicial = partida.getNumeroJugadorActual();
         partida.cambiarTurno();
@@ -41,5 +39,32 @@ public class PartidaTest {
         partida.cambiarTurno();
         
         assertEquals(4, partida.getJugadorActual().getMano().size(), "El siguiente jugador debería robar 4 cartas tras jugar un +4");
+    }
+
+    @Test
+    public void testAplicarCartaEspecial() {
+        Carta cartaComodin = new Carta(null, "+4");
+        partida.aplicarCartaEspecial(cartaComodin);
+
+        partida.cambiarTurno();
+        
+        assertEquals(4, partida.getJugadorActual().getMano().size(), "El siguiente jugador debería robar 4 cartas tras jugar un +4");
+    }
+
+    @Test
+    public void testSentidoHorario() {
+        int turnoInicial = partida.getNumeroJugadorActual();
+        partida.cambiarTurno();
+
+        assertEquals((turnoInicial + 1) % partida.getJugadores().size(), partida.getNumeroJugadorActual()),"El turno debería ir en sentido horario");
+    }
+
+    @Test
+    public void testSentidoAntiHorario() {
+        partida.setSentidoHorario(false);
+        int turnoInicial = partida.getNumeroJugadorActual();
+        partida.cambiarTurno();
+
+        assertEquals((turnoInicial - 1 + partida.getJugadores().size()) % partida.getJugadores().size(), partida.getNumeroJugadorActual(),"El turno debería ir en sentido anti horario");
     }
 }
