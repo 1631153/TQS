@@ -1,6 +1,7 @@
 package main.Model;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class Partida {
     private List<Jugador> jugadores;     // Lista de jugadores en la partida
@@ -11,21 +12,58 @@ public class Partida {
 
     // Constructor
     public Partida() {
-        // Inicialización (sin código interno)
+        this.jugadores = new ArrayList<>();
+        this.jugadorActual = 0;
+        this.sentidoHorario = true;
+        this.mazo = new Mazo();
+        this.enCurso = true;
     }
 
     // Método para iniciar la partida
     public void iniciarPartida() {
-        // Inicialización de la partida (sin código interno)
+        for (int i = 0; i < 4; i++) {
+            jugadores.add(new Jugador("Jugador" + i));
+        }
+        mazo.inicializar();
+        
+        for (Jugador jugador : jugadores) {
+            for (int i = 0; i < 7; i++) {
+                jugador. //implementar solucion para repartir carta
+            }
+        }
     }
 
     // Método para cambiar el turno al siguiente jugador
     public void cambiarTurno() {
-        // Cambio de turno (sin código interno)
+        if (sentidoHorario == true) {
+            jugadorActual = jugadorActual + 1;
+        } else {
+            jugadorActual = jugadorActual - 1;
+        }
     }
 
     // Método para aplicar el efecto de una carta especial
     public void aplicarCartaEspecial(Carta carta) {
+        String tipo = carta.getValor();
+        switch(tipo) {
+            case "skip":
+                cambiarTurno();
+                break;
+
+            case "reverse":
+                sentidoHorario = !sentidoHorario;
+                break;
+
+            case "+2":
+                
+
+            case "wild":
+                //ahora mismo no tengo ni idea
+
+            case "+4":
+        }
+        
+        
         // Aplicar efecto especial (sin código interno)
     }
 
@@ -39,7 +77,12 @@ public class Partida {
 
     // Método para verificar si la partida ha terminado
     public boolean esFinPartida() {
-        return false;  // Placeholder
+        for (Jugador jugador : jugadores) {
+            if (jugador.getMano().isEmpty()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Getter para los jugadores de la partida

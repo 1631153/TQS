@@ -19,7 +19,7 @@ public class Mazo {
         inicializar();
     }
 
-    private void inicializar() {
+    public void inicializar() {
         // Agregar cartas numéricas y especiales por cada color
         for (String color : new String[]{"r", "b", "g", "y"}) {
             // Agregar cartas numéricas
