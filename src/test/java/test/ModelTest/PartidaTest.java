@@ -24,6 +24,12 @@ public class PartidaTest {
     }
 
     @Test
+    public void testFinalPartida() {
+        partida.getJugadorActual().getMano().clear();
+        assertTrue(partida.esFinPartida(), "La partida debería finalizar");
+    }
+
+    @Test
     public void testCambiarTurno() {
         int turnoInicial = partida.getNumeroJugadorActual();
         partida.cambiarTurno();
@@ -32,7 +38,7 @@ public class PartidaTest {
     }
 
     @Test
-    public void testAplicarCartaEspecial() {
+    public void testAplicarCartaComodin() {
         Carta cartaComodin = new Carta(null, "+4");
         partida.aplicarCartaEspecial(cartaComodin);
 
@@ -43,20 +49,33 @@ public class PartidaTest {
 
     @Test
     public void testAplicarCartaEspecial() {
-        Carta cartaComodin = new Carta(null, "+4");
-        partida.aplicarCartaEspecial(cartaComodin);
-
+        //Reverse
+        Carta cartaEspecial = new Carta("r", "reverse");
+        boolean Sentido_ant = partida.getSentidoHorario();
+        partida.aplicarCartaEspecial(cartaEspecial);
         partida.cambiarTurno();
+        assertNotEquals(Sentido_ant, partida.getSentidoHorario(), "El sentido del juego debería cambiar tras jugar un reverse");
         
-        assertEquals(4, partida.getJugadorActual().getMano().size(), "El siguiente jugador debería robar 4 cartas tras jugar un +4");
+        //Skip
+        cartaEspecial = new Carta("g", "skip");
+        partida.aplicarCartaEspecial(cartaEspecial);
+        partida.cambiarTurno();
+        assertEquals(partida.getNumeroJugadorActual() + 2, partida.getNumeroJugadorActual(), "El turno debería saltar al siguiente tras jugar un skip");
+
+        //+2
+        cartaEspecial = new Carta("b", "+2");
+        partida.aplicarCartaEspecial(cartaEspecial);
+        partida.cambiarTurno();
+        assertEquals(2, partida.getJugadorActual().getMano().size(), "El siguiente jugador debería robar 2 cartas tras jugar un +2");
     }
+        
 
     @Test
     public void testSentidoHorario() {
         int turnoInicial = partida.getNumeroJugadorActual();
         partida.cambiarTurno();
 
-        assertEquals((turnoInicial + 1) % partida.getJugadores().size(), partida.getNumeroJugadorActual()),"El turno debería ir en sentido horario");
+        assertEquals(turnoInicial + 1, partida.getNumeroJugadorActual(), "El turno debería ir en sentido horario");
     }
 
     @Test
@@ -65,6 +84,6 @@ public class PartidaTest {
         int turnoInicial = partida.getNumeroJugadorActual();
         partida.cambiarTurno();
 
-        assertEquals((turnoInicial - 1 + partida.getJugadores().size()) % partida.getJugadores().size(), partida.getNumeroJugadorActual(),"El turno debería ir en sentido anti horario");
+        assertEquals(turnoInicial - 1, partida.getNumeroJugadorActual(),"El turno debería ir en sentido anti horario");
     }
 }
