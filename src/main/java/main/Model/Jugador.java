@@ -1,6 +1,7 @@
 package main.Model;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class Jugador {
     private String nombre;           // Nombre del jugador
@@ -8,27 +9,37 @@ public class Jugador {
     private boolean haDichoUNO;      // Indica si el jugador ha dicho "UNO"
 
     // Constructor
-    public Jugador(String nombre) {
-        // Inicialización (sin código interno)
+    public Jugador(String nom) {
+        this.nombre = nom;
+        this.mano = new ArrayList<>();
+        this.haDichoUNO = false;
     }
 
     // Método para que el jugador robe una carta
     public void robarCarta(Mazo mazo) {
-        // Robar carta (sin código interno)
+        Carta cartaRobada = mazo.robarCarta();
+        if (cartaRobada != null) {
+            recibirCarta(cartaRobada);
+        }
     }
 
     public void recibirCarta(Carta carta) {
         mano.add(carta);
+        haDichoUNO = false;
     }
 
     // Método para que el jugador juegue una carta
     public void jugarCarta(Carta carta, Mazo mazo) {
-        // Jugar carta (sin código interno)
+        if(mano.contains(carta)) {
+            mano.remove(carta);
+        }
     }
 
     // Método para que el jugador diga "UNO"
     public void decirUNO() {
-        // Marcar que ha dicho UNO (sin código interno)
+        if (mano.size() == 1) {
+            haDichoUNO = true;
+        }
     }
 
     // Getter para la nombre del jugador
