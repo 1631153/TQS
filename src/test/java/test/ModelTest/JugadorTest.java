@@ -45,4 +45,34 @@ public class JugadorTest {
         
         assertTrue(jugador.haDichoUNO(), "El jugador debería haber dicho UNO");
     }
+
+    @Test
+    public void testDecirUNO_False() {
+        assertFalse(jugador.haDichoUNO(), "El jugador NO debería haber dicho UNO");
+
+        jugador.getMano().add(new Carta("r", "5"));
+        jugador.getMano().add(new Carta("b", "7"));
+        jugador.decirUNO();
+        assertFalse(jugador.haDichoUNO(), "El jugador NO debería haber dicho UNO");
+    }
+
+    @Test
+    public void testRecibirCarta() {
+        Carta carta = new Carta("b", "7");
+        jugador.recibirCarta(carta);
+        
+        assertTrue(jugador.getMano().contains(carta),  "La carta debería estar entre las cartas del jugador");
+    }
+
+    @Test
+    public void testJugarCartaNOEnMano() {
+        Carta carta = new Carta("r", "5");
+        Carta cartaNoMano = new Carta("b", "7");
+
+        jugador.getMano().add(new Carta("r", "5"));
+        jugador.jugarCarta(cartaNoMano, mazo);
+
+        assertTrue(jugador.getMano().contains(carta),  "La carta en la mano no debería quitarse");
+        assertFalse(jugador.getMano().contains(cartaNoMano),  "La carta que no está en la mano no debería afectar la partida");
+    }
 }

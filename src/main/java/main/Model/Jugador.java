@@ -17,6 +17,10 @@ public class Jugador {
         // Robar carta (sin código interno)
     }
 
+    public void recibirCarta(Carta carta) {
+        mano.add(carta);
+    }
+
     // Método para que el jugador juegue una carta
     public void jugarCarta(Carta carta, Mazo mazo) {
         // Jugar carta (sin código interno)

@@ -8,7 +8,6 @@ public class Partida {
     private int jugadorActual;           // Índice del jugador con el turno actual
     private boolean sentidoHorario;      // Dirección del juego (true = horario, false = antihorario)
     private Mazo mazo;                   // Mazo de cartas
-    private boolean enCurso;             // Indica si la partida está activa
 
     // Constructor
     public Partida() {
@@ -16,7 +15,6 @@ public class Partida {
         this.jugadorActual = 0;
         this.sentidoHorario = true;
         this.mazo = new Mazo();
-        this.enCurso = true;
     }
 
     // Método para iniciar la partida
@@ -28,7 +26,7 @@ public class Partida {
         
         for (Jugador jugador : jugadores) {
             for (int i = 0; i < 7; i++) {
-                jugador. //implementar solucion para repartir carta
+                jugador.recibirCarta(mazo.robarCarta()); //implementar solucion para repartir carta
             }
         }
     }
