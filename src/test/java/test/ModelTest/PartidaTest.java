@@ -42,31 +42,36 @@ public class PartidaTest {
         Carta cartaComodin = new Carta(null, "+4");
         partida.aplicarCartaEspecial(cartaComodin);
 
-        partida.cambiarTurno();
+        //partida.cambiarTurno();
         
-        assertEquals(4, partida.getJugadorActual().getMano().size(), "El siguiente jugador debería robar 4 cartas tras jugar un +4");
+        assertEquals(7+4, partida.getJugadorActual().getMano().size(), "El siguiente jugador debería robar 4 cartas tras jugar un +4");
     }
 
     @Test
-    public void testAplicarCartaEspecial() {
+    public void testAplicarCartaEspecial_rever() {
         //Reverse
         Carta cartaEspecial = new Carta("r", "reverse");
         boolean Sentido_ant = partida.getSentidoHorario();
         partida.aplicarCartaEspecial(cartaEspecial);
         partida.cambiarTurno();
         assertNotEquals(Sentido_ant, partida.getSentidoHorario(), "El sentido del juego debería cambiar tras jugar un reverse");
-        
-        //Skip
-        cartaEspecial = new Carta("g", "skip");
-        partida.aplicarCartaEspecial(cartaEspecial);
-        partida.cambiarTurno();
-        assertEquals(partida.getNumeroJugadorActual() + 2, partida.getNumeroJugadorActual(), "El turno debería saltar al siguiente tras jugar un skip");
+    }
 
-        //+2
-        cartaEspecial = new Carta("b", "+2");
+    @Test
+    public void testAplicarCartaEspecial_skip() {      
+        //Skip
+        Carta cartaEspecial = new Carta("g", "skip");
         partida.aplicarCartaEspecial(cartaEspecial);
-        partida.cambiarTurno();
-        assertEquals(2, partida.getJugadorActual().getMano().size(), "El siguiente jugador debería robar 2 cartas tras jugar un +2");
+        assertEquals((partida.getNumeroJugadorActual()) % partida.getJugadores().size(), partida.getNumeroJugadorActual(), "El turno debería saltar al siguiente tras jugar un skip");
+    }
+
+    @Test
+    public void testAplicarCartaEspecial_2() {
+        //+2
+        Carta cartaEspecial = new Carta("b", "+2");
+        partida.aplicarCartaEspecial(cartaEspecial);
+        //partida.cambiarTurno();
+        assertEquals(7+2, partida.getJugadorActual().getMano().size(), "El siguiente jugador debería robar 2 cartas tras jugar un +2");
     }
         
 

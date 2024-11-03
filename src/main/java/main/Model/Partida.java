@@ -53,12 +53,21 @@ public class Partida {
                 break;
 
             case "+2":
-                
+            cambiarTurno();
+            for (int i = 0; i < 2; i++) {
+                jugadores.get(jugadorActual).recibirCarta(mazo.robarCarta());
+            }
+            break;
 
             case "wild":
                 //ahora mismo no tengo ni idea
 
             case "+4":
+                cambiarTurno();
+                for (int i = 0; i < 4; i++) {
+                    jugadores.get(jugadorActual).recibirCarta(mazo.robarCarta());
+                }
+                break;
         }
         
         
