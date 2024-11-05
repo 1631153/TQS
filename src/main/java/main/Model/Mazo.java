@@ -57,6 +57,10 @@ public class Mazo {
         return ultimaCartaJugada; // Devuelve la última carta jugada
     }
 
+    public void ultimaCarta(Carta carta) {
+        this.ultimaCartaJugada = carta;
+    }
+
     // Actualiza la última carta jugada si es compatible con la actual
     public boolean actualizarUltimaCartaJugada(Carta carta) {
         // Verifica si la nueva carta es compatible con la última carta jugada

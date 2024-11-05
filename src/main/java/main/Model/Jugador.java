@@ -31,6 +31,7 @@ public class Jugador {
     // Método para que el jugador juegue una carta
     public void jugarCarta(Carta carta, Mazo mazo) {
         if(mano.contains(carta)) {
+            mazo.ultimaCarta(carta);
             mano.remove(carta);
         }
     }

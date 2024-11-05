@@ -69,7 +69,8 @@ public class JugadorTest {
         Carta carta = new Carta("r", "5");
         Carta cartaNoMano = new Carta("b", "7");
 
-        jugador.getMano().add(new Carta("r", "5"));
+        jugador.getMano().add(carta);
+        jugador.getMano().add(cartaNoMano);
         jugador.jugarCarta(cartaNoMano, mazo);
 
         assertTrue(jugador.getMano().contains(carta),  "La carta en la mano no debería quitarse");
