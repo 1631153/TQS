@@ -72,7 +72,7 @@ public class Carta {
     }
 
     // Método para verificar si el valor es una acción especial
-    private boolean isValorEspecial(String valor) {
+    public boolean isValorEspecial(String valor) {
         return valor.equals("skip") || valor.equals("reverse") || valor.equals("+2") || 
                valor.equals("wild") || valor.equals("+4");
     }

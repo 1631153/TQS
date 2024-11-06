@@ -168,4 +168,60 @@ public class MazoTest {
         assertTrue(resultado, "Un comodín debería permitir actualizar la última carta jugada sin restricciones.");
         assertEquals(cartaComodin, mazo.obtenerUltimaCartaJugada(), "La última carta jugada debería actualizarse al comodín.");
     }
+
+    @Test
+    public void testEstablecerComodinColorYCondicionarProximaCarta() {
+        Carta cartaComodin = new Carta(null, "wild");
+        
+        // Jugar un comodín y establecer color rojo
+        mazo.actualizarUltimaCartaJugada(cartaComodin);
+        mazo.establecerComodinColor("r");
+        
+        // La próxima carta debe coincidir con el color rojo
+        Carta cartaRoja = new Carta("r", "7");
+        boolean resultado = mazo.actualizarUltimaCartaJugada(cartaRoja);
+        
+        assertTrue(resultado, "La carta roja debería ser válida tras jugar un comodín con color condicionado.");
+        assertEquals(cartaRoja, mazo.obtenerUltimaCartaJugada(), "La última carta jugada debería ser la carta roja jugada.");
+    }
+
+    @Test
+    public void testCondicionDeColorComodinFallaConColorIncorrecto() {
+        Carta cartaComodin = new Carta(null, "wild");
+        
+        // Jugar un comodín y establecer el color azul
+        mazo.actualizarUltimaCartaJugada(cartaComodin);
+        mazo.establecerComodinColor("b");
+        
+        // Intentar jugar una carta verde, lo cual debería fallar
+        Carta cartaVerde = new Carta("g", "3");
+        boolean resultado = mazo.actualizarUltimaCartaJugada(cartaVerde);
+        
+        assertFalse(resultado, "Una carta verde no debería ser válida tras jugar un comodín con color condicionado a azul.");
+        assertEquals(cartaComodin, mazo.obtenerUltimaCartaJugada(), "La última carta jugada debería seguir siendo el comodín.");
+    }
+
+    @Test
+    public void testRestablecerColorComodinConCartaNormal() {
+        Carta cartaComodin = new Carta(null, "wild");
+        
+        // Jugar un comodín y establecer el color amarillo
+        mazo.actualizarUltimaCartaJugada(cartaComodin);
+        mazo.establecerComodinColor("y");
+        
+        // Jugar una carta amarilla que es compatible
+        Carta cartaAmarilla = new Carta("y", "5");
+        boolean resultado = mazo.actualizarUltimaCartaJugada(cartaAmarilla);
+        
+        // Verificar que el color condicionado se restablece después de una carta normal
+        assertTrue(resultado, "La carta amarilla debería ser válida tras jugar un comodín con color condicionado.");
+        assertEquals(cartaAmarilla, mazo.obtenerUltimaCartaJugada(), "La última carta jugada debería ser la carta amarilla.");
+        
+        // Jugar una carta incompatible en color (sin color condicionado)
+        Carta cartaRoja = new Carta("r", "2");
+        resultado = mazo.actualizarUltimaCartaJugada(cartaRoja);
+        
+        assertFalse(resultado, "La carta roja no debería ser válida ya que no coincide con la carta amarilla y no hay color condicionado.");
+        assertEquals(cartaAmarilla, mazo.obtenerUltimaCartaJugada(), "La última carta jugada debería seguir siendo la carta amarilla.");
+    }
 }
