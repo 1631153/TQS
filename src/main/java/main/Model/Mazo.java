@@ -9,6 +9,7 @@ public class Mazo {
     private final Random random;
     private final List<Carta> cartas;
     private Carta ultimaCartaJugada;
+    private String comodinColor; // Almacena el color después de un comodín
 
     private static final int TOTAL_CARTAS = 108;
 
@@ -19,7 +20,7 @@ public class Mazo {
         inicializar();
     }
 
-    public void inicializar() {
+    private void inicializar() {
         // Agregar cartas numéricas y especiales por cada color
         for (String color : new String[]{"r", "b", "g", "y"}) {
             // Agregar cartas numéricas
@@ -57,17 +58,27 @@ public class Mazo {
         return ultimaCartaJugada; // Devuelve la última carta jugada
     }
 
-    public void ultimaCarta(Carta carta) {
+    // Actualiza la última carta jugada si es compatible con la actual, sin comodín
+    public boolean actualizarUltimaCartaJugada(Carta carta) {
+        // Si la última carta jugada fue un comodín, verifica que la nueva carta coincida con el color del comodín
+        if (comodinColor != null) {
+            if (!carta.getColor().equals(comodinColor) && carta.getColor() != null) {
+                return false; // La carta no es compatible con el color del comodín y no es otro comodín
+            }
+        } else if (ultimaCartaJugada != null && !carta.esCompatible(ultimaCartaJugada)) {
+            return false; // La carta no es compatible con la última carta jugada
+        }
+
+        // Actualiza la última carta jugada y restablece comodinColor si se jugó una carta normal
         this.ultimaCartaJugada = carta;
+        if (carta.getColor() != null) {
+            comodinColor = null;
+        }
+        return true;
     }
 
-    // Actualiza la última carta jugada si es compatible con la actual
-    public boolean actualizarUltimaCartaJugada(Carta carta) {
-        // Verifica si la nueva carta es compatible con la última carta jugada
-        if (ultimaCartaJugada == null || carta.esCompatible(ultimaCartaJugada)) {
-            this.ultimaCartaJugada = carta;
-            return true;
-        }
-        return false; // No se actualiza si no es compatible
+    // Establece el color de un comodín jugado para condicionar la próxima carta
+    public void establecerComodinColor(String colorElegido) {
+        this.comodinColor = colorElegido;
     }
 }
