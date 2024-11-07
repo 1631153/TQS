@@ -1,8 +1,8 @@
 package main.Model;
 
 public class Carta {
-    //private String color;  // "r" = rojo, "b" = azul, "g" = verde, "y" = amarillo, null = comodín
-    //private String valor;  // "0" a "9" para números, "skip", "reverse", "+2", "wild", "+4" para especiales
+    private String color;  // "r" = rojo, "b" = azul, "g" = verde, "y" = amarillo, null = comodín
+    private String valor;  // "0" a "9" para números, "skip", "reverse", "+2", "wild", "+4" para especiales
 
     /*
      * Cartas Numéricas: 
