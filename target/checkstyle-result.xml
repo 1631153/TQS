@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.29">
+<file name="C:\Users\David Bonilla\OneDrive\Escritorio\Universidad\4t curs universitari\1r semestre\Test i Qualitat del Software (TQS)\Proyecto\TQS\src\main\java\main\Controller\JuegoController.java">
+</file>
+<file name="C:\Users\David Bonilla\OneDrive\Escritorio\Universidad\4t curs universitari\1r semestre\Test i Qualitat del Software (TQS)\Proyecto\TQS\src\main\java\main\Model\Carta.java">
+</file>
+<file name="C:\Users\David Bonilla\OneDrive\Escritorio\Universidad\4t curs universitari\1r semestre\Test i Qualitat del Software (TQS)\Proyecto\TQS\src\main\java\main\Model\Jugador.java">
+</file>
+<file name="C:\Users\David Bonilla\OneDrive\Escritorio\Universidad\4t curs universitari\1r semestre\Test i Qualitat del Software (TQS)\Proyecto\TQS\src\main\java\main\Model\Mazo.java">
+</file>
+<file name="C:\Users\David Bonilla\OneDrive\Escritorio\Universidad\4t curs universitari\1r semestre\Test i Qualitat del Software (TQS)\Proyecto\TQS\src\main\java\main\Model\Partida.java">
+</file>
+<file name="C:\Users\David Bonilla\OneDrive\Escritorio\Universidad\4t curs universitari\1r semestre\Test i Qualitat del Software (TQS)\Proyecto\TQS\src\main\java\main\View\ConsolaView.java">
+</file>
+<file name="C:\Users\David Bonilla\OneDrive\Escritorio\Universidad\4t curs universitari\1r semestre\Test i Qualitat del Software (TQS)\Proyecto\TQS\src\main\java\main\View\GUIView.java">
+</file>
+<file name="C:\Users\David Bonilla\OneDrive\Escritorio\Universidad\4t curs universitari\1r semestre\Test i Qualitat del Software (TQS)\Proyecto\TQS\src\main\java\main\View\InterfazJuego.java">
+</file>
+</checkstyle>
