@@ -69,6 +69,13 @@ public class MazoTest {
     }
 
     @Test
+    public void testRobarCartaDebeTenerValorCorrecto(){
+        Carta carta = mazo.robarCarta();
+        assertTrue(carta.getValor().matches("[0-9]|skip|reverse|\\+2|wild|\\+4"), "El valor de la carta deberia ser un numero, especial o comodín");
+        //quitarle algun valor del matches hace que falle algunas veces al ser aleatorio
+    }
+
+    @Test
     public void testProbabilidadDeCartas() {
         int numExtracciones = 10000;
         Map<String, Integer> frecuenciaExtracciones = new HashMap<>();

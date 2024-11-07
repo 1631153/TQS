@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="test.ModelTest.MazoTest" time="0.028" tests="12" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="test.ModelTest.MazoTest" time="0.058" tests="12" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="21.0.4+7-LTS"/>
@@ -61,16 +61,16 @@
     <property name="java.vendor.version" value="Temurin-21.0.4+7"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase name="testInicializacionCorrectaDelMazo" classname="test.ModelTest.MazoTest" time="0.009"/>
-  <testcase name="testProbabilidadDeCartas" classname="test.ModelTest.MazoTest" time="0.005"/>
-  <testcase name="testActualizarUltimaCartaJugada_ComodinCompatible" classname="test.ModelTest.MazoTest" time="0"/>
-  <testcase name="testRobarCartaDebeTenerColorCorrecto" classname="test.ModelTest.MazoTest" time="0"/>
-  <testcase name="testActualizarUltimaCartaJugada_CartaCompatible" classname="test.ModelTest.MazoTest" time="0.002"/>
+  <testcase name="testInicializacionCorrectaDelMazo" classname="test.ModelTest.MazoTest" time="0.02"/>
+  <testcase name="testProbabilidadDeCartas" classname="test.ModelTest.MazoTest" time="0.015"/>
+  <testcase name="testActualizarUltimaCartaJugada_ComodinCompatible" classname="test.ModelTest.MazoTest" time="0.001"/>
+  <testcase name="testRobarCartaDebeTenerColorCorrecto" classname="test.ModelTest.MazoTest" time="0.001"/>
+  <testcase name="testActualizarUltimaCartaJugada_CartaCompatible" classname="test.ModelTest.MazoTest" time="0.001"/>
   <testcase name="testCondicionDeColorComodinFallaConColorIncorrecto" classname="test.ModelTest.MazoTest" time="0"/>
   <testcase name="testRobarCartaNoDebeSerNull" classname="test.ModelTest.MazoTest" time="0.001"/>
-  <testcase name="testEstablecerComodinColorYCondicionarProximaCarta" classname="test.ModelTest.MazoTest" time="0"/>
+  <testcase name="testEstablecerComodinColorYCondicionarProximaCarta" classname="test.ModelTest.MazoTest" time="0.001"/>
   <testcase name="testActualizarUltimaCartaJugada_CartaIncompatible" classname="test.ModelTest.MazoTest" time="0.001"/>
-  <testcase name="testVariedadDeCartasRobadas" classname="test.ModelTest.MazoTest" time="0.003"/>
-  <testcase name="testRestablecerColorComodinConCartaNormal" classname="test.ModelTest.MazoTest" time="0"/>
+  <testcase name="testVariedadDeCartasRobadas" classname="test.ModelTest.MazoTest" time="0.006"/>
+  <testcase name="testRestablecerColorComodinConCartaNormal" classname="test.ModelTest.MazoTest" time="0.001"/>
   <testcase name="testActualizarUltimaCartaJugada_PrimeraCarta" classname="test.ModelTest.MazoTest" time="0.002"/>
 </testsuite>
