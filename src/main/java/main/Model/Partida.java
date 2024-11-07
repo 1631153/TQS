@@ -129,6 +129,12 @@ public class Partida {
         return jugadores.get(jugadorActual);
     }
 
+    // Getter para mano del jugador actual
+    public List<Carta> getManoJugadorActual() {
+        return getJugadorActual().getMano();
+    }
+
+
     // Getter para el numero del jugador actual
     public int getNumeroJugadorActual() {
         return jugadorActual;

@@ -42,7 +42,7 @@ public class PartidaTest {
         // Avanzar el turno 8 veces (jugando una carta válida cada vez)
         for (int i = 0; i < secuenciaEsperada.length; i++) {
             secuenciaReal[i] = partida.getNumeroJugadorActual();
-            partida.getJugadorActual().getMano().add(carta);
+            partida.getManoJugadorActual().add(carta);
             assertTrue(partida.jugarCarta(carta), "El jugador debería poder jugar una carta válida.");
         }
 
@@ -52,12 +52,12 @@ public class PartidaTest {
     @Test
     public void testJugarCarta_CartaCompatible() {
         Carta cartaActual = new Carta("r", "7");
-        partida.getJugadorActual().getMano().add(cartaActual);
+        partida.getManoJugadorActual().add(cartaActual);
         partida.jugarCarta(cartaActual);
 
         // Suponemos que el jugador tiene una carta compatible
         Carta cartaCompatible = new Carta(cartaActual.getColor(), "5");  // Carta del mismo color
-        partida.getJugadorActual().getMano().add(cartaCompatible);
+        partida.getManoJugadorActual().add(cartaCompatible);
 
         boolean resultado = partida.jugarCarta(cartaCompatible);
         assertTrue(resultado, "La carta compatible debería poder jugarse.");
@@ -67,11 +67,11 @@ public class PartidaTest {
     @Test
     public void testJugarCarta_CartaIncompatible() {
         Carta cartaActual = new Carta("b", "7");
-        partida.getJugadorActual().getMano().add(cartaActual);
+        partida.getManoJugadorActual().add(cartaActual);
         partida.jugarCarta(cartaActual);
         
         Carta cartaIncompatible = new Carta("r", "9"); // Una carta no compatible con la última jugada
-        partida.getJugadorActual().getMano().add(cartaIncompatible);
+        partida.getManoJugadorActual().add(cartaIncompatible);
 
         boolean resultado = partida.jugarCarta(cartaIncompatible);
         assertFalse(resultado, "La carta incompatible no debería poder jugarse.");
@@ -81,7 +81,7 @@ public class PartidaTest {
     @Test
     public void testJugarCarta_ComodinConColorElegido() {
         Carta cartaComodin = new Carta(null, "wild");
-        partida.getJugadorActual().getMano().add(cartaComodin);
+        partida.getManoJugadorActual().add(cartaComodin);
 
         // Jugar comodín y establecer color a verde
         boolean resultado = partida.jugarCarta(cartaComodin, "g");
@@ -93,7 +93,7 @@ public class PartidaTest {
     @Test
     public void testAplicarCartaEspecial_CambioSentido() {
         Carta cartaReverse = new Carta("r", "reverse");
-        partida.getJugadorActual().getMano().add(cartaReverse);
+        partida.getManoJugadorActual().add(cartaReverse);
 
         boolean resultado = partida.jugarCarta(cartaReverse);
         assertTrue(resultado, "La carta 'reverse' debería poder jugarse.");
@@ -111,7 +111,7 @@ public class PartidaTest {
     
         // Jugamos una carta "reverse" para cambiar la dirección de los turnos a antihorario
         Carta reverse = new Carta("r", "reverse");  // Carta especial "reverse"
-        partida.getJugadorActual().getMano().add(reverse);  // Añadimos la carta a la mano del jugador
+        partida.getManoJugadorActual().add(reverse);  // Añadimos la carta a la mano del jugador
         assertTrue(partida.jugarCarta(reverse), "El jugador debería poder jugar una carta 'reverse'.");
     
         // Ahora seguimos avanzando el turno en sentido antihorario con cartas comunes
@@ -120,7 +120,7 @@ public class PartidaTest {
     
             // Jugamos una carta común (de valor "5" del color rojo)
             Carta cartaComún = new Carta("r", "5");
-            partida.getJugadorActual().getMano().add(cartaComún);  // Añadimos la carta a la mano
+            partida.getManoJugadorActual().add(cartaComún);  // Añadimos la carta a la mano
             assertTrue(partida.jugarCarta(cartaComún), "El jugador debería poder jugar una carta común.");
         }
     
@@ -132,7 +132,7 @@ public class PartidaTest {
     @Test
     public void testAplicarCartaEspecial_SkipTurno() {
         Carta cartaSkip = new Carta("r", "skip");
-        partida.getJugadorActual().getMano().add(cartaSkip);
+        partida.getManoJugadorActual().add(cartaSkip);
 
         int jugadorAntesDeSkip = partida.getNumeroJugadorActual();
         boolean resultado = partida.jugarCarta(cartaSkip);
@@ -147,7 +147,7 @@ public class PartidaTest {
     @Test
     public void testAplicarCartaEspecial_RobarDosCartas() {
         Carta cartaMasDos = new Carta("r", "+2");
-        partida.getJugadorActual().getMano().add(cartaMasDos);
+        partida.getManoJugadorActual().add(cartaMasDos);
 
         int jugadorObjetivo = (partida.getNumeroJugadorActual() + 1) % 4;
         Jugador siguienteJugador = partida.getJugadores().get(jugadorObjetivo);
@@ -161,7 +161,7 @@ public class PartidaTest {
     @Test
     public void testAplicarCartaEspecial_RobarCuatroCartas() {
         Carta cartaMasCuatro = new Carta(null, "+4");
-        partida.getJugadorActual().getMano().add(cartaMasCuatro);
+        partida.getManoJugadorActual().add(cartaMasCuatro);
 
         int jugadorObjetivo = (partida.getNumeroJugadorActual() + 1) % 4;
         Jugador siguienteJugador = partida.getJugadores().get(jugadorObjetivo);
@@ -176,7 +176,7 @@ public class PartidaTest {
     @Test
     public void testEsFinPartida() {
         // Vaciar la mano del jugador para simular una victoria
-        partida.getJugadorActual().getMano().clear();
+        partida.getManoJugadorActual().clear();
         assertTrue(partida.esFinPartida(), "La partida debería terminar si un jugador se queda sin cartas.");
     }
 }
