@@ -1,2 +1,4 @@
 test\ModelTest\CartaTest.class
 test\ModelTest\MazoTest.class
+test\ModelTest\JugadorTest.class
+test\ModelTest\PartidaTest.class

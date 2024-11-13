@@ -1,2 +1,4 @@
+main\Model\Jugador.class
+main\Model\Partida.class
 main\Model\Carta.class
 main\Model\Mazo.class

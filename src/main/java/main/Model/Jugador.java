@@ -22,8 +22,6 @@ public class Jugador {
         if (cartaRobada != null) {
             this.mano.add(cartaRobada);
             haDichoUNO = false;
-        } else {
-            throw new IllegalStateException("El mazo siempre deberia devolver una carta.");
         }
     }
 
