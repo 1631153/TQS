@@ -20,8 +20,8 @@ public class Partida {
     // Método para iniciar la partida
     public void iniciarPartida(int num_jugadores) {
 
-<span class="pc bpc" id="L23" title="1 of 2 branches missed.">        if (num_jugadores &lt; 2) {</span>
-<span class="nc" id="L24">            throw new IllegalStateException(&quot;Siempre tiene que haber un minimo de 2 jugadores en partida.&quot;);</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        if (num_jugadores &lt; 2) {</span>
+<span class="fc" id="L24">            throw new IllegalStateException(&quot;Siempre tiene que haber un minimo de 2 jugadores en partida.&quot;);</span>
         }
 
         // Crear 4 jugadores y añadirlos a la lista
@@ -89,60 +89,58 @@ public class Partida {
 <span class="fc bfc" id="L89" title="All 2 branches covered.">                for (int i = 0; i &lt; 2; i++) {</span>
 <span class="fc" id="L90">                    getJugadorActual().robarCarta(mazo);</span>
                 }
-<span class="fc" id="L92">                break;</span>
-            default:
                 break;
         }
-<span class="fc" id="L96">    }</span>
+<span class="fc" id="L94">    }</span>
 
 
     // Método para cambiar el turno al siguiente jugador
     private void cambiarTurno() {
-<span class="fc bfc" id="L101" title="All 2 branches covered.">        if (sentidoHorario) {</span>
-<span class="fc" id="L102">            jugadorActual = (jugadorActual + 1) % jugadores.size();</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">        if (sentidoHorario) {</span>
+<span class="fc" id="L100">            jugadorActual = (jugadorActual + 1) % jugadores.size();</span>
         } else {
-<span class="fc" id="L104">            jugadorActual = (jugadorActual - 1 + jugadores.size()) % jugadores.size();</span>
+<span class="fc" id="L102">            jugadorActual = (jugadorActual - 1 + jugadores.size()) % jugadores.size();</span>
         }
-<span class="fc" id="L106">    }</span>
+<span class="fc" id="L104">    }</span>
 
     public boolean getSentidoHorario() {
-<span class="fc" id="L109">        return sentidoHorario;</span>
+<span class="fc" id="L107">        return sentidoHorario;</span>
     }
 
     // Método para verificar si la partida ha terminado
     public boolean esFinPartida() {
-<span class="fc bfc" id="L114" title="All 2 branches covered.">        for (Jugador jugador : jugadores) {</span>
-<span class="fc bfc" id="L115" title="All 2 branches covered.">            if (jugador.getMano().isEmpty()) {</span>
-<span class="fc" id="L116">                return true; // La partida termina si un jugador se queda sin cartas</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">        for (Jugador jugador : jugadores) {</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">            if (jugador.getMano().isEmpty()) {</span>
+<span class="fc" id="L114">                return true; // La partida termina si un jugador se queda sin cartas</span>
             }
-<span class="fc" id="L118">        }</span>
-<span class="fc" id="L119">        return false;</span>
+<span class="fc" id="L116">        }</span>
+<span class="fc" id="L117">        return false;</span>
     }
 
     // Getter para los jugadores de la partida
     public List&lt;Jugador&gt; getJugadores() {
-<span class="fc" id="L124">        return jugadores;</span>
+<span class="fc" id="L122">        return jugadores;</span>
     }
 
     // Getter para el jugador actual
     public Jugador getJugadorActual() {
-<span class="fc" id="L129">        return jugadores.get(jugadorActual);</span>
+<span class="fc" id="L127">        return jugadores.get(jugadorActual);</span>
     }
 
     // Getter para mano del jugador actual
     public List&lt;Carta&gt; getManoJugadorActual() {
-<span class="fc" id="L134">        return getJugadorActual().getMano();</span>
+<span class="fc" id="L132">        return getJugadorActual().getMano();</span>
     }
 
 
     // Getter para el numero del jugador actual
     public int getNumeroJugadorActual() {
-<span class="fc" id="L140">        return jugadorActual;</span>
+<span class="fc" id="L138">        return jugadorActual;</span>
     }
 
     // Getter para el mazo
     public Mazo getMazo() {
-<span class="fc" id="L145">        return mazo;</span>
+<span class="fc" id="L143">        return mazo;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

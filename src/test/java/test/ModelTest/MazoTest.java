@@ -171,9 +171,34 @@ public class MazoTest {
         Carta cartaComodin = new Carta(null, "wild");
         
         boolean resultado = mazo.actualizarUltimaCartaJugada(cartaComodin);
+        mazo.establecerComodinColor("g");
         
         assertTrue(resultado, "Un comodín debería permitir actualizar la última carta jugada sin restricciones.");
         assertEquals(cartaComodin, mazo.obtenerUltimaCartaJugada(), "La última carta jugada debería actualizarse al comodín.");
+
+        // Nueva carta es un comodín, siempre compatible
+        Carta cartaComodinNew = new Carta(null, "+4");
+
+        resultado = mazo.actualizarUltimaCartaJugada(cartaComodinNew);
+        mazo.establecerComodinColor("b");
+        
+        assertTrue(resultado, "Un comodín debería permitir actualizar la última carta jugada sin restricciones.");
+        assertEquals(cartaComodinNew, mazo.obtenerUltimaCartaJugada(), "La última carta jugada debería actualizarse al comodín.");
+    }
+  
+    @Test
+    public void testActualizarUltimaCartaJugada_ComodinIncompatible() {
+        Carta cartaComodin = new Carta(null, "wild");
+
+        mazo.actualizarUltimaCartaJugada(cartaComodin);
+        mazo.establecerComodinColor("b");
+        
+        // Nueva carta no tiene el color fijado por el comodín
+        Carta cartaNueva = new Carta("g", "2");
+        boolean resultado = mazo.actualizarUltimaCartaJugada(cartaNueva);
+
+        assertFalse(resultado, "Un comodín debería fijar un color diferente a esta carta.");
+        assertNotEquals(cartaNueva, mazo.obtenerUltimaCartaJugada(), "La última carta jugada debería seguirsiendo el comodín.");
     }
 
     @Test

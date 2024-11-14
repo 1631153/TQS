@@ -62,7 +62,7 @@ public class Mazo {
     public boolean actualizarUltimaCartaJugada(Carta carta) {
         // Si la última carta jugada fue un comodín, verifica que la nueva carta coincida con el color del comodín
         if (comodinColor != null) {
-            if (!carta.getColor().equals(comodinColor) && carta.getColor() != null) {
+            if (carta.getColor() != null && !carta.getColor().equals(comodinColor)) {
                 return false; // La carta no es compatible con el color del comodín y no es otro comodín
             }
         } else if (ultimaCartaJugada != null && !carta.esCompatible(ultimaCartaJugada)) {

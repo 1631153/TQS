@@ -18,11 +18,8 @@ public class Jugador {
 
     // Método para que el jugador robe una carta del mazo
     public void robarCarta(Mazo mazo) {
-        Carta cartaRobada = mazo.robarCarta();
-        if (cartaRobada != null) {
-            this.mano.add(cartaRobada);
-            haDichoUNO = false;
-        }
+        this.mano.add(mazo.robarCarta());
+        haDichoUNO = false;
     }
 
     // Método para que el jugador juegue una carta

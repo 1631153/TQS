@@ -90,8 +90,6 @@ public class Partida {
                     getJugadorActual().robarCarta(mazo);
                 }
                 break;
-            default:
-                break;
         }
     }
 

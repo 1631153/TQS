@@ -28,6 +28,9 @@ public class PartidaTest {
             assertEquals(7, jugador.getMano().size(), "Cada jugador debe tener 7 cartas al inicio");
         }
         // Se tiene que probar con un tamaño inferior a 2
+        assertThrows(IllegalStateException.class, () -> {
+            partida.iniciarPartida(1);
+        },"No se deberia poder inicializar una partida con menos de 2 jugadores.");
     }
 
     @Test
