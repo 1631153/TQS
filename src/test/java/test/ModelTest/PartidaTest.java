@@ -96,12 +96,21 @@ public class PartidaTest {
 
     @Test
     public void testAplicarCartaEspecial_CambioSentido() {
+        assertTrue(partida.getSentidoHorario(), "El sentido de juego debería iniciar en horario.");
+
         Carta cartaReverse = new Carta("r", "reverse");
         partida.getManoJugadorActual().add(cartaReverse);
 
         boolean resultado = partida.jugarCarta(cartaReverse);
         assertTrue(resultado, "La carta 'reverse' debería poder jugarse.");
         assertFalse(partida.getSentidoHorario(), "El sentido de juego debería cambiar a antihorario.");
+    
+        Carta cartaReverseNueva = new Carta("b", "reverse");
+        partida.getManoJugadorActual().add(cartaReverseNueva);
+
+        resultado = partida.jugarCarta(cartaReverseNueva);
+        assertTrue(resultado, "La carta 'reverse' debería poder jugarse.");
+        assertTrue(partida.getSentidoHorario(), "El sentido de juego debería cambiar a horario.");
     }
 
     @Test
