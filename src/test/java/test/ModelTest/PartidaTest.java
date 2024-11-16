@@ -217,8 +217,12 @@ public class PartidaTest {
 
         // Vaciar la mano del jugador para simular una victoria
         assertFalse(partida.esFinPartida(), "La partida no debería terminar si ningun jugador se queda sin cartas.");
-        for(int i = 0; i < 14 && !partida.esFinPartida(); i++) {assertTrue(partida.jugarCarta(comodin, "b"), "El comodín debería jugarse");}
+        int turnosJugados = 0;
+        while (!partida.esFinPartida() && turnosJugados < 14) {
+            boolean resultado = partida.jugarCarta(comodin, "b");
+            assertTrue(resultado, "El comodín debería jugarse.");
+            turnosJugados++;
+        }
         assertTrue(partida.esFinPartida(), "La partida debería terminar si un jugador se queda sin cartas.");
     }
-
 }
