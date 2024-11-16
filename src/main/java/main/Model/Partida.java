@@ -17,8 +17,8 @@ public class Partida {
         this.mazo = new Mazo();
     }
 
-    public void setJugadorMock(List<Jugador> j) {
-        this.jugadores = j; //hay que aplicar el mismo jugadores o crear uno nuevo??
+    public void setMazoMock(Mazo m) {
+        this.mazo = m;
     }
 
     // Método para iniciar la partida
@@ -131,19 +131,8 @@ public class Partida {
         return jugadores.get(jugadorActual);
     }
 
-    // Getter para mano del jugador actual
-    public List<Carta> getManoJugadorActual() {
-        return getJugadorActual().getMano();
-    }
-
-
     // Getter para el numero del jugador actual
     public int getNumeroJugadorActual() {
         return jugadorActual;
-    }
-
-    // Getter para el mazo
-    public Mazo getMazo() {
-        return mazo;
     }
 }
