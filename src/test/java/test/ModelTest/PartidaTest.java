@@ -208,9 +208,16 @@ public class PartidaTest {
 
     @Test
     public void testEsFinPartida() {
+        Partida partida = new Partida();
+        Carta comodin = new Carta(null, "wild");
+
+        mazo.definirCartaParaRobar(comodin);
+        partida.setMazoMock(mazo);
+        partida.iniciarPartida(2);
+
         // Vaciar la mano del jugador para simular una victoria
         assertFalse(partida.esFinPartida(), "La partida no debería terminar si ningun jugador se queda sin cartas.");
-        partida.getManoJugadorActual().clear();
+        for(int i = 0; i < 14 && !partida.esFinPartida(); i++) {assertTrue(partida.jugarCarta(comodin, "b"), "El comodín debería jugarse");}
         assertTrue(partida.esFinPartida(), "La partida debería terminar si un jugador se queda sin cartas.");
     }
 
