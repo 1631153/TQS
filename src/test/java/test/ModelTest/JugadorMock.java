@@ -10,32 +10,30 @@ import main.Model.Mazo;
 public class JugadorMock extends Jugador {
     private List<Carta> cartasEnMano;
     private boolean decirUNO;
-    private String nombre;
+    private List<Carta> CartasPredeterminadas;
 
     public JugadorMock(String nom) {
         super(nom);
         this.cartasEnMano = new ArrayList<>();
         this.decirUNO = false;
+        this.CartasPredeterminadas = new ArrayList<>();
     }
 
     @Override
-    public void robarCarta(Mazo mazo) {
-        Carta cartaRobada = mazo.robarCarta();
-        if (cartaRobada != null) {
-            cartasEnMano.add(cartaRobada);
-            decirUNO = false;
-        } else {
-            throw new IllegalStateException("El mazo siempre deberia devolver una carta.");
-        }
+    public void robarCarta(Mazo mazo) { //mazo aqui no hace nada
+        Carta cartaRobada = CartasPredeterminadas.remove(0);
+        cartasEnMano.add(cartaRobada);
+        decirUNO = false;
     }
 
     @Override
-    public boolean jugarCarta(Carta carta, Mazo mazo) {
-        if (cartasEnMano.contains(carta) && mazo.actualizarUltimaCartaJugada(carta)) {
+    public boolean jugarCarta(Carta carta, Mazo mazo) {//mazo aqui no hace nada
+        if (cartasEnMano.contains(carta)) {
             cartasEnMano.remove(carta);
+            mazo.actualizarUltimaCartaJugada(carta);
             return true;
         }
-        return false;  // Coloca la carta en el mazo
+        return false;
     }
 
     @Override
@@ -47,16 +45,17 @@ public class JugadorMock extends Jugador {
         }
     }
 
-    public String getNombre() {
-        return nombre;
-    }
 
-    public List<Carta> getMano() {
+    public List<Carta> getCartasEnMano() {
         return cartasEnMano;
     }
 
     public boolean haDichoUNO() {
         return decirUNO;
+    }
+
+    public void setCartasPredeterminadas(List<Carta> cartas) {
+        this.CartasPredeterminadas = new ArrayList<>(cartas);
     }
 
 }

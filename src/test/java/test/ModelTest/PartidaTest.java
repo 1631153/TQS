@@ -1,6 +1,10 @@
 package test.ModelTest;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -192,5 +196,27 @@ public class PartidaTest {
         assertFalse(partida.esFinPartida(), "La partida no debería terminar si ningun jugador se queda sin cartas.");
         partida.getManoJugadorActual().clear();
         assertTrue(partida.esFinPartida(), "La partida debería terminar si un jugador se queda sin cartas.");
+    }
+
+    @Test
+    public void testJugarCartaConMock() {
+
+    List<Jugador> jugadoresMock = new ArrayList<>();
+    JugadorMock mockJugador = new JugadorMock("MockJugador");
+    jugadoresMock.add(mockJugador);
+
+    List<Carta> cartasMock = new ArrayList<>();
+    cartasMock.add(new Carta("r", "4")); //primera carta robada
+    cartasMock.add(new Carta("g", "8")); //primera carta jugada
+    mockJugador.setCartasPredeterminadas(cartasMock);
+
+    partida.setJugadorMock(jugadoresMock);
+
+    Carta cartaJugable = new Carta("g", "8");
+    mockJugador.getCartasEnMano().add(cartaJugable);
+
+    boolean resultado = partida.jugarCarta(cartaJugable);
+    assertTrue(resultado, "La carta compatible debería poder jugarse.");
+    assertFalse(mockJugador.getCartasEnMano().contains(cartaJugable), "La carta debería haberse eliminado de la mano después de jugarse.");
     }
 }

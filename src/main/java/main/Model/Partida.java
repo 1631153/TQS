@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public class Partida {
     private List<Jugador> jugadores;     // Lista de jugadores en la partida
-    //private List<JugadorMock> jugadores;   //el Mock implementado (esto no va a funcionar aún)
     private int jugadorActual;           // Índice del jugador con el turno actual
     private boolean sentidoHorario;      // Dirección del juego (true = horario, false = antihorario)
     private Mazo mazo;                   // Mazo de cartas
@@ -16,6 +15,10 @@ public class Partida {
         this.jugadorActual = 0;
         this.sentidoHorario = true;
         this.mazo = new Mazo();
+    }
+
+    public void setJugadorMock(List<Jugador> j) {
+        this.jugadores = j; //hay que aplicar el mismo jugadores o crear uno nuevo??
     }
 
     // Método para iniciar la partida
