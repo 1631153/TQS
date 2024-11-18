@@ -1,30 +1,27 @@
 package test.ModelTest;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-
 import main.Model.Carta;
 import main.Model.Mazo;
 
 public class MazoMock extends Mazo{
-    private Carta ultimaCarta;
+    private Carta cartaParaRobar;
 
     public MazoMock() {
         super();
-        this.ultimaCarta = null;
+        this.cartaParaRobar = null;
     }
 
     @Override
     public Carta robarCarta() {
-        if (ultimaCarta != null) {
-            return ultimaCarta;
+        // Si hay una carta para robar definida, devuélve esa carta
+        if (cartaParaRobar != null) {
+            return cartaParaRobar;
         }
+        // Si no hay carta definida, llama al comportamiento original
         return super.robarCarta();
     }
 
     public void definirCartaParaRobar(Carta carta) {
-        this.ultimaCarta = carta;
+        this.cartaParaRobar = carta;
     }
 }

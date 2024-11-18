@@ -5,18 +5,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import main.Model.Carta;
-import main.Model.Mazo;
 import main.Model.Jugador;
 
 public class JugadorTest {
 
     private Jugador jugador;
-    private Mazo mazo;
+    private MazoMock mazo;
 
     @BeforeEach
     public void setUp() {
         jugador = new Jugador("Player1");
-        mazo = new Mazo();
+        mazo = new MazoMock();
     }
 
     @Test
@@ -30,8 +29,10 @@ public class JugadorTest {
     @Test
     public void testJugarCartaValida() {
         Carta cartaValida = new Carta("r", "5");
+        mazo.definirCartaParaRobar(cartaValida);
+        jugador.robarCarta(mazo);
+        
         mazo.actualizarUltimaCartaJugada(new Carta("r", "2"));  // Establecemos una carta compatible en el mazo
-        jugador.getMano().add(cartaValida);
 
         assertTrue(jugador.jugarCarta(cartaValida, mazo), "El jugador debería poder jugar una carta compatible");
         assertFalse(jugador.getMano().contains(cartaValida), "La carta jugada debería ser removida de la mano del jugador");
@@ -41,8 +42,10 @@ public class JugadorTest {
     @Test
     public void testJugarCartaInvalida() {
         Carta cartaInvalida = new Carta("b", "5");  // Carta incompatible con la última en el mazo
+        mazo.definirCartaParaRobar(cartaInvalida);
+        jugador.robarCarta(mazo);
+        
         mazo.actualizarUltimaCartaJugada(new Carta("r", "2"));
-        jugador.getMano().add(cartaInvalida);
 
         assertFalse(jugador.jugarCarta(cartaInvalida, mazo), "El jugador no debería poder jugar una carta incompatible");
         assertTrue(jugador.getMano().contains(cartaInvalida), "La carta incompatible debería permanecer en la mano del jugador");

@@ -3,6 +3,7 @@
 import java.util.List;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Jugador {
     private String nombre;           // Nombre del jugador
@@ -10,49 +11,49 @@ public class Jugador {
     private boolean haDichoUNO;      // Indica si el jugador ha dicho &quot;UNO&quot;
 
     // Constructor
-<span class="fc" id="L13">    public Jugador(String nom) {</span>
-<span class="fc" id="L14">        this.nombre = nom;</span>
-<span class="fc" id="L15">        this.mano = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L16">        this.haDichoUNO = false;</span>
-<span class="fc" id="L17">    }</span>
+<span class="fc" id="L14">    public Jugador(String nom) {</span>
+<span class="fc" id="L15">        this.nombre = nom;</span>
+<span class="fc" id="L16">        this.mano = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L17">        this.haDichoUNO = false;</span>
+<span class="fc" id="L18">    }</span>
 
     // Método para que el jugador robe una carta del mazo
     public void robarCarta(Mazo mazo) {
-<span class="fc" id="L21">        this.mano.add(mazo.robarCarta());</span>
-<span class="fc" id="L22">        haDichoUNO = false;</span>
-<span class="fc" id="L23">    }</span>
+<span class="fc" id="L22">        this.mano.add(mazo.robarCarta());</span>
+<span class="fc" id="L23">        haDichoUNO = false;</span>
+<span class="fc" id="L24">    }</span>
 
     // Método para que el jugador juegue una carta
     public boolean jugarCarta(Carta carta, Mazo mazo) {
-<span class="fc bfc" id="L27" title="All 4 branches covered.">        if (this.mano.contains(carta) &amp;&amp; mazo.actualizarUltimaCartaJugada(carta)) {</span>
-<span class="fc" id="L28">            this.mano.remove(carta);</span>
-<span class="fc" id="L29">            return true;</span>
+<span class="fc bfc" id="L28" title="All 4 branches covered.">        if (this.mano.contains(carta) &amp;&amp; mazo.actualizarUltimaCartaJugada(carta)) {</span>
+<span class="fc" id="L29">            this.mano.remove(carta);</span>
+<span class="fc" id="L30">            return true;</span>
         }
-<span class="fc" id="L31">        return false;  // Coloca la carta en el mazo</span>
+<span class="fc" id="L32">        return false;  // Coloca la carta en el mazo</span>
     }
 
     // Método para que el jugador diga &quot;UNO&quot;
     public void decirUNO() {
-<span class="fc bfc" id="L36" title="All 2 branches covered.">        if (this.mano.size() == 1) {</span>
-<span class="fc" id="L37">            this.haDichoUNO = true;</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (this.mano.size() == 1) {</span>
+<span class="fc" id="L38">            this.haDichoUNO = true;</span>
         } else {
-<span class="fc" id="L39">            throw new IllegalStateException(&quot;El jugador solo puede decir 'UNO' cuando tiene una sola carta.&quot;);</span>
+<span class="fc" id="L40">            throw new IllegalStateException(&quot;El jugador solo puede decir 'UNO' cuando tiene una sola carta.&quot;);</span>
         }
-<span class="fc" id="L41">    }</span>
+<span class="fc" id="L42">    }</span>
 
     // Getter para la nombre del jugador
     public String getNombre() {
-<span class="fc" id="L45">        return nombre;</span>
+<span class="fc" id="L46">        return nombre;</span>
     }
 
     // Getter para la mano del jugador
     public List&lt;Carta&gt; getMano() {
-<span class="fc" id="L50">        return mano;</span>
+<span class="fc" id="L51">        return Collections.unmodifiableList(mano);</span>
     }
 
     // Método para verificar si el jugador ha dicho UNO
     public boolean haDichoUNO() {
-<span class="fc" id="L55">        return haDichoUNO;</span>
+<span class="fc" id="L56">        return haDichoUNO;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

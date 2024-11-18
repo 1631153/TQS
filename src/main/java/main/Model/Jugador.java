@@ -3,6 +3,7 @@ package main.Model;
 import java.util.List;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Jugador {
     private String nombre;           // Nombre del jugador
@@ -47,7 +48,7 @@ public class Jugador {
 
     // Getter para la mano del jugador
     public List<Carta> getMano() {
-        return mano;
+        return Collections.unmodifiableList(mano);
     }
 
     // Método para verificar si el jugador ha dicho UNO
