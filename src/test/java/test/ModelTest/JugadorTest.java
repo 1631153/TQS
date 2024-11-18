@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import main.Model.Carta;
 import main.Model.Jugador;
+import test.Mock.MazoMock;
 
 public class JugadorTest {
 

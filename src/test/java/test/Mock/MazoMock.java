@@ -1,4 +1,4 @@
-package test.ModelTest;
+package test.Mock;
 
 import main.Model.Carta;
 import main.Model.Mazo;

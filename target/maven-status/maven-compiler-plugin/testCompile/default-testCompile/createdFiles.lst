@@ -1,6 +1,7 @@
-test\ModelTest\CartaTest.class
-test\ModelTest\MazoMock.class
-test\ModelTest\MazoTest.class
+test\Mock\PartidaMock.class
 test\ModelTest\JugadorTest.class
-test\ModelTest\JugadorMock.class
+test\ModelTest\CartaTest.class
+test\Mock\JugadorMock.class
+test\Mock\MazoMock.class
+test\ModelTest\MazoTest.class
 test\ModelTest\PartidaTest.class

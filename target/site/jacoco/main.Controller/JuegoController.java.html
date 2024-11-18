@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JuegoController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">digitaluno</a> &gt; <a href="index.source.html" class="el_package">main.Controller</a> &gt; <span class="el_source">JuegoController.java</span></div><h1>JuegoController.java</h1><pre class="source lang-java linenums">package main.Controller;
+
+import main.Model.*;
+import main.View.*;
+
+public class JuegoController {
+    
+    // Atributos
+    private Partida partida;          // Instancia de la lógica de la partida
+    private InterfazJuego interfaz;  // Interfaz para comunicar el estado del juego al usuario
+
+    // Constructor
+<span class="nc" id="L13">    public JuegoController(Partida partida, InterfazJuego interfaz) {</span>
+<span class="nc" id="L14">        this.partida = partida;</span>
+<span class="nc" id="L15">        this.interfaz = interfaz;</span>
+<span class="nc" id="L16">    }</span>
+
+    // Métodos
+
+    /**
+     * Inicia el juego configurando la vista inicial y los parámetros básicos.
+     */
+    public void iniciarJuego() {
+        // Configuración inicial del juego
+        // Lógica para iniciar la partida y conectar con la vista
+<span class="nc" id="L26">    }</span>
+
+    /**
+     * Ejecuta el turno de un jugador.
+     * @param jugador El jugador que realiza el turno.
+     * @param carta La carta que desea jugar.
+     */
+    public void jugarTurno(Jugador jugador, Carta carta) {
+        // Lógica para gestionar el turno de un jugador
+        // Validar y aplicar las reglas correspondientes
+<span class="nc" id="L36">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

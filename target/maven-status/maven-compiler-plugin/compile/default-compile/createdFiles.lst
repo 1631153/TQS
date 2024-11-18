@@ -1,4 +1,7 @@
-main\Model\Jugador.class
 main\Model\Partida.class
 main\Model\Carta.class
+main\Controller\JuegoController.class
+main\View\InterfazJuego.class
+main\Model\Jugador.class
 main\Model\Mazo.class
+main\View\ConsolaView.class

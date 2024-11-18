@@ -135,5 +135,13 @@ public class Partida {
     public int getNumeroJugadorActual() {
 <span class="fc" id="L136">        return jugadorActual;</span>
     }
+
+    public Carta obtenerUltimaCartaJugada() {
+<span class="fc" id="L140">        return mazo.obtenerUltimaCartaJugada(); // Devuelve la última carta jugada</span>
+    }
+
+    public String obtenerComodinColor() {
+<span class="fc" id="L144">        return mazo.obtenerComodinColor(); // Devuelve el color elegido al jugar un comodin</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

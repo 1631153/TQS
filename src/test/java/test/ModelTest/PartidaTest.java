@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import main.Model.Partida;
+import test.Mock.MazoMock;
 import main.Model.Carta;
 import main.Model.Jugador;
 
@@ -71,7 +72,7 @@ public class PartidaTest {
 
         boolean resultado = partida.jugarCarta(cartaCompatible);
         assertTrue(resultado, "La carta compatible debería poder jugarse.");
-        assertEquals(cartaCompatible, mazo.obtenerUltimaCartaJugada(), "La última carta jugada debería actualizarse a la carta compatible.");
+        assertEquals(cartaCompatible, partida.obtenerUltimaCartaJugada(), "La última carta jugada debería actualizarse a la carta compatible.");
     }
 
     @Test
@@ -87,7 +88,7 @@ public class PartidaTest {
 
         boolean resultado = partida.jugarCarta(cartaIncompatible);
         assertFalse(resultado, "La carta incompatible no debería poder jugarse.");
-        assertNotEquals(cartaIncompatible, mazo.obtenerUltimaCartaJugada(), "La última carta jugada no debería actualizarse.");
+        assertNotEquals(cartaIncompatible, partida.obtenerUltimaCartaJugada(), "La última carta jugada no debería actualizarse.");
     }
 
     @Test
@@ -99,7 +100,8 @@ public class PartidaTest {
         // Jugar comodín y establecer color a verde
         boolean resultado = partida.jugarCarta(cartaComodin, "g");
         assertTrue(resultado, "El comodín debería poder jugarse.");
-        assertEquals(cartaComodin, mazo.obtenerUltimaCartaJugada(), "La última carta jugada debería ser el comodín.");
+        assertEquals(cartaComodin, partida.obtenerUltimaCartaJugada(), "La última carta jugada debería ser el comodín.");
+        assertEquals("g", partida.obtenerComodinColor(), "El comodin debe haber establecido el color en amarillo.");
         assertTrue(mazo.actualizarUltimaCartaJugada(new Carta("g", "5")), "El color del comodín debería establecerse en verde.");
     }
 

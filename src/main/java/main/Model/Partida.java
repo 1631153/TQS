@@ -135,4 +135,12 @@ public class Partida {
     public int getNumeroJugadorActual() {
         return jugadorActual;
     }
+
+    public Carta obtenerUltimaCartaJugada() {
+        return mazo.obtenerUltimaCartaJugada(); // Devuelve la última carta jugada
+    }
+
+    public String obtenerComodinColor() {
+        return mazo.obtenerComodinColor(); // Devuelve el color elegido al jugar un comodin
+    }
 }

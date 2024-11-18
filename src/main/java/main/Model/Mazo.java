@@ -58,6 +58,10 @@ public class Mazo {
         return ultimaCartaJugada; // Devuelve la última carta jugada
     }
 
+    public String obtenerComodinColor() {
+        return comodinColor; // Devuelve el color elegido al jugar un comodin
+    }
+
     // Actualiza la última carta jugada si es compatible con la actual, sin comodín
     public boolean actualizarUltimaCartaJugada(Carta carta) {
         // Si la última carta jugada fue un comodín, verifica que la nueva carta coincida con el color del comodín
