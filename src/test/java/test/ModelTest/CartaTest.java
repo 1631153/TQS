@@ -29,6 +29,22 @@ public class CartaTest {
         }
     }
 
+    // 4. Test para verificar que los valores numéricos fuera de rango lanzan excepciones y que un numero válido no pueden ser multicolor
+    @Test
+    public void testCartaNumeroInvalidos() {
+        String[] valoresInvalidos = {"10", "-1", "20", "-20"};
+        for (String valor : valoresInvalidos) {
+            assertThrows(IllegalArgumentException.class, () -> {
+                new Carta("r", valor);
+            }, "Debería lanzarse IllegalArgumentException para valores fuera del rango: " + valor);
+        }
+
+        // Verificar que no se puede crear una carta numérica multicolor
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Carta(null, "5");
+        }, "No se debería permitir crear una carta numérica con color null");
+    }
+
     // 2. Test para verificar que los colores son válidos
     @Test
     public void testCartaColoresValidos() {
@@ -39,6 +55,34 @@ public class CartaTest {
             Carta carta = new Carta(color, "5");  // Carta numérica
             assertEquals(color, carta.getColor(), "El color de la carta debería ser " + color);
         }
+
+        // Colores inválidos (partición inválida)
+        String[] colorsLimit = {"z", "x", "purple", "", "1", null};
+        for (String color : colorsLimit) {
+            assertThrows(IllegalArgumentException.class, () -> {
+                new Carta(color, "5");
+            }, "Debería lanzarse IllegalArgumentException para colores no válidos: " + color);
+        }
+    }
+
+    // 5. Test para verificar que los colores inválidos lanzan excepciones y que no puede haber un comodin con un color
+    @Test
+    public void testCartaColorInvalido() {
+        String[] coloresInvalidos = {"z", "x", "purple", "", "1"};
+        for (String color : coloresInvalidos) {
+            assertThrows(IllegalArgumentException.class, () -> {
+                new Carta(color, "5");
+            }, "Debería lanzarse IllegalArgumentException para colores no válidos: " + color);
+        }
+
+        // Probar que los comodines no pueden tener color
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Carta("r", "wild");  // No debería permitir un comodín con color
+        }, "Un comodín no debería tener color");
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Carta("g", "+4");  // No debería permitir un comodín +4 con color
+        }, "Un comodín +4 no debería tener color");
     }
 
     // 3. Test para verificar que las cartas de acción tienen valores válidos
@@ -61,42 +105,6 @@ public class CartaTest {
         Carta comodinMasCuatro = new Carta(null, "+4");  // Un comodín +4 sin color
         assertEquals("+4", comodinMasCuatro.getValor(), "El comodín +4 debería tener valor '+4' sin color");
         assertNull(comodinMasCuatro.getColor(), "El comodín +4 debería no tener color (null)");
-    }
-
-    // 4. Test para verificar que los valores numéricos fuera de rango lanzan excepciones y que un numero válido no pueden ser multicolor
-    @Test
-    public void testCartaNumeroInvalidos() {
-        String[] valoresInvalidos = {"10", "-1"};
-        for (String valor : valoresInvalidos) {
-            assertThrows(IllegalArgumentException.class, () -> {
-                new Carta("r", valor);
-            }, "Debería lanzarse IllegalArgumentException para valores fuera del rango: " + valor);
-        }
-
-        // Verificar que no se puede crear una carta numérica multicolor
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Carta(null, "5");
-        }, "No se debería permitir crear una carta numérica con color null");
-    }
-
-    // 5. Test para verificar que los colores inválidos lanzan excepciones y que no puede haber un comodin con un color
-    @Test
-    public void testCartaColorInvalido() {
-        String[] coloresInvalidos = {"z", "x", "purple", "", "1"};
-        for (String color : coloresInvalidos) {
-            assertThrows(IllegalArgumentException.class, () -> {
-                new Carta(color, "5");
-            }, "Debería lanzarse IllegalArgumentException para colores no válidos: " + color);
-        }
-
-        // Probar que los comodines no pueden tener color
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Carta("r", "wild");  // No debería permitir un comodín con color
-        }, "Un comodín no debería tener color");
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Carta("g", "+4");  // No debería permitir un comodín +4 con color
-        }, "Un comodín +4 no debería tener color");
     }
 
     // 6. Test para verificar que las cartas de acción inválidas lanzan excepciones
