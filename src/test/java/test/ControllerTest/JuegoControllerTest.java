@@ -13,7 +13,7 @@ import java.util.List;
 
 public class JuegoControllerTest {
     private JuegoController controller;
-    private PartidaMock partidaMock;
+    private Partida partida;
     private MazoMock mazoMock;
 
     @BeforeEach
@@ -22,8 +22,8 @@ public class JuegoControllerTest {
         jugadores.add(new Jugador("Player1"));
         jugadores.add(new Jugador("Player2"));
         mazoMock = new MazoMock();
-        partidaMock = new PartidaMock(jugadores, mazoMock);
-        controller = new JuegoController(partidaMock, null); // Pasar null si no usas la interfaz en estas pruebas
+        partida = new Partida();
+        controller = new JuegoController(partida, null); // Pasar null si no usas la interfaz en estas pruebas
     }
 
     @Test

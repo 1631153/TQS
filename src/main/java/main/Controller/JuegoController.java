@@ -15,23 +15,30 @@ public class JuegoController {
         this.interfaz = interfaz;
     }
 
-    // Métodos
-
-    /**
-     * Inicia el juego configurando la vista inicial y los parámetros básicos.
-     */
-    public void iniciarJuego() {
-        // Configuración inicial del juego
-        // Lógica para iniciar la partida y conectar con la vista
+   // Métodos para manejar el estado del juego
+    public void mostrarEstadoActual() {
+        // Implementar lógica para mostrar el estado actual del juego
     }
 
-    /**
-     * Ejecuta el turno de un jugador.
-     * @param jugador El jugador que realiza el turno.
-     * @param carta La carta que desea jugar.
-     */
-    public void jugarTurno(Jugador jugador, Carta carta) {
-        // Lógica para gestionar el turno de un jugador
-        // Validar y aplicar las reglas correspondientes
+    public boolean jugarCarta(Carta carta) {
+        // Implementar lógica para jugar una carta
+        return false;
+    }
+
+    public void robarCarta() {
+        // Implementar lógica para robar una carta
+    }
+
+    public void decirUNO() {
+        // Implementar lógica para decir "UNO"
+    }
+
+    public boolean verificarFinDelJuego() {
+        // Implementar lógica para verificar si el juego ha terminado
+        return false;
+    }
+
+    public void mostrarGanador() {
+        // Implementar lógica para mostrar al ganador
     }
 }

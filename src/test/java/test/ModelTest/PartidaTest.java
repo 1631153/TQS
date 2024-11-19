@@ -51,7 +51,7 @@ public class PartidaTest {
         for (int i = 0; i < secuenciaEsperada.length; i++) {
             secuenciaReal[i] = partida.getNumeroJugadorActual();
             mazo.definirCartaParaRobar(carta);
-            partida.getJugadorActual().robarCarta(mazo);
+            partida.robarCartaJugadorActual();
             assertTrue(partida.jugarCarta(carta), "El jugador debería poder jugar una carta válida.");
         }
 
@@ -62,13 +62,13 @@ public class PartidaTest {
     public void testJugarCarta_CartaCompatible() {
         Carta cartaActual = new Carta("r", "7");
         mazo.definirCartaParaRobar(cartaActual);
-        partida.getJugadorActual().robarCarta(mazo);
+        partida.robarCartaJugadorActual();
         partida.jugarCarta(cartaActual);
 
         // Suponemos que el jugador tiene una carta compatible
         Carta cartaCompatible = new Carta(cartaActual.getColor(), "5");  // Carta del mismo color
         mazo.definirCartaParaRobar(cartaCompatible);
-        partida.getJugadorActual().robarCarta(mazo);
+        partida.robarCartaJugadorActual();
 
         boolean resultado = partida.jugarCarta(cartaCompatible);
         assertTrue(resultado, "La carta compatible debería poder jugarse.");
@@ -79,12 +79,12 @@ public class PartidaTest {
     public void testJugarCarta_CartaIncompatible() {
         Carta cartaActual = new Carta("b", "7");
         mazo.definirCartaParaRobar(cartaActual);
-        partida.getJugadorActual().robarCarta(mazo);
+        partida.robarCartaJugadorActual();
         partida.jugarCarta(cartaActual);
         
         Carta cartaIncompatible = new Carta("r", "9"); // Una carta no compatible con la última jugada
         mazo.definirCartaParaRobar(cartaIncompatible);
-        partida.getJugadorActual().robarCarta(mazo);
+        partida.robarCartaJugadorActual();
 
         boolean resultado = partida.jugarCarta(cartaIncompatible);
         assertFalse(resultado, "La carta incompatible no debería poder jugarse.");
@@ -95,7 +95,7 @@ public class PartidaTest {
     public void testJugarCarta_ComodinConColorElegido() {
         Carta cartaComodin = new Carta(null, "wild");
         mazo.definirCartaParaRobar(cartaComodin);
-        partida.getJugadorActual().robarCarta(mazo);
+        partida.robarCartaJugadorActual();
 
         // Jugar comodín y establecer color a verde
         boolean resultado = partida.jugarCarta(cartaComodin, "g");
@@ -111,7 +111,7 @@ public class PartidaTest {
 
         Carta cartaReverse = new Carta("r", "reverse");
         mazo.definirCartaParaRobar(cartaReverse);
-        partida.getJugadorActual().robarCarta(mazo);
+        partida.robarCartaJugadorActual();
 
         boolean resultado = partida.jugarCarta(cartaReverse);
         assertTrue(resultado, "La carta 'reverse' debería poder jugarse.");
@@ -119,7 +119,7 @@ public class PartidaTest {
     
         Carta cartaReverseNueva = new Carta("b", "reverse");
         mazo.definirCartaParaRobar(cartaReverseNueva);
-        partida.getJugadorActual().robarCarta(mazo);
+        partida.robarCartaJugadorActual();
 
         resultado = partida.jugarCarta(cartaReverseNueva);
         assertTrue(resultado, "La carta 'reverse' debería poder jugarse.");
@@ -138,7 +138,7 @@ public class PartidaTest {
         // Jugamos una carta "reverse" para cambiar la dirección de los turnos a antihorario
         Carta reverse = new Carta("r", "reverse");  // Carta especial "reverse"
         mazo.definirCartaParaRobar(reverse);
-        partida.getJugadorActual().robarCarta(mazo);  // Añadimos la carta a la mano del jugador
+        partida.robarCartaJugadorActual();  // Añadimos la carta a la mano del jugador
         assertTrue(partida.jugarCarta(reverse), "El jugador debería poder jugar una carta 'reverse'.");
     
         // Ahora seguimos avanzando el turno en sentido antihorario con cartas comunes
@@ -148,7 +148,7 @@ public class PartidaTest {
             // Jugamos una carta común (de valor "5" del color rojo)
             Carta cartaComún = new Carta("r", "5");
             mazo.definirCartaParaRobar(cartaComún);
-            partida.getJugadorActual().robarCarta(mazo);  // Añadimos la carta a la mano
+            partida.robarCartaJugadorActual();  // Añadimos la carta a la mano
             assertTrue(partida.jugarCarta(cartaComún), "El jugador debería poder jugar una carta común.");
         }
     
@@ -161,7 +161,7 @@ public class PartidaTest {
     public void testAplicarCartaEspecial_SkipTurno() {
         Carta cartaSkip = new Carta("r", "skip");
         mazo.definirCartaParaRobar(cartaSkip);
-        partida.getJugadorActual().robarCarta(mazo);
+        partida.robarCartaJugadorActual();
 
         int jugadorAntesDeSkip = partida.getNumeroJugadorActual();
         boolean resultado = partida.jugarCarta(cartaSkip);
@@ -177,7 +177,7 @@ public class PartidaTest {
     public void testAplicarCartaEspecial_RobarDosCartas() {
         Carta cartaMasDos = new Carta("r", "+2");
         mazo.definirCartaParaRobar(cartaMasDos);
-        partida.getJugadorActual().robarCarta(mazo);
+        partida.robarCartaJugadorActual();
 
         int jugadorObjetivo = (partida.getNumeroJugadorActual() + 1) % 4;
         Jugador siguienteJugador = partida.getJugadores().get(jugadorObjetivo);
@@ -192,7 +192,7 @@ public class PartidaTest {
     public void testAplicarCartaEspecial_RobarCuatroCartas() {
         Carta cartaMasCuatro = new Carta(null, "+4");
         mazo.definirCartaParaRobar(cartaMasCuatro);
-        partida.getJugadorActual().robarCarta(mazo);
+        partida.robarCartaJugadorActual();
 
         int jugadorObjetivo = (partida.getNumeroJugadorActual() + 1) % 4;
         Jugador siguienteJugador = partida.getJugadores().get(jugadorObjetivo);

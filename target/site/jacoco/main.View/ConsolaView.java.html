@@ -2,37 +2,63 @@
 
 import main.Model.Carta;
 import main.Model.Jugador;
+import java.util.List;
 
-<span class="nc" id="L6">public class ConsolaView implements InterfazJuego {</span>
+public class ConsolaView implements InterfazJuego {
+
+    // Constructor
+<span class="nc" id="L10">    public ConsolaView() {</span>
+        // Inicialización de la vista si es necesario
+<span class="nc" id="L12">    }</span>
+
     @Override
     public void mostrarEstadoPartida() {
-        // Lógica para mostrar el estado del juego en la consola.
-<span class="nc" id="L10">    }</span>
+        // Lógica para mostrar el estado completo de la partida (cartas en juego, jugadores, etc.)
+<span class="nc" id="L17">    }</span>
 
     @Override
     public void mostrarTurno(Jugador jugador) {
-        // Lógica para mostrar el turno actual en consola.
-<span class="nc" id="L15">    }</span>
+        // Lógica para mostrar el turno del jugador actual
+        // Ejemplo: &quot;Es el turno de Jugador 1&quot;
+<span class="nc" id="L23">    }</span>
+
+    @Override
+    public void mostrarEstado(List&lt;Carta&gt; cartasMano, Carta ultimaCartaJugada) {
+        // Mostrar las cartas del jugador actual y la última carta jugada
+        // Ejemplo:
+        // &quot;Cartas en mano: [rojo 5, azul 3, verde +2]&quot;
+        // &quot;Última carta jugada: rojo 5&quot;
+<span class="nc" id="L31">    }</span>
 
     @Override
     public void mostrarCartaJugada(Carta carta) {
-        // Lógica para mostrar la carta jugada.
-<span class="nc" id="L20">    }</span>
-
-    @Override
-    public void mostrarGanador(Jugador jugador) {
-        // Mensaje de victoria en consola.
-<span class="nc" id="L25">    }</span>
+        // Lógica para mostrar la carta que se acaba de jugar
+        // Ejemplo: &quot;Jugador 1 ha jugado la carta: rojo 5&quot;
+<span class="nc" id="L37">    }</span>
 
     @Override
     public String solicitarColorComodin() {
-        // Solicitar entrada del usuario para elegir un color.
-<span class="nc" id="L30">        return null; // Implementar entrada de consola.</span>
+        // Lógica para solicitar al usuario elegir un color cuando se juega un comodín
+        // Ejemplo: Mostrar las opciones y pedir una entrada del usuario
+<span class="nc" id="L43">        return &quot;r&quot;; // Retorna el color elegido por el usuario</span>
     }
 
     @Override
+    public void mostrarGanador(Jugador jugador) {
+        // Lógica para mostrar el ganador del juego
+        // Ejemplo: &quot;¡Jugador 1 ha ganado la partida!&quot;
+<span class="nc" id="L50">    }</span>
+
+    @Override
     public void mostrarMensaje(String mensaje) {
-        // Mostrar un mensaje simple en consola.
-<span class="nc" id="L36">    }</span>
+        // Lógica para mostrar un mensaje general o error
+<span class="nc" id="L55">        System.out.println(mensaje);  // Muestra el mensaje en la consola</span>
+<span class="nc" id="L56">    }</span>
+
+    @Override
+    public void actualizarEstadoJuego() {
+        // Lógica para actualizar el estado visual del juego
+        // Puede incluir limpiar la pantalla, actualizar las cartas, etc.
+<span class="nc" id="L62">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

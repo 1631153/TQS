@@ -48,4 +48,14 @@ public class PartidaMock extends Partida {
     public void setSentidoHorario(boolean sentido) {
         this.sentidoHorarioMock = sentido;
     }
+
+    @Override
+    public Carta obtenerUltimaCartaJugada() {
+        return mazoMock.obtenerUltimaCartaJugada();
+    }
+
+    @Override
+    public String obtenerComodinColor() {
+        return mazoMock.obtenerComodinColor();
+    }
 }

@@ -72,7 +72,7 @@ public class Partida {
 <span class="fc" id="L72">                mazo.establecerComodinColor(colorElegido);</span>
 <span class="fc" id="L73">                cambiarTurno();</span>
 <span class="fc bfc" id="L74" title="All 2 branches covered.">                for (int i = 0; i &lt; 4; i++) {</span>
-<span class="fc" id="L75">                    getJugadorActual().robarCarta(mazo);</span>
+<span class="fc" id="L75">                    robarCartaJugadorActual();</span>
                 }
 <span class="fc" id="L77">                break;</span>
             case &quot;wild&quot;:
@@ -91,57 +91,60 @@ public class Partida {
             case &quot;+2&quot;:
 <span class="fc" id="L92">                cambiarTurno();</span>
 <span class="fc bfc" id="L93" title="All 2 branches covered.">                for (int i = 0; i &lt; 2; i++) {</span>
-<span class="fc" id="L94">                    getJugadorActual().robarCarta(mazo);</span>
+<span class="fc" id="L94">                    robarCartaJugadorActual();</span>
                 }
                 break;
         }
 <span class="fc" id="L98">    }</span>
 
+    public void robarCartaJugadorActual() {
+<span class="fc" id="L101">        getJugadorActual().robarCarta(mazo);</span>
+<span class="fc" id="L102">    }</span>
 
     // Método para cambiar el turno al siguiente jugador
     private void cambiarTurno() {
-<span class="fc bfc" id="L103" title="All 2 branches covered.">        if (sentidoHorario) {</span>
-<span class="fc" id="L104">            jugadorActual = (jugadorActual + 1) % jugadores.size();</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">        if (sentidoHorario) {</span>
+<span class="fc" id="L107">            jugadorActual = (jugadorActual + 1) % jugadores.size();</span>
         } else {
-<span class="fc" id="L106">            jugadorActual = (jugadorActual - 1 + jugadores.size()) % jugadores.size();</span>
+<span class="fc" id="L109">            jugadorActual = (jugadorActual - 1 + jugadores.size()) % jugadores.size();</span>
         }
-<span class="fc" id="L108">    }</span>
+<span class="fc" id="L111">    }</span>
 
     public boolean getSentidoHorario() {
-<span class="fc" id="L111">        return sentidoHorario;</span>
+<span class="fc" id="L114">        return sentidoHorario;</span>
     }
 
     // Método para verificar si la partida ha terminado
     public boolean esFinPartida() {
-<span class="fc bfc" id="L116" title="All 2 branches covered.">        for (Jugador jugador : jugadores) {</span>
-<span class="fc bfc" id="L117" title="All 2 branches covered.">            if (jugador.getMano().isEmpty()) {</span>
-<span class="fc" id="L118">                return true; // La partida termina si un jugador se queda sin cartas</span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">        for (Jugador jugador : jugadores) {</span>
+<span class="fc bfc" id="L120" title="All 2 branches covered.">            if (jugador.getMano().isEmpty()) {</span>
+<span class="fc" id="L121">                return true; // La partida termina si un jugador se queda sin cartas</span>
             }
-<span class="fc" id="L120">        }</span>
-<span class="fc" id="L121">        return false;</span>
+<span class="fc" id="L123">        }</span>
+<span class="fc" id="L124">        return false;</span>
     }
 
     // Getter para los jugadores de la partida
     public List&lt;Jugador&gt; getJugadores() {
-<span class="fc" id="L126">        return jugadores;</span>
+<span class="fc" id="L129">        return jugadores;</span>
     }
 
     // Getter para el jugador actual
     public Jugador getJugadorActual() {
-<span class="fc" id="L131">        return jugadores.get(jugadorActual);</span>
+<span class="fc" id="L134">        return jugadores.get(jugadorActual);</span>
     }
 
     // Getter para el numero del jugador actual
     public int getNumeroJugadorActual() {
-<span class="fc" id="L136">        return jugadorActual;</span>
+<span class="fc" id="L139">        return jugadorActual;</span>
     }
 
     public Carta obtenerUltimaCartaJugada() {
-<span class="fc" id="L140">        return mazo.obtenerUltimaCartaJugada(); // Devuelve la última carta jugada</span>
+<span class="fc" id="L143">        return mazo.obtenerUltimaCartaJugada(); // Devuelve la última carta jugada</span>
     }
 
     public String obtenerComodinColor() {
-<span class="fc" id="L144">        return mazo.obtenerComodinColor(); // Devuelve el color elegido al jugar un comodin</span>
+<span class="fc" id="L147">        return mazo.obtenerComodinColor(); // Devuelve el color elegido al jugar un comodin</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

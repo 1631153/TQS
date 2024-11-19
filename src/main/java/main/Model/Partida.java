@@ -72,7 +72,7 @@ public class Partida {
                 mazo.establecerComodinColor(colorElegido);
                 cambiarTurno();
                 for (int i = 0; i < 4; i++) {
-                    getJugadorActual().robarCarta(mazo);
+                    robarCartaJugadorActual();
                 }
                 break;
             case "wild":
@@ -91,12 +91,15 @@ public class Partida {
             case "+2":
                 cambiarTurno();
                 for (int i = 0; i < 2; i++) {
-                    getJugadorActual().robarCarta(mazo);
+                    robarCartaJugadorActual();
                 }
                 break;
         }
     }
 
+    public void robarCartaJugadorActual() {
+        getJugadorActual().robarCarta(mazo);
+    }
 
     // Método para cambiar el turno al siguiente jugador
     private void cambiarTurno() {
