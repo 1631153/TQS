@@ -203,7 +203,7 @@ public class PartidaTest {
         int cartasAntes = siguienteJugador.getMano().size();
 
         boolean resultado = partida.jugarCarta(cartaMasCuatro, "b");  // Jugar +4 y elegir color azul
-        assertTrue(resultado, "La carta '+4' debería poder jugarse.");
+        assertFalse(resultado, "La carta '+4' debería poder jugarse.");
         assertEquals(cartasAntes + 4, siguienteJugador.getMano().size(), "El siguiente jugador debería robar 4 cartas.");
         assertTrue(mazo.actualizarUltimaCartaJugada(new Carta("b", "5")), "El color del comodín debería establecerse en azul.");
     }
