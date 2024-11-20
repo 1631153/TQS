@@ -40,7 +40,7 @@ public class ConsolaView implements InterfazJuego {
     public String solicitarColorComodin() {
         // Lógica para solicitar al usuario elegir un color cuando se juega un comodín
         // Ejemplo: Mostrar las opciones y pedir una entrada del usuario
-        return "r"; // Retorna el color elegido por el usuario
+        return "b"; // Retorna el color elegido por el usuario
     }
 
     @Override
@@ -53,11 +53,5 @@ public class ConsolaView implements InterfazJuego {
     public void mostrarMensaje(String mensaje) {
         // Lógica para mostrar un mensaje general o error
         System.out.println(mensaje);  // Muestra el mensaje en la consola
-    }
-
-    @Override
-    public void actualizarEstadoJuego() {
-        // Lógica para actualizar el estado visual del juego
-        // Puede incluir limpiar la pantalla, actualizar las cartas, etc.
     }
 }

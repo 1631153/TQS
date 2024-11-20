@@ -15,6 +15,10 @@ public class JuegoController {
         this.interfaz = interfaz;
     }
 
+    public void iniciarPartida(int num_jugadores) {
+        partida.iniciarPartida(num_jugadores);
+    }
+
    // Métodos para manejar el estado del juego
     public void mostrarEstadoActual() {
         // Implementar lógica para mostrar el estado actual del juego

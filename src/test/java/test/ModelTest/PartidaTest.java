@@ -35,6 +35,10 @@ public class PartidaTest {
         assertThrows(IllegalStateException.class, () -> {
             partida.iniciarPartida(1);
         },"No se deberia poder inicializar una partida con menos de 2 jugadores.");
+        // Se tiene que probar con un tamaño superior a 4
+        assertThrows(IllegalStateException.class, () -> {
+            partida.iniciarPartida(5);
+        },"No se deberia poder inicializar una partida con menos de 2 jugadores.");
     }
 
     @Test

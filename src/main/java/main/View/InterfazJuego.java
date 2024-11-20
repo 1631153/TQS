@@ -50,9 +50,4 @@ public interface InterfazJuego {
      * @param mensaje El mensaje que se desea mostrar.
      */
     void mostrarMensaje(String mensaje);
-
-    /**
-     * Actualiza el estado visual del juego (turno, cartas, etc.).
-     */
-    void actualizarEstadoJuego();
 }
