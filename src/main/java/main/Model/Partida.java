@@ -27,6 +27,9 @@ public class Partida {
         if (num_jugadores < 2) {
             throw new IllegalStateException("Siempre tiene que haber un minimo de 2 jugadores en partida.");
         }
+        if (num_jugadores > 4) {
+            throw new IllegalStateException("Siempre tiene que haber un maximo de 4 jugadores en partida.");
+        }
 
         // Crear 4 jugadores y añadirlos a la lista
         for (int i = 1; i <= num_jugadores; i++) {

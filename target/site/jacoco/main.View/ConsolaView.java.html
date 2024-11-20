@@ -2,63 +2,60 @@
 
 import main.Model.Carta;
 import main.Model.Jugador;
+
+import java.io.InputStream;
 import java.util.List;
+import java.util.Scanner;
 
 public class ConsolaView implements InterfazJuego {
 
+    private Scanner scanner; // Mantiene el scanner local a la instancia
+
     // Constructor
-<span class="nc" id="L10">    public ConsolaView() {</span>
-        // Inicialización de la vista si es necesario
-<span class="nc" id="L12">    }</span>
+<span class="fc" id="L15">    public ConsolaView() {</span>
+<span class="fc" id="L16">        this.scanner = new Scanner(System.in); // Usa el flujo estándar por defecto</span>
+<span class="fc" id="L17">    }</span>
+
+    // Constructor que permite configurar un flujo de entrada alternativo
+<span class="fc" id="L20">    public ConsolaView(InputStream inputStream) {</span>
+<span class="fc" id="L21">        this.scanner = new Scanner(inputStream);</span>
+<span class="fc" id="L22">    }</span>
 
     @Override
     public void mostrarEstadoPartida() {
-        // Lógica para mostrar el estado completo de la partida (cartas en juego, jugadores, etc.)
-<span class="nc" id="L17">    }</span>
+<span class="fc" id="L26">        System.out.println(&quot;Estado de la partida...&quot;);</span>
+<span class="fc" id="L27">    }</span>
 
     @Override
     public void mostrarTurno(Jugador jugador) {
-        // Lógica para mostrar el turno del jugador actual
-        // Ejemplo: &quot;Es el turno de Jugador 1&quot;
-<span class="nc" id="L23">    }</span>
+<span class="fc" id="L31">        System.out.println(&quot;Es el turno de &quot; + jugador.getNombre());</span>
+<span class="fc" id="L32">    }</span>
 
     @Override
     public void mostrarEstado(List&lt;Carta&gt; cartasMano, Carta ultimaCartaJugada) {
-        // Mostrar las cartas del jugador actual y la última carta jugada
-        // Ejemplo:
-        // &quot;Cartas en mano: [rojo 5, azul 3, verde +2]&quot;
-        // &quot;Última carta jugada: rojo 5&quot;
-<span class="nc" id="L31">    }</span>
+<span class="fc" id="L36">        System.out.println(&quot;Cartas en mano: &quot; + cartasMano);</span>
+<span class="fc" id="L37">        System.out.println(&quot;Última carta jugada: &quot; + ultimaCartaJugada);</span>
+<span class="fc" id="L38">    }</span>
 
     @Override
     public void mostrarCartaJugada(Carta carta) {
-        // Lógica para mostrar la carta que se acaba de jugar
-        // Ejemplo: &quot;Jugador 1 ha jugado la carta: rojo 5&quot;
-<span class="nc" id="L37">    }</span>
+<span class="fc" id="L42">        System.out.println(&quot;Se jugó la carta: &quot; + carta.getColor() + &quot; &quot; + carta.getValor());</span>
+<span class="fc" id="L43">    }</span>
 
     @Override
     public String solicitarColorComodin() {
-        // Lógica para solicitar al usuario elegir un color cuando se juega un comodín
-        // Ejemplo: Mostrar las opciones y pedir una entrada del usuario
-<span class="nc" id="L43">        return &quot;r&quot;; // Retorna el color elegido por el usuario</span>
+<span class="fc" id="L47">        System.out.println(&quot;Elige un color: (r = rojo, b = azul, g = verde, y = amarillo)&quot;);</span>
+<span class="fc" id="L48">        return scanner.nextLine().trim(); // Lee la entrada del usuario</span>
     }
 
     @Override
     public void mostrarGanador(Jugador jugador) {
-        // Lógica para mostrar el ganador del juego
-        // Ejemplo: &quot;¡Jugador 1 ha ganado la partida!&quot;
-<span class="nc" id="L50">    }</span>
+<span class="fc" id="L53">        System.out.println(&quot;¡&quot; + jugador.getNombre() + &quot; ha ganado la partida!&quot;);</span>
+<span class="fc" id="L54">    }</span>
 
     @Override
     public void mostrarMensaje(String mensaje) {
-        // Lógica para mostrar un mensaje general o error
-<span class="nc" id="L55">        System.out.println(mensaje);  // Muestra el mensaje en la consola</span>
-<span class="nc" id="L56">    }</span>
-
-    @Override
-    public void actualizarEstadoJuego() {
-        // Lógica para actualizar el estado visual del juego
-        // Puede incluir limpiar la pantalla, actualizar las cartas, etc.
-<span class="nc" id="L62">    }</span>
+<span class="fc" id="L58">        System.out.println(mensaje);</span>
+<span class="fc" id="L59">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

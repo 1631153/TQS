@@ -4,4 +4,5 @@ test\ModelTest\CartaTest.class
 test\Mock\JugadorMock.class
 test\Mock\MazoMock.class
 test\ModelTest\MazoTest.class
+test\ViewTest\ConsolaViewTest.class
 test\ModelTest\PartidaTest.class
