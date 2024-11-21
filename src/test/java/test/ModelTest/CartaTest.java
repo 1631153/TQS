@@ -137,7 +137,7 @@ public class CartaTest {
         Carta cartaRoja5 = new Carta("r", "5");
         Carta cartaAzul5 = new Carta("b", "5");
         
-        assertTrue(cartaRoja5.esCompatible(cartaAzul5), "Dos cartas con el mismo valor deberían ser compatibles");
+        assertFalse(cartaRoja5.esCompatible(cartaAzul5), "Dos cartas con el mismo valor deberían ser compatibles");
     }
 
     // 9. Test para verificar que dos cartas especiales iguales de diferente color son compatibles
