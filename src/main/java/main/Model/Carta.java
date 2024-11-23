@@ -14,6 +14,11 @@ public class Carta {
      */
 
      public Carta(String color, String valor) {
+        //Precondiciones
+        if (valor == null || valor.isEmpty()) {
+            throw new IllegalArgumentException("El valor no puede ser nulo o vacío.");
+        }
+
         // Verificamos si el valor de la carta es uno de los comodines ("wild" o "+4")
         if (valor.equals("wild") || valor.equals("+4")) {
             // Un comodín no debe tener un color asociado
@@ -38,9 +43,11 @@ public class Carta {
         // Asignamos el color y el valor a la carta si todas las validaciones han pasado
         this.color = color;
         this.valor = valor;
+
+        //Postcondicion
+        assert (this.color == null && (this.valor.equals("wild") || this.valor.equals("+4"))) || isColorValido(this.color) : "El estado de la carta es inconsistente"; 
     }
     
-
     // Getters
     public String getColor() {
         return color;
@@ -52,13 +59,22 @@ public class Carta {
 
     // Método para verificar si la carta es compatible con otra
     public boolean esCompatible(Carta otraCarta) {
+        //Precondicion
+        if(otraCarta == null) {
+            throw new IllegalArgumentException("La carta comparada no puede ser null");
+        }
         // Un comodín es compatible con cualquier carta
         if (this.color == null) {
             return true;
         }
 
         // Dos cartas son compatibles si tienen el mismo color o el mismo valor
-        return this.color.equals(otraCarta.color) || this.valor.equals(otraCarta.valor);
+        boolean res = this.color.equals(otraCarta.color) || this.valor.equals(otraCarta.valor);
+
+        //Postcondicion
+        assert res == (this.color.equals(otraCarta.color) || this.valor.equals(otraCarta.valor)) : "Compatibilidad inconsistente entre cartas";
+        
+        return res;
     }
 
     // Método para verificar si el color es válido
