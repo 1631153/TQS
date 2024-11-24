@@ -70,7 +70,7 @@ public class JugadorTest {
         jugador.robarCarta(mazo);
         jugador.robarCarta(mazo); // Agregar dos cartas a la mano
         
-        assertThrows(IllegalStateException.class, () -> {
+        assertThrows(AssertionError.class, () -> {
             jugador.decirUNO();
         },"El jugador no debería poder decir 'UNO' con más de una carta.");
     }

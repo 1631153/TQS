@@ -30,11 +30,12 @@ public class Jugador {
         // Precondición
         assert (mazo != null) : "El mazo no puede ser null";
 
-        this.mano.add(mazo.robarCarta());
+        Carta cartaRobada = mazo.robarCarta();
+        this.mano.add(cartaRobada);
         haDichoUNO = false;
 
         // Postcondición
-        assert (this.mano.contains(mazo.robarCarta())) : "La carta robada debe añadirse a la mano";
+        assert (this.mano.contains(cartaRobada)) : "La carta robada debe añadirse a la mano";
         assert (!this.haDichoUNO) : "Decir 'UNO' debe restablecerse al robar una carta";
     }
 
