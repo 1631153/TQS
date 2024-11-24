@@ -18,6 +18,11 @@ public class Mazo {
         this.cartas = new ArrayList<>(TOTAL_CARTAS);
         this.ultimaCartaJugada = null;
         inicializar();
+
+        // Postcondición
+        assert (this.cartas.size() == TOTAL_CARTAS) : "El mazo debe contener exactamente " + TOTAL_CARTAS + " cartas";
+        assert (this.ultimaCartaJugada == null) : "No debe haber una carta jugada al inicio";
+        assert (this.comodinColor == null) : "No debe haber un color de comodín establecido al inicio";        
     }
 
     private void inicializar() {
