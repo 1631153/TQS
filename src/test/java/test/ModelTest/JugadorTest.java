@@ -53,7 +53,7 @@ public class JugadorTest {
 
         Carta cartaNoMano = new Carta("r", "5");
 
-        assertFalse(jugador.jugarCarta(cartaNoMano, mazo),  "No se deberia poder jugar una carta que no se tiene en la mano");
+        assertThrows(AssertionError.class, () -> jugador.jugarCarta(cartaNoMano, mazo), "No se debería poder jugar una carta que no se tiene en la mano");
     }
 
     @Test

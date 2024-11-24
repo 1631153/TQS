@@ -42,15 +42,29 @@ public class Mazo {
             cartas.add(new Carta(null, "wild"));
             cartas.add(new Carta(null, "+4"));
         }
+
+        // Postcondición
+        assert (this.cartas.size() == TOTAL_CARTAS) : "Debe inicializarse el mazo con exactamente " + TOTAL_CARTAS + " cartas";
     }
 
     // Devuelve una carta aleatoria respetando las probabilidades iniciales
     public Carta robarCarta() {
+        // Precondición
+        assert !(this.cartas.isEmpty()) : "El mazo no puede estar vacío al robar una carta";
+
         int cartaIndex = random.nextInt(cartas.size());
-        return cartas.get(cartaIndex);
+        Carta cartaRobada = cartas.get(cartaIndex);
+
+        // Postcondición
+        assert (this.cartas.contains(cartaRobada)) : "La carta robada debe estar en el mazo";
+
+        return cartaRobada;
     }
 
     public List<Carta> getCartas() {
+        // Postcondición
+        assert (this.cartas != null) : "La lista de cartas no puede ser null";
+
         return Collections.unmodifiableList(cartas);
     }
 
@@ -64,6 +78,9 @@ public class Mazo {
 
     // Actualiza la última carta jugada si es compatible con la actual, sin comodín
     public boolean actualizarUltimaCartaJugada(Carta carta) {
+        // Precondición
+        assert (carta != null) : "La carta no puede ser null";
+
         // Si la última carta jugada fue un comodín, verifica que la nueva carta coincida con el color del comodín
         if (comodinColor != null) {
             if (carta.getColor() != null && !carta.getColor().equals(comodinColor)) {
@@ -78,11 +95,21 @@ public class Mazo {
         if (carta.getColor() != null) {
             comodinColor = null;
         }
+
+        // Postcondición
+        assert (this.ultimaCartaJugada.equals(carta)) : "La última carta jugada debe actualizarse correctamente";
+
         return true;
     }
 
     // Establece el color de un comodín jugado para condicionar la próxima carta
     public void establecerComodinColor(String colorElegido) {
+        // Precondición
+        assert (colorElegido != null) : "El color elegido no puede ser null";
+
         this.comodinColor = colorElegido;
+
+        // Postcondición
+        assert (this.comodinColor.equals(colorElegido)) : "El color del comodín debe actualizarse correctamente";
     }
 }
