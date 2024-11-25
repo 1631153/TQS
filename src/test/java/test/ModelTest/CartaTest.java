@@ -40,7 +40,7 @@ public class CartaTest {
         }
 
         // Verificar que no se puede crear una carta numérica multicolor
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(AssertionError.class, () -> {
             new Carta(null, "5");
         }, "No se debería permitir crear una carta numérica con color null");
     }
@@ -59,7 +59,7 @@ public class CartaTest {
         // Colores inválidos (partición inválida)
         String[] colorsLimit = {"z", "x", "purple", "", "1", null};
         for (String color : colorsLimit) {
-            assertThrows(IllegalArgumentException.class, () -> {
+            assertThrows(AssertionError.class, () -> {
                 new Carta(color, "5");
             }, "Debería lanzarse IllegalArgumentException para colores no válidos: " + color);
         }
@@ -70,7 +70,7 @@ public class CartaTest {
     public void testCartaColorInvalido() {
         String[] coloresInvalidos = {"z", "x", "purple", "", "1"};
         for (String color : coloresInvalidos) {
-            assertThrows(IllegalArgumentException.class, () -> {
+            assertThrows(AssertionError.class, () -> {
                 new Carta(color, "5");
             }, "Debería lanzarse IllegalArgumentException para colores no válidos: " + color);
         }
@@ -116,7 +116,7 @@ public class CartaTest {
         // Probar cartas de acción sin color
         for (String accion : accionesEspeciales) {
             // Intentar crear una carta especial sin color debe lanzar una excepción
-            assertThrows(IllegalArgumentException.class, () -> {
+            assertThrows(AssertionError.class, () -> {
                 new Carta(null, accion);  // No debe permitir una carta especial sin color
             }, "Las cartas especiales deben tener un color válido");
         }

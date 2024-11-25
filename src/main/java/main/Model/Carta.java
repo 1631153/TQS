@@ -1,5 +1,7 @@
 package main.Model;
 
+import java.util.Objects;
+
 public class Carta {
     private String color;  // "r" = rojo, "b" = azul, "g" = verde, "y" = amarillo, null = comodín
     private String valor;  // "0" a "9" para números, "skip", "reverse", "+2", "wild", "+4" para especiales
@@ -15,8 +17,8 @@ public class Carta {
 
      public Carta(String color, String valor) {
         //Precondiciones
-        assert (valor == null || valor.isEmpty()) : "El valor no puede ser nulo o vacío";
-        assert (color == null) && (valor.equals("wild") || valor.equals("+4") || (color != null && isColorValido(color))) : "El color debe ser válido o null para comodines";
+        assert (valor != null && !valor.isEmpty()) : "El valor no puede ser nulo o vacío";
+        assert (color == null && (valor.equals("wild") || valor.equals("+4"))) || (color != null && isColorValido(color)) : "El color debe ser válido o null para comodines";
 
         // Verificamos si el valor de la carta es uno de los comodines ("wild" o "+4")
         if (valor.equals("wild") || valor.equals("+4")) {
@@ -59,18 +61,25 @@ public class Carta {
 
     // Método para verificar si la carta es compatible con otra
     public boolean esCompatible(Carta otraCarta) {
-        //Precondicion
+        // Precondición
+        assert (otraCarta != null) : "La carta comparada no puede ser null";
         assert (otraCarta.getColor() == null || isColorValido(otraCarta.getColor())) : "El color de la carta comparada debe ser válido o null para comodines";
         assert (otraCarta.getValor() != null && !otraCarta.getValor().isEmpty()) : "El valor de la carta comparada debe ser válido y no vacío";
+    
+        //Esto es para casos comodin
+        if (this.color == null || otraCarta.color == null) {
+            return true;
+        }
 
         // Dos cartas son compatibles si tienen el mismo color o el mismo valor
-        boolean res = this.color.equals(otraCarta.color) || this.valor.equals(otraCarta.valor);
-
-        //Postcondicion
-        assert res == (this.color.equals(otraCarta.color) || this.valor.equals(otraCarta.valor)) : "Compatibilidad inconsistente entre cartas";
-        
+        boolean res = Objects.equals(this.color, otraCarta.color) || Objects.equals(this.valor, otraCarta.valor);
+    
+        // Postcondición
+        assert res == (Objects.equals(this.color, otraCarta.color) || Objects.equals(this.valor, otraCarta.valor)) : "Compatibilidad inconsistente entre cartas";
+    
         return res;
     }
+    
 
     // Método para verificar si el color es válido
     private boolean isColorValido(String color) {
