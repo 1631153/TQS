@@ -13,7 +13,8 @@ public class Partida {
     public Partida() {
         //Precondicion o Invariant?
         assert (jugadores == null || jugadores.isEmpty()) : "La lista de jugadores debe estar vacía";
-
+        assert (mazo == null) : "El mazo debe inicializarse como null";
+        
         this.jugadores = new ArrayList<>();
         this.jugadorActual = 0;
         this.sentidoHorario = true;
@@ -34,6 +35,7 @@ public class Partida {
     public void iniciarPartida(int num_jugadores) {
         //Precondicion
         assert (num_jugadores >= 2 && num_jugadores <= 4) : "El numero de jugadores debe estar entre 2 y 4";
+        assert (mazo != null) : "El mazo debe estar inicializado antes de iniciar la partida";
 
         // Crear 4 jugadores y añadirlos a la lista
         for (int i = 1; i <= num_jugadores; i++) {
@@ -49,12 +51,16 @@ public class Partida {
 
         //Postcondición
         assert (jugadores.size() == num_jugadores) : "El número de jugadores debe ser igual al número inicial";
+        for (Jugador jugador : jugadores) {
+            assert jugador.getMano().size() == 7 : "Cada jugador debe tener 7 cartas al iniciar la partida";
+        }
     }
 
     // Sobrecarga que usa colorElegido como null (simulando un valor por defecto)
     public boolean jugarCarta(Carta carta) {
         //Precondicion
         assert (carta != null) : "La carta a jugar no puede ser null";
+        assert jugadores.contains(getJugadorActual()) : "El jugador actual debe ser parte de la lista de jugadores";
 
         return jugarCarta(carta, null);  // Llama al método principal con colorElegido en null
     }
@@ -64,6 +70,7 @@ public class Partida {
         //Precondicion
         assert (carta != null) : "La carta a jugar no puede ser null";
         assert getJugadorActual().getMano().contains(carta) :  "La carta debe estar en la mano del jugador actual";
+        assert jugadores.contains(getJugadorActual()) : "El jugador actual debe ser parte de la lista de jugadores";
 
         boolean res = getJugadorActual().jugarCarta(carta, mazo); //lo hago para aplicar una postcondición
         
