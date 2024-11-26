@@ -96,4 +96,5 @@ public class Carta {
         return valor.equals("skip") || valor.equals("reverse") || valor.equals("+2") || 
                valor.equals("wild") || valor.equals("+4");
     }
+
 }

@@ -45,11 +45,12 @@ public class Jugador {
         assert (carta != null) : "La carta no puede ser null";
         assert (mazo != null) : "El mazo no puede ser null";
         assert (this.mano.contains(carta)) : "La carta debe estar en la mano del jugador";
-        assert (mazo.obtenerUltimaCartaJugada() != null) : "El mazo debe tener una última carta jugada";
 
         boolean jugada = false;
         if (this.mano.contains(carta) && mazo.actualizarUltimaCartaJugada(carta)) {
+            assert (this.mano.contains(carta)) : "La carta jugada debe estar en la mano";
             this.mano.remove(carta);
+            assert !(this.mano.contains(carta)) : "La carta jugada no debe estar en la mano";
             jugada = true;
         }
 

@@ -9,6 +9,7 @@ public class Partida {
     private boolean sentidoHorario;      // Dirección del juego (true = horario, false = antihorario)
     private Mazo mazo;                   // Mazo de cartas
 
+
     // Constructor
     public Partida() {
         //Precondicion o Invariant?
@@ -71,23 +72,24 @@ public class Partida {
         assert (carta != null) : "La carta a jugar no puede ser null";
         assert getJugadorActual().getMano().contains(carta) :  "La carta debe estar en la mano del jugador actual";
         assert jugadores.contains(getJugadorActual()) : "El jugador actual debe ser parte de la lista de jugadores";
-
-        boolean res = getJugadorActual().jugarCarta(carta, mazo); //lo hago para aplicar una postcondición
         
+        Jugador jugadorActual = getJugadorActual();
+
         // Jugar la carta: remover de la mano del jugador y actualizar el mazo
-        if (res) {
+        if (jugadorActual.jugarCarta(carta, mazo)) {
             // Si es una carta especial, aplicar su efecto
             if (carta.isValorEspecial(carta.getValor())) {
+                //Postconidicon
+                assert !(getJugadorActual().getMano().contains(carta)) : "La carta jugada no debe estar en la mano del jugador actual.";
                 aplicarCartaEspecial(carta, colorElegido);
             } else {
+                //Postconidicon
+                assert !(getJugadorActual().getMano().contains(carta)) : "La carta jugada no debe estar en la mano del jugador actual.";
                 cambiarTurno();
             }
+            return true;
         }
-
-        //Postconidicon
-        assert !(getJugadorActual().getMano().contains(carta)) : "La carta jugada no debe estar en la mano del jugador actual.";
-        
-        return res;
+        return false;
     }
 
     // Método para aplicar el efecto de una carta especial, incluyendo elección de color para comodines

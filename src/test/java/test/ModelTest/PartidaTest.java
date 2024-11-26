@@ -22,7 +22,6 @@ public class PartidaTest {
         partida.iniciarPartida(4);  // Inicializar partida con 4 jugadores
         mazo = new MazoMock();
         partida.setMazoMock(mazo);
-
     }
 
     @Test
@@ -65,6 +64,9 @@ public class PartidaTest {
     @Test
     public void testJugarCarta_CartaCompatible() {
         Carta cartaActual = new Carta("r", "7");
+        Carta cartaInicial = new Carta("r", "5");
+        mazo.actualizarUltimaCartaJugada(cartaInicial);
+
         mazo.definirCartaParaRobar(cartaActual);
         partida.robarCartaJugadorActual();
         partida.jugarCarta(cartaActual);
@@ -82,6 +84,7 @@ public class PartidaTest {
     @Test
     public void testJugarCarta_CartaIncompatible() {
         Carta cartaActual = new Carta("b", "7");
+
         mazo.definirCartaParaRobar(cartaActual);
         partida.robarCartaJugadorActual();
         partida.jugarCarta(cartaActual);
@@ -98,6 +101,8 @@ public class PartidaTest {
     @Test
     public void testJugarCarta_ComodinConColorElegido() {
         Carta cartaComodin = new Carta(null, "wild");
+        Carta cartaInicial = new Carta("r", "5");
+        mazo.actualizarUltimaCartaJugada(cartaInicial);
         mazo.definirCartaParaRobar(cartaComodin);
         partida.robarCartaJugadorActual();
 
@@ -114,6 +119,8 @@ public class PartidaTest {
         assertTrue(partida.getSentidoHorario(), "El sentido de juego debería iniciar en horario.");
 
         Carta cartaReverse = new Carta("r", "reverse");
+        Carta cartaInicial = new Carta("r", "5");
+        mazo.actualizarUltimaCartaJugada(cartaInicial);
         mazo.definirCartaParaRobar(cartaReverse);
         partida.robarCartaJugadorActual();
 
@@ -180,6 +187,8 @@ public class PartidaTest {
     @Test
     public void testAplicarCartaEspecial_RobarDosCartas() {
         Carta cartaMasDos = new Carta("r", "+2");
+        Carta cartaInicial = new Carta("r", "5");
+        mazo.actualizarUltimaCartaJugada(cartaInicial);
         mazo.definirCartaParaRobar(cartaMasDos);
         partida.robarCartaJugadorActual();
 
