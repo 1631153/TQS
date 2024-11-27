@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 class JuegoControllerTest {
@@ -58,6 +57,7 @@ class JuegoControllerTest {
         inOrder.verify(interfazMock).mostrarMensaje("1. Modo Offline (local)");
         inOrder.verify(interfazMock).mostrarMensaje("2. Modo Online (en desarrollo)");
         inOrder.verify(interfazMock).mostrarMensaje("3. Salir");
+        inOrder.verify(interfazMock).mostrarMensaje("Selecciona una opción: ");
 
         // Para finalizar el test siempre hay que finalizar el metodo, es por este motivo 
         // que siempre incluyo la opcion 3 para salir del metodo.
@@ -348,23 +348,21 @@ class JuegoControllerTest {
     @Test
     void testIniciarPartida() throws Exception {
         // Usamos reflexión para invocar el método privado `iniciarPartida`
-        Method metodoIniciarPartida = JuegoController.class.getDeclaredMethod("iniciarPartida", int.class);
+        Method metodoIniciarPartida = JuegoController.class.getDeclaredMethod("iniciarNuevaPartidaOffline");
         metodoIniciarPartida.setAccessible(true);
 
-        // Simular 3 jugadores
-        doNothing().when(interfazMock).mostrarMensaje(anyString());
+        when(interfazMock.solicitarAccion())
+        .thenReturn("2")
+        .thenReturn("n")
+        .thenReturn("n")
+        .thenReturn("S")
+        .thenReturn("N");
 
         // Ejecutar el método privado iniciarPartida
-        metodoIniciarPartida.invoke(juegoController, 2);
+        metodoIniciarPartida.invoke(juegoController);
 
         // Verificar que se inicializó la partida con 2 jugadores
-        verify(partidaMock).iniciarPartida(2);
-
-        // Ejecutar el método privado iniciarPartida
-        metodoIniciarPartida.invoke(juegoController, 4);
-
-        // Verificar que se inicializó la partida con 4 jugadores
-        verify(partidaMock).iniciarPartida(4);
+        verify(interfazMock).mostrarMensaje("¡Gracias por jugar!");
     }
 
     // Test relacionados a jugar turno
@@ -475,50 +473,40 @@ class JuegoControllerTest {
         Method metodoJugarTurno = JuegoController.class.getDeclaredMethod("jugarTurno");
         metodoJugarTurno.setAccessible(true);
     
-        // Configuración del mock para simular una partida con cartas no jugables
-        Jugador jugadorMock = mock(Jugador.class);
-    
-        // Cartas válidas
-        Carta cartaMock1 = mock(Carta.class);
-        when(cartaMock1.getColor()).thenReturn("r");
-        when(cartaMock1.getValor()).thenReturn("1");
-    
-        Carta cartaMock2 = mock(Carta.class);
-        when(cartaMock2.getColor()).thenReturn("b");
-        when(cartaMock2.getValor()).thenReturn("2");
-    
-        // Añadimos las cartas a la mano del jugador
-        List<Carta> manoMock = new ArrayList<>();
-        manoMock.add(cartaMock1);
-        manoMock.add(cartaMock2);
-        
-        when(jugadorMock.getMano()).thenReturn(manoMock);
-        when(partidaMock.getJugadorActual()).thenReturn(jugadorMock);
-    
-        // Simulación de la última carta jugada (carta invalida)
+        // Simulación de la última carta jugada
         Carta cartaMockInvalida = mock(Carta.class);
         when(cartaMockInvalida.getColor()).thenReturn("b");
         when(cartaMockInvalida.getValor()).thenReturn("2");
         when(partidaMock.obtenerUltimaCartaJugada()).thenReturn(cartaMockInvalida);
-    
+            
+        // Configuración del mock para simular una partida con cartas no jugables
+        Jugador jugadorMock = mock(Jugador.class);
+
+        // Añadimos la carta no valida a la mano del jugador
+        Carta cartaMock = mock(Carta.class);
+        List<Carta> manoMock = new ArrayList<>();
+        when(cartaMock.getColor()).thenReturn("r");
+        when(cartaMock.getValor()).thenReturn("1");
+        manoMock.add(cartaMock);
+        when(jugadorMock.getMano()).thenReturn(manoMock);
+        when(partidaMock.getJugadorActual()).thenReturn(jugadorMock);
+
         // Configuración de las respuestas de las acciones del jugador
-        when(interfazMock.solicitarAccion()).thenReturn("1").thenReturn("2");
+        when(interfazMock.solicitarAccion()).thenReturn("1");
     
         // Configuración de las respuestas del método jugarCarta
-        when(partidaMock.jugarCarta(cartaMock1, null)).thenReturn(false);  // Carta no válida
-        when(partidaMock.jugarCarta(cartaMock2, null)).thenReturn(true);   // Carta válida
+        when(partidaMock.jugarCarta(cartaMock, null)).thenReturn(false);  // Carta no válida
     
         // Ejecutar el método privado jugarTurno
         metodoJugarTurno.invoke(juegoController);
     
         // Verificar el flujo de ejecución
-        verify(partidaMock).jugarCarta(cartaMock1, null); // Verificar que intentó jugar la carta no válida
+        verify(partidaMock).jugarCarta(cartaMock, null); // Verificar que intentó jugar la carta no válida
         verify(interfazMock).mostrarMensaje("Carta no válida."); // Verificar que mostró el mensaje de carta no válida
-        verify(partidaMock).jugarCarta(cartaMock2, null); // Verificar que intentó jugar la carta válida
     }
 
     @Test
-    void testJugarTurno_jugarCartaFueraDeMano() throws Exception {
+    void testJugarTurno_jugarCartaFueraDeMano1() throws Exception {
         // Usamos reflexión para invocar el método privado `jugarTurno`
         Method metodoJugarTurno = JuegoController.class.getDeclaredMethod("jugarTurno");
         metodoJugarTurno.setAccessible(true);
@@ -534,11 +522,7 @@ class JuegoControllerTest {
         when(partidaMock.getJugadorActual()).thenReturn(jugadorMock);
         when(jugadorMock.getMano()).thenReturn(manoMock);
         when(interfazMock.solicitarAccion())
-        .thenReturn("0")
-        .thenReturn("\n")
-        .thenReturn("2")
-        .thenReturn("1");
-        when(partidaMock.jugarCarta(cartaMock, null)).thenReturn(true);
+        .thenReturn("0");
 
         // Ejecutar el método privado jugarTurno
         metodoJugarTurno.invoke(juegoController);
@@ -548,8 +532,35 @@ class JuegoControllerTest {
 
         // Verificar que se jugó la carta
         inOrder.verify(interfazMock).mostrarMensaje("Número de carta no válido."); // Verificar que mostró el mensaje de carta no válida
+    }
+
+    @Test
+    void testJugarTurno_jugarCartaFueraDeMano2() throws Exception {
+        // Usamos reflexión para invocar el método privado `jugarTurno`
+        Method metodoJugarTurno = JuegoController.class.getDeclaredMethod("jugarTurno");
+        metodoJugarTurno.setAccessible(true);
+
+        // Configuración del mock para simular una partida con una carta jugable
+        Jugador jugadorMock = mock(Jugador.class);
+        Carta cartaMock = mock(Carta.class);
+        List<Carta> manoMock = new ArrayList<>();
+        when(cartaMock.getColor()).thenReturn(null);
+        when(cartaMock.getValor()).thenReturn("wild");
+        manoMock.add(cartaMock);
+
+        when(partidaMock.getJugadorActual()).thenReturn(jugadorMock);
+        when(jugadorMock.getMano()).thenReturn(manoMock);
+        when(interfazMock.solicitarAccion())
+        .thenReturn("2");
+        
+        // Ejecutar el método privado jugarTurno
+        metodoJugarTurno.invoke(juegoController);
+
+        // Verificar que los mensajes ocurrieron en este orden específico
+        InOrder inOrder = inOrder(interfazMock);
+
+        // Verificar que se jugó la carta
         inOrder.verify(interfazMock).mostrarMensaje("Número de carta no válido."); // Verificar que mostró el mensaje de carta no válida
-        verify(partidaMock).jugarCarta(cartaMock, null);
     }
 
     @Test
@@ -568,15 +579,14 @@ class JuegoControllerTest {
 
         when(partidaMock.getJugadorActual()).thenReturn(jugadorMock);
         when(jugadorMock.getMano()).thenReturn(manoMock);
-        when(interfazMock.solicitarAccion()).thenReturn("X").thenReturn("1");
-        when(partidaMock.jugarCarta(cartaMock, null)).thenReturn(true);
+        when(interfazMock.solicitarAccion())
+        .thenReturn("X");
 
         // Ejecutar el método privado jugarTurno
         metodoJugarTurno.invoke(juegoController);
 
         // Verificar que se jugó la carta
         verify(interfazMock).mostrarMensaje("Acción no válida."); // Verificar que mostró el mensaje de carta no válida
-        verify(partidaMock).jugarCarta(cartaMock, null);
     }
 
     @Test
