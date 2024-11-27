@@ -5,4 +5,5 @@ test\Mock\JugadorMock.class
 test\Mock\MazoMock.class
 test\ModelTest\MazoTest.class
 test\ViewTest\ConsolaViewTest.class
+test\ControllerTest\JuegoControllerTest.class
 test\ModelTest\PartidaTest.class

@@ -9,45 +9,64 @@ public interface InterfazJuego {
     /**
      * Muestra el estado actual de la partida, incluyendo:
      * - Las cartas en juego
-     * - Los jugadores y sus manos
-     * - El turno actual
+     * - Los jugadores y sus manos (sin revelar el contenido de las manos de otros jugadores).
+     * - El turno actual.
+     * 
+     * @param jugadores        Lista de jugadores en la partida.
+     * @param ultimaCarta      La última carta jugada.
+     * @param colorComodin     El color activo si se jugó un comodín.
+     * @param jugadorActual    El jugador que está en turno.
      */
-    void mostrarEstadoPartida();
-
-    /**
-     * Indica de quién es el turno actual.
-     * @param jugador El jugador cuyo turno es actualmente.
-     */
-    void mostrarTurno(Jugador jugador);
+    public void mostrarEstadoPartida(
+        List<Jugador> jugadores, 
+        Carta ultimaCarta, 
+        String colorComodin, 
+        Jugador jugadorActual);
 
     /**
      * Muestra las cartas en la mano del jugador actual y la última carta jugada.
      * @param cartasMano Lista de cartas en la mano del jugador actual.
-     * @param ultimaCartaJugada La última carta jugada en el mazo.
+     * @param color Color de la última carta jugada en el mazo.
+     * @param valor Valor de la última carta jugada en el mazo.
      */
-    void mostrarEstado(List<Carta> cartasMano, Carta ultimaCartaJugada);
-
-    /**
-     * Muestra la carta que se acaba de jugar en el turno actual.
-     * @param carta La carta jugada.
-     */
-    void mostrarCartaJugada(Carta carta);
-
-    /**
-     * Solicita al usuario elegir un color cuando se juega un comodín.
-     * @return El color elegido por el usuario (ej., "r", "b", "g", "y").
-     */
-    String solicitarColorComodin();
+    public void mostrarEstado(List<Carta> cartasMano, String color, String valor);
 
     /**
      * Notifica al usuario que un jugador ha ganado la partida.
      * @param jugador El jugador ganador.
      */
-    void mostrarGanador(Jugador jugador);
+    public void mostrarGanador(Jugador jugador);
 
     /**
      * Muestra un mensaje genérico o de error en la interfaz.
      * @param mensaje El mensaje que se desea mostrar.
      */
-    void mostrarMensaje(String mensaje);
+    public void mostrarMensaje(String mensaje);
+
+    /**
+     * Solicita al usuario elegir una acción en su turno, como:
+     * - '1', '2', '3', ... para jugar una carta.
+     * - '+' para robar una carta.
+     * - "S" para salir
+     * @return La acción seleccionada por el usuario.
+     */
+    public String solicitarAccion();
+
+    /**
+     * Solicita al usuario elegir un color cuando se juega un comodín.
+     * Los colores disponibles son:
+     * - "r" para rojo.
+     * - "b" para azul.
+     * - "g" para verde.
+     * - "y" para amarillo.
+     * @return El color elegido por el usuario (ej., "r", "b", "g", "y").
+     */
+    public String solicitarColorComodin();
+
+    /**
+     * Limpia la pantalla de la consola para ofrecer una interfaz más limpia entre turnos o antes de mostrar nuevos datos.
+     * Este método es útil para borrar la información anterior y dar espacio para el siguiente conjunto de mensajes,
+     * mejorando la experiencia de usuario en la aplicación.
+     */
+    public void clearScreen();
 }
