@@ -4,45 +4,95 @@ import main.Model.*;
 import main.View.*;
 
 public class JuegoController {
-    
-    // Atributos
-    private Partida partida;          // Instancia de la lógica de la partida
-    private InterfazJuego interfaz;  // Interfaz para comunicar el estado del juego al usuario
 
-    // Constructor
-    public JuegoController(Partida partida, InterfazJuego interfaz) {
+    private Partida partida; // Mantiene la lógica de la partida actual
+    private InterfazJuego interfaz; // Interfaz para interactuar con el usuario
+
+    public JuegoController() {
+        this.partida = null;
+        this.interfaz = null;
+    }
+
+    public void setPartida(Partida partida) {
         this.partida = partida;
+    }
+
+    public void setInterfaz(InterfazJuego interfaz) {
         this.interfaz = interfaz;
     }
 
-    public void iniciarPartida(int num_jugadores) {
-        partida.iniciarPartida(num_jugadores);
+    /**
+     * Muestra el menú principal al usuario y maneja la selección de opciones.
+     */
+    public void mostrarMenu() {
+        
     }
 
-   // Métodos para manejar el estado del juego
-    public void mostrarEstadoActual() {
-        // Implementar lógica para mostrar el estado actual del juego
+    /**
+     * Muestra el menú del modo Offline y maneja la selección de opciones.
+     */
+    private void manejarModoOffline() {
+
     }
 
-    public boolean jugarCarta(Carta carta) {
-        // Implementar lógica para jugar una carta
+    /**
+     * Inicia una nueva partida offline.
+     */
+    private void iniciarNuevaPartidaOffline() {
+        
+    }
+
+    /**
+     * Guarda la partida actual en un archivo. (Proximamente)
+     */
+    private void guardarPartida() {
+        
+    }
+
+    /**
+     * Carga una partida guardada desde un archivo. (Proximamente)
+     */
+    private void cargarPartida() {
+        
+    }
+
+    /**
+     * Inicializa una nueva partida con el número de jugadores especificado.
+     * 
+     * @param numJugadores Número de jugadores en la partida.
+     */
+    private void iniciarPartida(int numJugadores) {
+       
+    }
+
+    /**
+     * Controla el flujo completo de la partida.
+     */
+    private void iniciarJuego() {
+        
+    }
+
+    /**
+     * Controla el flujo de un turno completo para el jugador actual.
+     * Permite al usuario salir y guardar la partida en cualquier momento. (proximamente)
+     */
+    private boolean jugarTurno() {
         return false;
     }
 
-    public void robarCarta() {
-        // Implementar lógica para robar una carta
-    }
-
-    public void decirUNO() {
-        // Implementar lógica para decir "UNO"
-    }
-
+    /**
+     * Verifica si la partida ha terminado.
+     * 
+     * @return `true` si la partida ha terminado, `false` en caso contrario.
+     */
     public boolean verificarFinDelJuego() {
-        // Implementar lógica para verificar si el juego ha terminado
         return false;
     }
 
-    public void mostrarGanador() {
-        // Implementar lógica para mostrar al ganador
+    /**
+     * Pausa el flujo hasta que el jugador presione Enter.
+     */
+    private void pausar() {
+        
     }
 }
