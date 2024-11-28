@@ -81,7 +81,7 @@ public class JuegoController {
                     iniciarNuevaPartidaOffline();
                     break;
                 case "2":
-                    cargarPartida();
+                    mostrarMenuCargaPartida("saves");
                     break;
                 case "3":
                     regresar = true;
@@ -110,7 +110,7 @@ public class JuegoController {
                 int numeroJugadores = Integer.parseInt(input);
                 if (numeroJugadores >= 2 && numeroJugadores <= 4) {
                     partida = new Partida();
-                    partida.iniciarPartida(numeroJugadores);
+                    iniciarPartida(numeroJugadores);
 
                     while (jugarTurno());
 
@@ -130,21 +130,53 @@ public class JuegoController {
     }
 
     /**
-     * Guarda la partida actual en un archivo. (Proximamente)
+     * Inicializa una nueva partida con el número de jugadores especificado.
+     * 
+     * @param numJugadores Número de jugadores en la partida.
      */
-    private void guardarPartida() {
-        interfaz.mostrarMensaje("Proximamente, todavia en desarollo");
-        pausar();
+    private void iniciarPartida(int numJugadores) {
+        partida.iniciarPartida(numJugadores);
     }
 
     /**
-     * Carga una partida guardada desde un archivo. (Proximamente)
+     * Muestra un menú para cargar una partida desde una carpeta especificada.
+     * Permite al usuario seleccionar una partida guardada o salir del menú.
+     * 
+     * @param fileName Nombre de la carpeta que contiene las partidas guardadas.
      */
-    private void cargarPartida() {
-        interfaz.mostrarMensaje("Proximamente, todavia en desarollo");
-        pausar();
+    private void mostrarMenuCargaPartida(String fileName) {
+        
     }
 
+    /**
+     * Carga una partida guardada a partir del nombre de archivo proporcionado.
+     * Si la partida no se encuentra o ocurre un error, muestra un mensaje correspondiente.
+     * 
+     * @param nombreArchivo Nombre de la partida a cargar (sin la extensión .dat).
+     */
+    private void cargarPartida(String fileName, String nombreArchivo) {
+        
+    }
+
+    /**
+     * Muestra un menú para guardar la partida con un nombre personalizado.
+     * Permite al usuario introducir un nombre para guardar la partida o cancelarla.
+     * 
+     * @param fileName Nombre de la carpeta donde se guardará la partida.
+     */
+    private void mostrarMenuGuardarPartida(String fileName) {
+        
+    }
+
+    /**
+     * Guarda la partida actual con el nombre especificado en la carpeta dada.
+     * 
+     * @param nombrePartida Nombre que se le asignará a la partida guardada.
+     * @param fileName Nombre de la carpeta donde se guardará el archivo de la partida.
+     */
+    private void guardarPartida(String fileName, String nombrePartida) {
+        
+    }
 
     /**
      * Controla el flujo de un turno completo para el jugador actual.
@@ -175,7 +207,7 @@ public class JuegoController {
             interfaz.clearScreen();
 
             if ("S".equalsIgnoreCase(guardar)) {
-                guardarPartida();
+                mostrarMenuGuardarPartida("saves");
             }
             interfaz.mostrarMensaje("Saliendo de la partida...");
             pausar();
@@ -196,6 +228,13 @@ public class JuegoController {
                     }
                     if (!partida.jugarCarta(carta, colorComodin)) {
                         interfaz.mostrarMensaje("Carta no válida.");
+                        pausar();
+                    }
+                    else {
+                        interfaz.mostrarMensaje("El jugador " + jugadorActual.getNombre() + " uso la carta: " + "    [%-9s | %-5s]".formatted(carta.getColor(), carta.getValor()));
+                        if (colorComodin != null) {
+                            interfaz.mostrarMensaje("El color selecionado es: " + colorComodin);
+                        }
                         pausar();
                     }
                 } else {
