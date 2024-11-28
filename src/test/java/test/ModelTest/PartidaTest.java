@@ -2,6 +2,8 @@ package test.ModelTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -64,8 +66,7 @@ public class PartidaTest {
     @Test
     public void testJugarCarta_CartaCompatible() {
         Carta cartaActual = new Carta("r", "7");
-        Carta cartaInicial = new Carta("r", "5");
-        mazo.actualizarUltimaCartaJugada(cartaInicial);
+        
 
         mazo.definirCartaParaRobar(cartaActual);
         partida.robarCartaJugadorActual();
@@ -101,8 +102,7 @@ public class PartidaTest {
     @Test
     public void testJugarCarta_ComodinConColorElegido() {
         Carta cartaComodin = new Carta(null, "wild");
-        Carta cartaInicial = new Carta("r", "5");
-        mazo.actualizarUltimaCartaJugada(cartaInicial);
+       
         mazo.definirCartaParaRobar(cartaComodin);
         partida.robarCartaJugadorActual();
 
@@ -119,8 +119,7 @@ public class PartidaTest {
         assertTrue(partida.getSentidoHorario(), "El sentido de juego debería iniciar en horario.");
 
         Carta cartaReverse = new Carta("r", "reverse");
-        Carta cartaInicial = new Carta("r", "5");
-        mazo.actualizarUltimaCartaJugada(cartaInicial);
+        
         mazo.definirCartaParaRobar(cartaReverse);
         partida.robarCartaJugadorActual();
 
@@ -187,8 +186,6 @@ public class PartidaTest {
     @Test
     public void testAplicarCartaEspecial_RobarDosCartas() {
         Carta cartaMasDos = new Carta("r", "+2");
-        Carta cartaInicial = new Carta("r", "5");
-        mazo.actualizarUltimaCartaJugada(cartaInicial);
         mazo.definirCartaParaRobar(cartaMasDos);
         partida.robarCartaJugadorActual();
 
@@ -219,10 +216,14 @@ public class PartidaTest {
 
     @Test
     public void testEsFinPartida() {
-        Partida partida = new Partida();
-        Carta comodin = new Carta(null, "wild");
+        partida = new Partida();
+        mazo = new MazoMock();
+        
+        Carta cartaComodin = new Carta(null, "wild");
+        mazo.definirCartaParaRobar(cartaComodin);
+        Carta cartaInicial = new Carta("r", "5");
+        mazo.actualizarUltimaCartaJugada(cartaInicial);
 
-        mazo.definirCartaParaRobar(comodin);
         partida.setMazoMock(mazo);
         partida.iniciarPartida(2);
 
@@ -230,7 +231,7 @@ public class PartidaTest {
         assertFalse(partida.esFinPartida(), "La partida no debería terminar si ningun jugador se queda sin cartas.");
         int turnosJugados = 0;
         while (!partida.esFinPartida() && turnosJugados < 14) {
-            boolean resultado = partida.jugarCarta(comodin, "b");
+            boolean resultado = partida.jugarCarta(cartaComodin, "b");
             assertTrue(resultado, "El comodín debería jugarse.");
             turnosJugados++;
         }

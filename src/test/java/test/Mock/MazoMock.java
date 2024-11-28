@@ -1,5 +1,7 @@
 package test.Mock;
 
+import static main.Model.Mazo.TOTAL_CARTAS;
+
 import main.Model.Carta;
 import main.Model.Mazo;
 

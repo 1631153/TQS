@@ -46,17 +46,19 @@ public class Jugador {
         assert (mazo != null) : "El mazo no puede ser null";
         assert (this.mano.contains(carta)) : "La carta debe estar en la mano del jugador";
 
+        int FrecuanciaAntes = Collections.frequency(this.mano, carta);
         boolean jugada = false;
-        if (this.mano.contains(carta) && mazo.actualizarUltimaCartaJugada(carta)) {
-            assert (this.mano.contains(carta)) : "La carta jugada debe estar en la mano";
+        if (mazo.actualizarUltimaCartaJugada(carta)) {
+            int cantidadAntes = mano.size();
             this.mano.remove(carta);
-            assert !(this.mano.contains(carta)) : "La carta jugada no debe estar en la mano";
+            int cantidadDespues = mano.size();
+            assert (cantidadDespues == cantidadAntes - 1) : "Solo una carta deberia eliminarse";
             jugada = true;
         }
-
+        int FrecuanciaDespues = Collections.frequency(this.mano, carta);
         // Postcondición
         if (jugada) {
-            assert !(this.mano.contains(carta)) : "La carta jugada no debe estar en la mano";
+            assert (!this.mano.contains(carta) || (FrecuanciaDespues < FrecuanciaAntes)) : "La carta jugada no debe estar en la mano";
             assert (mazo.obtenerUltimaCartaJugada().equals(carta)) : "La carta jugada debe ser la última en el mazo";
         } else {
             assert (this.mano.contains(carta)) : "La mano debe permanecer sin cambios si no se jugó la carta";

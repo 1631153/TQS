@@ -1,7 +1,9 @@
 package main.Model;
 
 import java.util.List;
+import java.util.Random;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Partida {
     private List<Jugador> jugadores;     // Lista de jugadores en la partida
@@ -74,17 +76,18 @@ public class Partida {
         assert jugadores.contains(getJugadorActual()) : "El jugador actual debe ser parte de la lista de jugadores";
         
         Jugador jugadorActual = getJugadorActual();
-
+        int FrecuanciaAntes = Collections.frequency(jugadorActual.getMano(), carta);
         // Jugar la carta: remover de la mano del jugador y actualizar el mazo
         if (jugadorActual.jugarCarta(carta, mazo)) {
             // Si es una carta especial, aplicar su efecto
+            int FrecuanciaDespues = Collections.frequency(jugadorActual.getMano(), carta);
             if (carta.isValorEspecial(carta.getValor())) {
                 //Postconidicon
-                assert !(getJugadorActual().getMano().contains(carta)) : "La carta jugada no debe estar en la mano del jugador actual.";
+                assert (!getJugadorActual().getMano().contains(carta) || (FrecuanciaDespues < FrecuanciaAntes)) : "La carta jugada no debe estar en la mano del jugador actual.";
                 aplicarCartaEspecial(carta, colorElegido);
             } else {
                 //Postconidicon
-                assert !(getJugadorActual().getMano().contains(carta)) : "La carta jugada no debe estar en la mano del jugador actual.";
+                assert (!getJugadorActual().getMano().contains(carta) || (FrecuanciaDespues < FrecuanciaAntes)) : "La carta jugada no debe estar en la mano del jugador actual.";
                 cambiarTurno();
             }
             return true;
@@ -96,8 +99,7 @@ public class Partida {
     private void aplicarCartaEspecial(Carta carta, String colorElegido) {
          // Precondición
          if (carta.getValor().equals("+4") || carta.getValor().equals("wild")) {
-            assert colorElegido != null && !colorElegido.isEmpty() : 
-                "Debe elegirse un color válido al jugar un comodín.";
+            assert (colorElegido != null && !colorElegido.isEmpty()) : "Debe elegirse un color válido al jugar un comodín";
         }
         
         switch (carta.getValor()) {
@@ -132,25 +134,24 @@ public class Partida {
 
         // Postcondición
         if (carta.getValor().equals("+4") || carta.getValor().equals("wild")) {
-            assert mazo.obtenerComodinColor().equals(colorElegido) : 
-                "El color del comodín debe coincidir con el elegido.";
+            assert (mazo.obtenerComodinColor().equals(colorElegido)) : "El color del comodín debe coincidir con el elegido";
         }
     }
 
     public void robarCartaJugadorActual() {
          // Precondición
-         assert !mazo.getCartas().isEmpty() : "El mazo no puede estar vacío.";
+         assert !(mazo.getCartas().isEmpty()) : "El mazo no puede estar vacío";
         
          getJugadorActual().robarCarta(mazo);
 
          // Postcondición
-        assert getJugadorActual().getMano().size() > 0 : "La mano del jugador debe contener al menos una carta más.";
+        assert (getJugadorActual().getMano().size() > 0) : "La mano del jugador debe contener al menos una carta más";
     }
 
     // Método para cambiar el turno al siguiente jugador
     private void cambiarTurno() {
-        // Precondición: Debe haber al menos dos jugadores en la partida.
-        assert jugadores.size() >= 2 : "Debe haber al menos dos jugadores para cambiar el turno.";
+        // Precondición
+        assert (jugadores.size() >= 2) : "Debe haber al menos dos jugadores para cambiar el turno";
 
         if (sentidoHorario) {
             jugadorActual = (jugadorActual + 1) % jugadores.size();
@@ -159,8 +160,7 @@ public class Partida {
         }
 
         // Postcondición
-        assert jugadorActual >= 0 && jugadorActual < jugadores.size() : 
-            "El índice del jugador actual debe ser válido.";
+        assert (jugadorActual >= 0 && jugadorActual < jugadores.size()) : "El índice del jugador actual debe ser válido";
     }
 
     public boolean getSentidoHorario() {
@@ -169,8 +169,8 @@ public class Partida {
 
     // Método para verificar si la partida ha terminado
     public boolean esFinPartida() {
-        // Invariante: Siempre debe haber jugadores en la partida.
-        assert !jugadores.isEmpty() : "Debe haber jugadores en la partida.";
+        // Precondición
+        assert !(jugadores.isEmpty()) : "Debe haber jugadores en la partida";
 
         for (Jugador jugador : jugadores) {
             if (jugador.getMano().isEmpty()) {
@@ -182,17 +182,16 @@ public class Partida {
 
     // Getter para los jugadores de la partida
     public List<Jugador> getJugadores() {
-        // Invariante: La lista de jugadores no debe ser nula.
-        assert jugadores != null : "La lista de jugadores no puede ser nula.";
+        // Precondición
+        assert (jugadores != null) : "La lista de jugadores no puede ser nula";
 
         return jugadores;
     }
 
     // Getter para el jugador actual
     public Jugador getJugadorActual() {
-         // Precondición: El índice del jugador actual debe ser válido.
-         assert jugadorActual >= 0 && jugadorActual < jugadores.size() : 
-         "El índice del jugador actual debe ser válido.";
+         // Precondición
+         assert (jugadorActual >= 0 && jugadorActual < jugadores.size()) : "El índice del jugador actual debe ser válido";
 
         return jugadores.get(jugadorActual);
     }

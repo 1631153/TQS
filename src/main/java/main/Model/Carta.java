@@ -1,5 +1,6 @@
 package main.Model;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Carta {
@@ -96,5 +97,4 @@ public class Carta {
         return valor.equals("skip") || valor.equals("reverse") || valor.equals("+2") || 
                valor.equals("wild") || valor.equals("+4");
     }
-
 }
