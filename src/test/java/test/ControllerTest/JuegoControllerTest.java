@@ -409,6 +409,7 @@ class JuegoControllerTest {
         metodoJugarTurno.invoke(juegoController);
 
         // Verificar que se jugó la carta
+        verify(interfazMock).solicitarColorComodin();
         verify(partidaMock).jugarCarta(cartaMock, null);
     }
 
@@ -436,6 +437,7 @@ class JuegoControllerTest {
         metodoJugarTurno.invoke(juegoController);
 
         // Verificar que se jugó la carta
+        verify(interfazMock).solicitarColorComodin();
         verify(partidaMock).jugarCarta(cartaMock, null);
     }
 
@@ -463,6 +465,7 @@ class JuegoControllerTest {
         metodoJugarTurno.invoke(juegoController);
 
         // Verificar que se jugó la carta
+        verify(interfazMock, never()).solicitarColorComodin();
         verify(partidaMock).jugarCarta(cartaMock, null);
     }
 
