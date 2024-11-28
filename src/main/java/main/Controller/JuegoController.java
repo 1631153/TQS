@@ -3,6 +3,13 @@ package main.Controller;
 import main.Model.*;
 import main.View.*;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class JuegoController {
@@ -81,7 +88,7 @@ public class JuegoController {
                     iniciarNuevaPartidaOffline();
                     break;
                 case "2":
-                    cargarPartida();
+                    mostrarMenuCargaPartida("saves");
                     break;
                 case "3":
                     regresar = true;
@@ -110,7 +117,7 @@ public class JuegoController {
                 int numeroJugadores = Integer.parseInt(input);
                 if (numeroJugadores >= 2 && numeroJugadores <= 4) {
                     partida = new Partida();
-                    partida.iniciarPartida(numeroJugadores);
+                    iniciarPartida(numeroJugadores);
 
                     while (jugarTurno());
 
@@ -130,21 +137,151 @@ public class JuegoController {
     }
 
     /**
-     * Guarda la partida actual en un archivo. (Proximamente)
+     * Inicializa una nueva partida con el número de jugadores especificado.
+     * 
+     * @param numJugadores Número de jugadores en la partida.
      */
-    private void guardarPartida() {
-        interfaz.mostrarMensaje("Proximamente, todavia en desarollo");
-        pausar();
+    private void iniciarPartida(int numJugadores) {
+        partida.iniciarPartida(numJugadores);
     }
 
     /**
-     * Carga una partida guardada desde un archivo. (Proximamente)
+     * Muestra un menú para cargar una partida desde una carpeta especificada.
+     * Permite al usuario seleccionar una partida guardada o salir del menú.
+     * 
+     * @param fileName Nombre de la carpeta que contiene las partidas guardadas.
      */
-    private void cargarPartida() {
-        interfaz.mostrarMensaje("Proximamente, todavia en desarollo");
-        pausar();
+    private void mostrarMenuCargaPartida(String fileName) {
+        File carpetaSaves = new File(fileName);
+        // Verificar si la carpeta existe
+        if (!carpetaSaves.exists()) {
+            interfaz.mostrarMensaje("La carpeta 'saves' no existe.");
+            pausar();
+            return;
+        }
+
+        // Leer los archivos en la carpeta 'saves'
+        File[] archivos = carpetaSaves.listFiles((dir, name) -> name.endsWith(".dat"));
+        List<String> nombresPartidasGuardadas = new ArrayList<>();
+        for (File archivo : archivos) {
+            // Extraer el nombre de la partida sin la extensión '.dat'
+            nombresPartidasGuardadas.add(archivo.getName().replace(".dat", ""));
+        }
+
+        if (nombresPartidasGuardadas.isEmpty()) {
+            interfaz.mostrarMensaje("No hay partidas guardadas.");
+            pausar();
+            return;
+        }
+
+        // Mostrar el menú de carga con las partidas disponibles
+        boolean salir = false;
+        while (!salir) {
+            interfaz.clearScreen();
+            interfaz.mostrarMensaje("=== Menú Carga Partida ===");
+            interfaz.mostrarMensaje("Selecciona una partida para cargar:");
+            for (int i = 0; i < nombresPartidasGuardadas.size(); i++) {
+                interfaz.mostrarMensaje((i + 1) + ". " + nombresPartidasGuardadas.get(i));
+            }
+            interfaz.mostrarMensaje("S. Salir");
+            interfaz.mostrarMensaje("Por favor, elige una opción:");
+
+            String opcion = interfaz.solicitarAccion();
+            interfaz.clearScreen();
+
+            if ("S".equalsIgnoreCase(opcion)) {
+                interfaz.mostrarMensaje("Saliendo del menú de carga...");
+                pausar();
+                salir = true;
+            } else {
+                try {
+                    int seleccion = Integer.parseInt(opcion);
+                    if (seleccion >= 1 && seleccion <= nombresPartidasGuardadas.size()) {
+                        cargarPartida("saves", nombresPartidasGuardadas.get(seleccion - 1));
+                        salir = true;
+                    } else {
+                        interfaz.mostrarMensaje("Selección inválida. Intenta de nuevo.");
+                        pausar();
+                    }
+                } catch (NumberFormatException e) {
+                    interfaz.mostrarMensaje("Opción inválida. Introduce un número válido o 'S' para salir.");
+                    pausar();
+                }
+            }
+        }
     }
 
+    /**
+     * Carga una partida guardada a partir del nombre de archivo proporcionado.
+     * Si la partida no se encuentra o ocurre un error, muestra un mensaje correspondiente.
+     * 
+     * @param nombreArchivo Nombre de la partida a cargar (sin la extensión .dat).
+     */
+    private void cargarPartida(String fileName, String nombreArchivo) {
+        File archivo = new File(fileName + "/" + nombreArchivo + ".dat");
+        if (!archivo.exists()) {
+            interfaz.mostrarMensaje("No se encontró la partida guardada.");
+            return;
+        }
+        
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivo))) {
+            partida = (Partida) ois.readObject();
+            interfaz.mostrarMensaje("Partida cargada exitosamente.");
+            pausar();
+            
+            while (jugarTurno());
+
+            interfaz.mostrarMensaje("¡Gracias por jugar!");
+            pausar();
+        } catch (IOException | ClassNotFoundException e) {
+            interfaz.mostrarMensaje("Error al cargar la partida");
+        }
+    }
+
+    /**
+     * Muestra un menú para guardar la partida con un nombre personalizado.
+     * Permite al usuario introducir un nombre para guardar la partida o cancelarla.
+     * 
+     * @param fileName Nombre de la carpeta donde se guardará la partida.
+     */
+    private void mostrarMenuGuardarPartida(String fileName) {
+        boolean salir = false;
+        while (!salir) {
+            interfaz.mostrarMensaje("=== Menú Guardar Partida ===");
+            interfaz.mostrarMensaje("Introduce el nombre para guardar la partida o \"\" para cancelar:");
+
+            String nombrePartida = interfaz.solicitarAccion();
+
+            if ("".equalsIgnoreCase(nombrePartida)) {
+                interfaz.mostrarMensaje("Guardado cancelado.");
+                salir = true;
+            } else {
+                guardarPartida(fileName, nombrePartida);
+                salir = true;
+            }
+        }
+    }
+
+    /**
+     * Guarda la partida actual con el nombre especificado en la carpeta dada.
+     * 
+     * @param nombrePartida Nombre que se le asignará a la partida guardada.
+     * @param fileName Nombre de la carpeta donde se guardará el archivo de la partida.
+     */
+    private void guardarPartida(String fileName, String nombrePartida) {
+        if (partida == null) {
+            interfaz.mostrarMensaje("No hay ninguna partida en curso para guardar.");
+            return;
+        }
+
+        File archivo = new File(fileName +"/" + nombrePartida + ".dat");
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(archivo))) {
+            oos.writeObject(partida);
+            interfaz.mostrarMensaje("Partida guardada exitosamente con el nombre: " + nombrePartida);
+        } catch (IOException e) {
+            interfaz.mostrarMensaje("Error al guardar la partida.");
+        }
+    }
 
     /**
      * Controla el flujo de un turno completo para el jugador actual.
@@ -175,7 +312,7 @@ public class JuegoController {
             interfaz.clearScreen();
 
             if ("S".equalsIgnoreCase(guardar)) {
-                guardarPartida();
+                mostrarMenuGuardarPartida("saves");
             }
             interfaz.mostrarMensaje("Saliendo de la partida...");
             pausar();
@@ -196,6 +333,13 @@ public class JuegoController {
                     }
                     if (!partida.jugarCarta(carta, colorComodin)) {
                         interfaz.mostrarMensaje("Carta no válida.");
+                        pausar();
+                    }
+                    else {
+                        interfaz.mostrarMensaje("El jugador " + jugadorActual.getNombre() + " uso la carta: " + "    [%-9s | %-5s]".formatted(carta.getColor(), carta.getValor()));
+                        if (colorComodin != null) {
+                            interfaz.mostrarMensaje("El color selecionado es: " + colorComodin);
+                        }
                         pausar();
                     }
                 } else {

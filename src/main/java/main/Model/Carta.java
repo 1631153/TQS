@@ -2,7 +2,10 @@ package main.Model;
 
 import java.util.Objects;
 
-public class Carta {
+import java.io.Serializable;
+
+public class Carta implements Serializable {
+    private static final long serialVersionUID = 1L;  // Versión de serialización
     private String color;  // "r" = rojo, "b" = azul, "g" = verde, "y" = amarillo, null = comodín
     private String valor;  // "0" a "9" para números, "skip", "reverse", "+2", "wild", "+4" para especiales
 
