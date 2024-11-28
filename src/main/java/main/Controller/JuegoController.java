@@ -190,7 +190,11 @@ public class JuegoController {
                 List<Carta> mano = jugadorActual.getMano();
                 if (indice >= 0 && indice < mano.size()) {
                     Carta carta = mano.get(indice);
-                    if (!partida.jugarCarta(carta, null)) {
+                    String colorComodin = null;
+                    if (carta.getValor().equals("wild") || carta.getValor().equals("+4")) {
+                        colorComodin = interfaz.solicitarColorComodin();
+                    }
+                    if (!partida.jugarCarta(carta, colorComodin)) {
                         interfaz.mostrarMensaje("Carta no válida.");
                         pausar();
                     }
