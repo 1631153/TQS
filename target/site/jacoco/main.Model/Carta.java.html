@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Carta.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">digitaluno</a> &gt; <a href="index.source.html" class="el_package">main.Model</a> &gt; <span class="el_source">Carta.java</span></div><h1>Carta.java</h1><pre class="source lang-java linenums">package main.Model;
 
-public class Carta {
+import java.util.List;
+import java.util.Objects;
+
+<span class="fc" id="L6">public class Carta {</span>
     private String color;  // &quot;r&quot; = rojo, &quot;b&quot; = azul, &quot;g&quot; = verde, &quot;y&quot; = amarillo, null = comodín
     private String valor;  // &quot;0&quot; a &quot;9&quot; para números, &quot;skip&quot;, &quot;reverse&quot;, &quot;+2&quot;, &quot;wild&quot;, &quot;+4&quot; para especiales
 
@@ -13,68 +16,86 @@ public class Carta {
      *      Los comodines (valores &quot;wild&quot; x4 y &quot;+4&quot; x4) no pueden tener un color asociado (es decir, el atributo color debe ser null).
      */
 
-<span class="fc" id="L16">     public Carta(String color, String valor) {</span>
+<span class="fc" id="L19">     public Carta(String color, String valor) {</span>
+        //Precondiciones
+<span class="pc bpc" id="L21" title="2 of 4 branches missed.">        assert (valor != null &amp;&amp; !valor.isEmpty()) : &quot;El valor no puede ser nulo o vacío&quot;;</span>
+<span class="fc bfc" id="L22" title="All 10 branches covered.">        assert (color == null &amp;&amp; (valor.equals(&quot;wild&quot;) || valor.equals(&quot;+4&quot;))) || (color != null &amp;&amp; isColorValido(color)) : &quot;El color debe ser válido o null para comodines&quot;;</span>
+
         // Verificamos si el valor de la carta es uno de los comodines (&quot;wild&quot; o &quot;+4&quot;)
-<span class="fc bfc" id="L18" title="All 4 branches covered.">        if (valor.equals(&quot;wild&quot;) || valor.equals(&quot;+4&quot;)) {</span>
+<span class="fc bfc" id="L25" title="All 4 branches covered.">        if (valor.equals(&quot;wild&quot;) || valor.equals(&quot;+4&quot;)) {</span>
             // Un comodín no debe tener un color asociado
-<span class="fc bfc" id="L20" title="All 2 branches covered.">            if (color != null) {</span>
-<span class="fc" id="L21">                throw new IllegalArgumentException(&quot;Un comodín no debe tener color&quot;);</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">            if (color != null) {</span>
+<span class="fc" id="L28">                throw new IllegalArgumentException(&quot;Un comodín no debe tener color&quot;);</span>
             }
         } 
         // Si el color es null, verificamos que el valor no sea numérico
-<span class="fc bfc" id="L25" title="All 2 branches covered.">        else if (color == null) {</span>
-<span class="fc" id="L26">            throw new IllegalArgumentException(&quot;Las cartas numéricas no pueden ser comodines (color debe ser no nulo)&quot;);</span>
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">        else if (color == null) {</span>
+<span class="nc" id="L33">            throw new IllegalArgumentException(&quot;Las cartas numéricas no pueden ser comodines (color debe ser no nulo)&quot;);</span>
         } 
         // Verificamos que el color proporcionado sea válido
-<span class="fc bfc" id="L29" title="All 2 branches covered.">        else if (!isColorValido(color)) {</span>
-<span class="fc" id="L30">            throw new IllegalArgumentException(&quot;Color no válido: &quot; + color);</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">        else if (!isColorValido(color)) {</span>
+<span class="nc" id="L37">            throw new IllegalArgumentException(&quot;Color no válido: &quot; + color);</span>
         }
     
         // Validamos que el valor de la carta sea un valor permitido
-<span class="fc bfc" id="L34" title="All 2 branches covered.">        if (!isValorValido(valor)) {</span>
-<span class="fc" id="L35">            throw new IllegalArgumentException(&quot;Valor no válido: &quot; + valor);</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        if (!isValorValido(valor)) {</span>
+<span class="fc" id="L42">            throw new IllegalArgumentException(&quot;Valor no válido: &quot; + valor);</span>
         }
         
         // Asignamos el color y el valor a la carta si todas las validaciones han pasado
-<span class="fc" id="L39">        this.color = color;</span>
-<span class="fc" id="L40">        this.valor = valor;</span>
-<span class="fc" id="L41">    }</span>
-    
+<span class="fc" id="L46">        this.color = color;</span>
+<span class="fc" id="L47">        this.valor = valor;</span>
 
+        //Postcondicion
+<span class="pc bpc" id="L50" title="2 of 4 branches missed.">        assert (this.valor != null &amp;&amp; !this.valor.isEmpty()) : &quot;El valor de la carta debe ser válido y no vacío.&quot;;</span>
+<span class="pc bpc" id="L51" title="2 of 8 branches missed.">        assert (this.color == null &amp;&amp; (this.valor.equals(&quot;wild&quot;) || this.valor.equals(&quot;+4&quot;))) || isColorValido(this.color) : &quot;El estado de la carta es inconsistente&quot;; </span>
+<span class="fc" id="L52">    }</span>
+    
     // Getters
     public String getColor() {
-<span class="fc" id="L46">        return color;</span>
+<span class="fc" id="L56">        return color;</span>
     }
 
     public String getValor() {
-<span class="fc" id="L50">        return valor;</span>
+<span class="fc" id="L60">        return valor;</span>
     }
 
     // Método para verificar si la carta es compatible con otra
     public boolean esCompatible(Carta otraCarta) {
-        // Un comodín es compatible con cualquier carta
-<span class="fc bfc" id="L56" title="All 2 branches covered.">        if (this.color == null) {</span>
-<span class="fc" id="L57">            return true;</span>
+        // Precondición
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">        assert (otraCarta != null) : &quot;La carta comparada no puede ser null&quot;;</span>
+<span class="pc bpc" id="L67" title="1 of 4 branches missed.">        assert (otraCarta.getColor() == null || isColorValido(otraCarta.getColor())) : &quot;El color de la carta comparada debe ser válido o null para comodines&quot;;</span>
+<span class="pc bpc" id="L68" title="2 of 4 branches missed.">        assert (otraCarta.getValor() != null &amp;&amp; !otraCarta.getValor().isEmpty()) : &quot;El valor de la carta comparada debe ser válido y no vacío&quot;;</span>
+    
+        //Esto es para casos comodin
+<span class="pc bpc" id="L71" title="1 of 4 branches missed.">        if (this.color == null || otraCarta.color == null) {</span>
+<span class="fc" id="L72">            return true;</span>
         }
 
         // Dos cartas son compatibles si tienen el mismo color o el mismo valor
-<span class="fc bfc" id="L61" title="All 4 branches covered.">        return this.color.equals(otraCarta.color) || this.valor.equals(otraCarta.valor);</span>
+<span class="fc bfc" id="L76" title="All 4 branches covered.">        boolean res = Objects.equals(this.color, otraCarta.color) || Objects.equals(this.valor, otraCarta.valor);</span>
+    
+        // Postcondición
+<span class="pc bpc" id="L79" title="1 of 6 branches missed.">        assert res == (Objects.equals(this.color, otraCarta.color) || Objects.equals(this.valor, otraCarta.valor)) : &quot;Compatibilidad inconsistente entre cartas&quot;;</span>
+    
+<span class="fc" id="L81">        return res;</span>
     }
+    
 
     // Método para verificar si el color es válido
     private boolean isColorValido(String color) {
-<span class="fc bfc" id="L66" title="All 8 branches covered.">        return color.equals(&quot;r&quot;) || color.equals(&quot;b&quot;) || color.equals(&quot;g&quot;) || color.equals(&quot;y&quot;);</span>
+<span class="fc bfc" id="L87" title="All 8 branches covered.">        return color.equals(&quot;r&quot;) || color.equals(&quot;b&quot;) || color.equals(&quot;g&quot;) || color.equals(&quot;y&quot;);</span>
     }
 
     // Método para verificar si el valor es válido
     private boolean isValorValido(String valor) {
-<span class="fc bfc" id="L71" title="All 4 branches covered.">        return valor.matches(&quot;[0-9]&quot;) || isValorEspecial(valor);</span>
+<span class="fc bfc" id="L92" title="All 4 branches covered.">        return valor.matches(&quot;[0-9]&quot;) || isValorEspecial(valor);</span>
     }
 
     // Método para verificar si el valor es una acción especial
     public boolean isValorEspecial(String valor) {
-<span class="fc bfc" id="L76" title="All 6 branches covered.">        return valor.equals(&quot;skip&quot;) || valor.equals(&quot;reverse&quot;) || valor.equals(&quot;+2&quot;) || </span>
-<span class="fc bfc" id="L77" title="All 4 branches covered.">               valor.equals(&quot;wild&quot;) || valor.equals(&quot;+4&quot;);</span>
+<span class="fc bfc" id="L97" title="All 6 branches covered.">        return valor.equals(&quot;skip&quot;) || valor.equals(&quot;reverse&quot;) || valor.equals(&quot;+2&quot;) || </span>
+<span class="fc bfc" id="L98" title="All 4 branches covered.">               valor.equals(&quot;wild&quot;) || valor.equals(&quot;+4&quot;);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

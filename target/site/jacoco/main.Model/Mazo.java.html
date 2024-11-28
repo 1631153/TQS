@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class Mazo {
+<span class="fc" id="L8">public class Mazo {</span>
     private final Random random;
     private final List&lt;Carta&gt; cartas;
     private Carta ultimaCartaJugada;
@@ -18,72 +18,104 @@ public class Mazo {
 <span class="fc" id="L18">        this.cartas = new ArrayList&lt;&gt;(TOTAL_CARTAS);</span>
 <span class="fc" id="L19">        this.ultimaCartaJugada = null;</span>
 <span class="fc" id="L20">        inicializar();</span>
-<span class="fc" id="L21">    }</span>
+
+        // Postcondición
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">        assert (this.cartas.size() == TOTAL_CARTAS) : &quot;El mazo debe contener exactamente &quot; + TOTAL_CARTAS + &quot; cartas&quot;;</span>
+<span class="pc bpc" id="L24" title="1 of 2 branches missed.">        assert (this.ultimaCartaJugada == null) : &quot;No debe haber una carta jugada al inicio&quot;;</span>
+<span class="pc bpc" id="L25" title="1 of 2 branches missed.">        assert (this.comodinColor == null) : &quot;No debe haber un color de comodín establecido al inicio&quot;;        </span>
+<span class="fc" id="L26">    }</span>
 
     private void inicializar() {
         // Agregar cartas numéricas y especiales por cada color
-<span class="fc bfc" id="L25" title="All 2 branches covered.">        for (String color : new String[]{&quot;r&quot;, &quot;b&quot;, &quot;g&quot;, &quot;y&quot;}) {</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        for (String color : new String[]{&quot;r&quot;, &quot;b&quot;, &quot;g&quot;, &quot;y&quot;}) {</span>
             // Agregar cartas numéricas
-<span class="fc" id="L27">            cartas.add(new Carta(color, &quot;0&quot;)); // Solo un &quot;0&quot; por color</span>
-<span class="fc bfc" id="L28" title="All 2 branches covered.">            for (int i = 1; i &lt;= 9; i++) {</span>
-<span class="fc" id="L29">                String valor = String.valueOf(i);</span>
-<span class="fc" id="L30">                cartas.add(new Carta(color, valor));</span>
-<span class="fc" id="L31">                cartas.add(new Carta(color, valor)); // Duplicado para el rango 1-9</span>
+<span class="fc" id="L32">            cartas.add(new Carta(color, &quot;0&quot;)); // Solo un &quot;0&quot; por color</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">            for (int i = 1; i &lt;= 9; i++) {</span>
+<span class="fc" id="L34">                String valor = String.valueOf(i);</span>
+<span class="fc" id="L35">                cartas.add(new Carta(color, valor));</span>
+<span class="fc" id="L36">                cartas.add(new Carta(color, valor)); // Duplicado para el rango 1-9</span>
             }
             // Agregar cartas especiales
-<span class="fc bfc" id="L34" title="All 2 branches covered.">            for (int i = 0; i &lt; 2; i++) {</span>
-<span class="fc" id="L35">                cartas.add(new Carta(color, &quot;skip&quot;));</span>
-<span class="fc" id="L36">                cartas.add(new Carta(color, &quot;reverse&quot;));</span>
-<span class="fc" id="L37">                cartas.add(new Carta(color, &quot;+2&quot;));</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">            for (int i = 0; i &lt; 2; i++) {</span>
+<span class="fc" id="L40">                cartas.add(new Carta(color, &quot;skip&quot;));</span>
+<span class="fc" id="L41">                cartas.add(new Carta(color, &quot;reverse&quot;));</span>
+<span class="fc" id="L42">                cartas.add(new Carta(color, &quot;+2&quot;));</span>
             }
         }
         // Agregar comodines
-<span class="fc bfc" id="L41" title="All 2 branches covered.">        for (int i = 0; i &lt; 4; i++) {</span>
-<span class="fc" id="L42">            cartas.add(new Carta(null, &quot;wild&quot;));</span>
-<span class="fc" id="L43">            cartas.add(new Carta(null, &quot;+4&quot;));</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        for (int i = 0; i &lt; 4; i++) {</span>
+<span class="fc" id="L47">            cartas.add(new Carta(null, &quot;wild&quot;));</span>
+<span class="fc" id="L48">            cartas.add(new Carta(null, &quot;+4&quot;));</span>
         }
-<span class="fc" id="L45">    }</span>
+
+        // Postcondición
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">        assert (this.cartas.size() == TOTAL_CARTAS) : &quot;Debe inicializarse el mazo con exactamente &quot; + TOTAL_CARTAS + &quot; cartas&quot;;</span>
+<span class="fc" id="L53">    }</span>
 
     // Devuelve una carta aleatoria respetando las probabilidades iniciales
     public Carta robarCarta() {
-<span class="fc" id="L49">        int cartaIndex = random.nextInt(cartas.size());</span>
-<span class="fc" id="L50">        return cartas.get(cartaIndex);</span>
+        // Precondición
+<span class="pc bpc" id="L58" title="1 of 2 branches missed.">        assert !(this.cartas.isEmpty()) : &quot;El mazo no puede estar vacío al robar una carta&quot;;</span>
+
+<span class="fc" id="L60">        int cartaIndex = random.nextInt(cartas.size());</span>
+<span class="fc" id="L61">        Carta cartaRobada = cartas.get(cartaIndex);</span>
+
+        // Postcondición
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">        assert (this.cartas.contains(cartaRobada)) : &quot;La carta robada debe estar en el mazo&quot;;</span>
+
+<span class="fc" id="L66">        return cartaRobada;</span>
     }
 
     public List&lt;Carta&gt; getCartas() {
-<span class="fc" id="L54">        return Collections.unmodifiableList(cartas);</span>
+        // Postcondición
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">        assert (this.cartas != null) : &quot;La lista de cartas no puede ser null&quot;;</span>
+
+<span class="fc" id="L73">        return Collections.unmodifiableList(cartas);</span>
     }
 
     public Carta obtenerUltimaCartaJugada() {
-<span class="fc" id="L58">        return ultimaCartaJugada; // Devuelve la última carta jugada</span>
+<span class="fc" id="L77">        return ultimaCartaJugada; // Devuelve la última carta jugada</span>
     }
 
     public String obtenerComodinColor() {
-<span class="fc" id="L62">        return comodinColor; // Devuelve el color elegido al jugar un comodin</span>
+<span class="fc" id="L81">        return comodinColor; // Devuelve el color elegido al jugar un comodin</span>
     }
 
     // Actualiza la última carta jugada si es compatible con la actual, sin comodín
     public boolean actualizarUltimaCartaJugada(Carta carta) {
+        // Precondición
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">        assert (carta != null) : &quot;La carta no puede ser null&quot;;</span>
+
         // Si la última carta jugada fue un comodín, verifica que la nueva carta coincida con el color del comodín
-<span class="fc bfc" id="L68" title="All 2 branches covered.">        if (comodinColor != null) {</span>
-<span class="fc bfc" id="L69" title="All 4 branches covered.">            if (carta.getColor() != null &amp;&amp; !carta.getColor().equals(comodinColor)) {</span>
-<span class="fc" id="L70">                return false; // La carta no es compatible con el color del comodín y no es otro comodín</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">        if (comodinColor != null) {</span>
+<span class="fc bfc" id="L91" title="All 4 branches covered.">            if (carta.getColor() != null &amp;&amp; !carta.getColor().equals(comodinColor)) {</span>
+<span class="fc" id="L92">                return false; // La carta no es compatible con el color del comodín y no es otro comodín</span>
             }
-<span class="fc bfc" id="L72" title="All 4 branches covered.">        } else if (ultimaCartaJugada != null &amp;&amp; !carta.esCompatible(ultimaCartaJugada)) {</span>
-<span class="fc" id="L73">            return false; // La carta no es compatible con la última carta jugada</span>
+<span class="fc bfc" id="L94" title="All 4 branches covered.">        } else if (ultimaCartaJugada != null &amp;&amp; !carta.esCompatible(ultimaCartaJugada)) {</span>
+<span class="fc" id="L95">            return false; // La carta no es compatible con la última carta jugada</span>
         }
 
         // Actualiza la última carta jugada y restablece comodinColor si se jugó una carta normal
-<span class="fc" id="L77">        this.ultimaCartaJugada = carta;</span>
-<span class="fc bfc" id="L78" title="All 2 branches covered.">        if (carta.getColor() != null) {</span>
-<span class="fc" id="L79">            comodinColor = null;</span>
+<span class="fc" id="L99">        this.ultimaCartaJugada = carta;</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        if (carta.getColor() != null) {</span>
+<span class="fc" id="L101">            comodinColor = null;</span>
         }
-<span class="fc" id="L81">        return true;</span>
+
+        // Postcondición
+<span class="pc bpc" id="L105" title="1 of 2 branches missed.">        assert (this.ultimaCartaJugada.equals(carta)) : &quot;La última carta jugada debe actualizarse correctamente&quot;;</span>
+
+<span class="fc" id="L107">        return true;</span>
     }
 
     // Establece el color de un comodín jugado para condicionar la próxima carta
     public void establecerComodinColor(String colorElegido) {
-<span class="fc" id="L86">        this.comodinColor = colorElegido;</span>
-<span class="fc" id="L87">    }</span>
+        // Precondición
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">        assert (colorElegido != null) : &quot;El color elegido no puede ser null&quot;;</span>
+
+<span class="fc" id="L115">        this.comodinColor = colorElegido;</span>
+
+        // Postcondición
+<span class="pc bpc" id="L118" title="1 of 2 branches missed.">        assert (this.comodinColor.equals(colorElegido)) : &quot;El color del comodín debe actualizarse correctamente&quot;;</span>
+<span class="fc" id="L119">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
