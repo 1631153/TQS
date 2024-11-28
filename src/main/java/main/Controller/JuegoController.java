@@ -3,6 +3,13 @@ package main.Controller;
 import main.Model.*;
 import main.View.*;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class JuegoController {
@@ -145,7 +152,63 @@ public class JuegoController {
      * @param fileName Nombre de la carpeta que contiene las partidas guardadas.
      */
     private void mostrarMenuCargaPartida(String fileName) {
-        
+        File carpetaSaves = new File(fileName);
+        // Verificar si la carpeta existe
+        if (!carpetaSaves.exists()) {
+            interfaz.mostrarMensaje("La carpeta 'saves' no existe.");
+            pausar();
+            return;
+        }
+
+        // Leer los archivos en la carpeta 'saves'
+        File[] archivos = carpetaSaves.listFiles((dir, name) -> name.endsWith(".dat"));
+        List<String> nombresPartidasGuardadas = new ArrayList<>();
+        for (File archivo : archivos) {
+            // Extraer el nombre de la partida sin la extensión '.dat'
+            nombresPartidasGuardadas.add(archivo.getName().replace(".dat", ""));
+        }
+
+        if (nombresPartidasGuardadas.isEmpty()) {
+            interfaz.mostrarMensaje("No hay partidas guardadas.");
+            pausar();
+            return;
+        }
+
+        // Mostrar el menú de carga con las partidas disponibles
+        boolean salir = false;
+        while (!salir) {
+            interfaz.clearScreen();
+            interfaz.mostrarMensaje("=== Menú Carga Partida ===");
+            interfaz.mostrarMensaje("Selecciona una partida para cargar:");
+            for (int i = 0; i < nombresPartidasGuardadas.size(); i++) {
+                interfaz.mostrarMensaje((i + 1) + ". " + nombresPartidasGuardadas.get(i));
+            }
+            interfaz.mostrarMensaje("S. Salir");
+            interfaz.mostrarMensaje("Por favor, elige una opción:");
+
+            String opcion = interfaz.solicitarAccion();
+            interfaz.clearScreen();
+
+            if ("S".equalsIgnoreCase(opcion)) {
+                interfaz.mostrarMensaje("Saliendo del menú de carga...");
+                pausar();
+                salir = true;
+            } else {
+                try {
+                    int seleccion = Integer.parseInt(opcion);
+                    if (seleccion >= 1 && seleccion <= nombresPartidasGuardadas.size()) {
+                        cargarPartida("saves", nombresPartidasGuardadas.get(seleccion - 1));
+                        salir = true;
+                    } else {
+                        interfaz.mostrarMensaje("Selección inválida. Intenta de nuevo.");
+                        pausar();
+                    }
+                } catch (NumberFormatException e) {
+                    interfaz.mostrarMensaje("Opción inválida. Introduce un número válido o 'S' para salir.");
+                    pausar();
+                }
+            }
+        }
     }
 
     /**
@@ -155,7 +218,24 @@ public class JuegoController {
      * @param nombreArchivo Nombre de la partida a cargar (sin la extensión .dat).
      */
     private void cargarPartida(String fileName, String nombreArchivo) {
+        File archivo = new File(fileName + "/" + nombreArchivo + ".dat");
+        if (!archivo.exists()) {
+            interfaz.mostrarMensaje("No se encontró la partida guardada.");
+            return;
+        }
         
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivo))) {
+            partida = (Partida) ois.readObject();
+            interfaz.mostrarMensaje("Partida cargada exitosamente.");
+            pausar();
+            
+            while (jugarTurno());
+
+            interfaz.mostrarMensaje("¡Gracias por jugar!");
+            pausar();
+        } catch (IOException | ClassNotFoundException e) {
+            interfaz.mostrarMensaje("Error al cargar la partida");
+        }
     }
 
     /**
@@ -165,7 +245,21 @@ public class JuegoController {
      * @param fileName Nombre de la carpeta donde se guardará la partida.
      */
     private void mostrarMenuGuardarPartida(String fileName) {
-        
+        boolean salir = false;
+        while (!salir) {
+            interfaz.mostrarMensaje("=== Menú Guardar Partida ===");
+            interfaz.mostrarMensaje("Introduce el nombre para guardar la partida o \"\" para cancelar:");
+
+            String nombrePartida = interfaz.solicitarAccion();
+
+            if ("".equalsIgnoreCase(nombrePartida)) {
+                interfaz.mostrarMensaje("Guardado cancelado.");
+                salir = true;
+            } else {
+                guardarPartida(fileName, nombrePartida);
+                salir = true;
+            }
+        }
     }
 
     /**
@@ -175,7 +269,18 @@ public class JuegoController {
      * @param fileName Nombre de la carpeta donde se guardará el archivo de la partida.
      */
     private void guardarPartida(String fileName, String nombrePartida) {
-        
+        if (partida == null) {
+            interfaz.mostrarMensaje("No hay ninguna partida en curso para guardar.");
+            return;
+        }
+
+        File archivo = new File(fileName +"/" + nombrePartida + ".dat");
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(archivo))) {
+            oos.writeObject(partida);
+            interfaz.mostrarMensaje("Partida guardada exitosamente con el nombre: " + nombrePartida);
+        } catch (IOException e) {
+            interfaz.mostrarMensaje("Error al guardar la partida.");
+        }
     }
 
     /**
