@@ -5,55 +5,105 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Jugador {
+<span class="fc" id="L8">public class Jugador {</span>
     private String nombre;           // Nombre del jugador
     private List&lt;Carta&gt; mano;        // Cartas en la mano del jugador
     private boolean haDichoUNO;      // Indica si el jugador ha dicho &quot;UNO&quot;
 
     // Constructor
 <span class="fc" id="L14">    public Jugador(String nom) {</span>
-<span class="fc" id="L15">        this.nombre = nom;</span>
-<span class="fc" id="L16">        this.mano = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L17">        this.haDichoUNO = false;</span>
-<span class="fc" id="L18">    }</span>
+        //precondicion
+<span class="pc bpc" id="L16" title="1 of 2 branches missed.">        assert (nom != null) : &quot;El nombre no puede ser null&quot;;</span>
+
+<span class="fc" id="L18">        this.nombre = nom;</span>
+<span class="fc" id="L19">        this.mano = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L20">        this.haDichoUNO = false;</span>
+
+        //postcondicion
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">        assert (this.nombre.equals(nom)) : &quot;El nombre no se inicializó correctamente&quot;;</span>
+<span class="pc bpc" id="L24" title="1 of 2 branches missed.">        assert (this.mano.isEmpty()) : &quot;La mano debe estar vacía al principio&quot;;</span>
+<span class="pc bpc" id="L25" title="1 of 2 branches missed.">        assert !(this.haDichoUNO) : &quot;El jugador no debe decir UNO al principio&quot;;</span>
+<span class="fc" id="L26">    }</span>
 
     // Método para que el jugador robe una carta del mazo
     public void robarCarta(Mazo mazo) {
-<span class="fc" id="L22">        this.mano.add(mazo.robarCarta());</span>
-<span class="fc" id="L23">        haDichoUNO = false;</span>
-<span class="fc" id="L24">    }</span>
+        // Precondición
+<span class="pc bpc" id="L31" title="1 of 2 branches missed.">        assert (mazo != null) : &quot;El mazo no puede ser null&quot;;</span>
+
+<span class="fc" id="L33">        Carta cartaRobada = mazo.robarCarta();</span>
+<span class="fc" id="L34">        this.mano.add(cartaRobada);</span>
+<span class="fc" id="L35">        haDichoUNO = false;</span>
+
+        // Postcondición
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        assert (this.mano.contains(cartaRobada)) : &quot;La carta robada debe añadirse a la mano&quot;;</span>
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">        assert (!this.haDichoUNO) : &quot;Decir 'UNO' debe restablecerse al robar una carta&quot;;</span>
+<span class="fc" id="L40">    }</span>
 
     // Método para que el jugador juegue una carta
     public boolean jugarCarta(Carta carta, Mazo mazo) {
-<span class="fc bfc" id="L28" title="All 4 branches covered.">        if (this.mano.contains(carta) &amp;&amp; mazo.actualizarUltimaCartaJugada(carta)) {</span>
-<span class="fc" id="L29">            this.mano.remove(carta);</span>
-<span class="fc" id="L30">            return true;</span>
+        // Precondición
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">        assert (carta != null) : &quot;La carta no puede ser null&quot;;</span>
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">        assert (mazo != null) : &quot;El mazo no puede ser null&quot;;</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        assert (this.mano.contains(carta)) : &quot;La carta debe estar en la mano del jugador&quot;;</span>
+
+<span class="fc" id="L49">        int FrecuanciaAntes = Collections.frequency(this.mano, carta);</span>
+<span class="fc" id="L50">        boolean jugada = false;</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        if (mazo.actualizarUltimaCartaJugada(carta)) {</span>
+<span class="fc" id="L52">            int cantidadAntes = mano.size();</span>
+<span class="fc" id="L53">            this.mano.remove(carta);</span>
+<span class="fc" id="L54">            int cantidadDespues = mano.size();</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">            assert (cantidadDespues == cantidadAntes - 1) : &quot;Solo una carta deberia eliminarse&quot;;</span>
+<span class="fc" id="L56">            jugada = true;</span>
         }
-<span class="fc" id="L32">        return false;  // Coloca la carta en el mazo</span>
+<span class="fc" id="L58">        int FrecuanciaDespues = Collections.frequency(this.mano, carta);</span>
+        // Postcondición
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (jugada) {</span>
+<span class="pc bpc" id="L61" title="1 of 4 branches missed.">            assert (!this.mano.contains(carta) || (FrecuanciaDespues &lt; FrecuanciaAntes)) : &quot;La carta jugada no debe estar en la mano&quot;;</span>
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">            assert (mazo.obtenerUltimaCartaJugada().equals(carta)) : &quot;La carta jugada debe ser la última en el mazo&quot;;</span>
+        } else {
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">            assert (this.mano.contains(carta)) : &quot;La mano debe permanecer sin cambios si no se jugó la carta&quot;;</span>
+        }
+
+<span class="fc" id="L67">        return jugada;  // Coloca la carta en el mazo</span>
     }
 
     // Método para que el jugador diga &quot;UNO&quot;
     public void decirUNO() {
-<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (this.mano.size() == 1) {</span>
-<span class="fc" id="L38">            this.haDichoUNO = true;</span>
+        // Precondición
+<span class="fc bfc" id="L73" title="All 2 branches covered.">        assert (this.mano.size() == 1) : &quot;El jugador solo puede decir 'UNO' si tiene una sola carta&quot;;</span>
+
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">        if (this.mano.size() == 1) {</span>
+<span class="fc" id="L76">            this.haDichoUNO = true;</span>
         } else {
-<span class="fc" id="L40">            throw new IllegalStateException(&quot;El jugador solo puede decir 'UNO' cuando tiene una sola carta.&quot;);</span>
+<span class="nc" id="L78">            throw new IllegalStateException(&quot;El jugador solo puede decir 'UNO' cuando tiene una sola carta.&quot;);</span>
         }
-<span class="fc" id="L42">    }</span>
+
+        // Postcondición
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">        assert (this.haDichoUNO) : &quot;El jugador debe haber dicho 'UNO'&quot;;</span>
+<span class="fc" id="L83">    }</span>
 
     // Getter para la nombre del jugador
     public String getNombre() {
-<span class="fc" id="L46">        return nombre;</span>
+        // Postcondición
+<span class="pc bpc" id="L88" title="1 of 2 branches missed.">        assert (this.nombre != null) : &quot;El nombre no puede ser null&quot;;</span>
+
+<span class="fc" id="L90">        return nombre;</span>
     }
 
     // Getter para la mano del jugador
     public List&lt;Carta&gt; getMano() {
-<span class="fc" id="L51">        return Collections.unmodifiableList(mano);</span>
+        // Postcondición
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        assert (this.mano != null) : &quot;La mano no puede ser null&quot;;</span>
+
+<span class="fc" id="L98">        return Collections.unmodifiableList(mano);</span>
     }
 
     // Método para verificar si el jugador ha dicho UNO
     public boolean haDichoUNO() {
-<span class="fc" id="L56">        return haDichoUNO;</span>
+        // Postcondición
+<span class="pc bpc" id="L104" title="1 of 4 branches missed.">        assert (this.haDichoUNO == (this.mano.size() == 1)) : &quot;El estado de 'UNO' debe ser consistente con el tamaño de la mano&quot;;</span>
+
+<span class="fc" id="L106">        return haDichoUNO;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
