@@ -147,24 +147,11 @@ public class ConsolaView implements InterfazJuego {
         }
     }
 
-    @Override
-    public void mostrarCarta(Carta carta) {
-        if (carta == null) {
-            System.out.println("No hay carta para mostrar.");
-            return;
-        }
-
-        // Obtener el nombre completo del color de la carta
-        String colorCompleto = obtenerColorCompleto(carta.getColor());
-
-        // Imprimir la carta en formato alineado
-        System.out.printf("Carta: [%-9s | %-5s]%n", colorCompleto, carta.getValor());
-    }
 
     /**
      * Método para convertir los colores abreviados a su nombre completo
      */
-    public String obtenerColorCompleto(String color) {
+    private String obtenerColorCompleto(String color) {
         if (color == null) {
             return "AllColors";
         }

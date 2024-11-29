@@ -5,10 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import java.io.Serializable;
-
-public class Mazo implements Serializable {
-    private static final long serialVersionUID = 1L;  // Versión de serialización
+public class Mazo {
     private final Random random;
     private final List<Carta> cartas;
     private Carta ultimaCartaJugada;

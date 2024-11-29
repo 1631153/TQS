@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: test.ViewTest.ConsolaViewTest
 -------------------------------------------------------------------------------
-<<<<<<< HEAD
-Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.415 s - in test.ViewTest.ConsolaViewTest
-=======
-Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.212 s - in test.ViewTest.ConsolaViewTest
->>>>>>> 341040bb410e4680158299a24d336f7f3b080f55
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.468 s - in test.ViewTest.ConsolaViewTest

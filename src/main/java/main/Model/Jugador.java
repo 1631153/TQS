@@ -5,10 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import java.io.Serializable;
-
-public class Jugador implements Serializable {
-    private static final long serialVersionUID = 1L;  // Versión de serialización
+public class Jugador {
     private String nombre;           // Nombre del jugador
     private List<Carta> mano;        // Cartas en la mano del jugador
     private boolean haDichoUNO;      // Indica si el jugador ha dicho "UNO"

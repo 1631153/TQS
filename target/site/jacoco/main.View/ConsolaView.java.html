@@ -147,38 +147,25 @@ public class ConsolaView implements InterfazJuego {
 <span class="fc" id="L147">        }</span>
 <span class="fc" id="L148">    }</span>
 
-    @Override
-    public void mostrarCarta(Carta carta) {
-<span class="fc bfc" id="L152" title="All 2 branches covered.">        if (carta == null) {</span>
-<span class="fc" id="L153">            System.out.println(&quot;No hay carta para mostrar.&quot;);</span>
-<span class="fc" id="L154">            return;</span>
-        }
-
-        // Obtener el nombre completo del color de la carta
-<span class="fc" id="L158">        String colorCompleto = obtenerColorCompleto(carta.getColor());</span>
-
-        // Imprimir la carta en formato alineado
-<span class="fc" id="L161">        System.out.printf(&quot;Carta: [%-9s | %-5s]%n&quot;, colorCompleto, carta.getValor());</span>
-<span class="fc" id="L162">    }</span>
 
     /**
      * Método para convertir los colores abreviados a su nombre completo
      */
-    public String obtenerColorCompleto(String color) {
-<span class="fc bfc" id="L168" title="All 2 branches covered.">        if (color == null) {</span>
-<span class="fc" id="L169">            return &quot;AllColors&quot;;</span>
+    private String obtenerColorCompleto(String color) {
+<span class="fc bfc" id="L155" title="All 2 branches covered.">        if (color == null) {</span>
+<span class="fc" id="L156">            return &quot;AllColors&quot;;</span>
         }
-<span class="fc bfc" id="L171" title="All 5 branches covered.">        switch (color.toLowerCase()) {</span>
+<span class="fc bfc" id="L158" title="All 5 branches covered.">        switch (color.toLowerCase()) {</span>
             case &quot;r&quot;:
-<span class="fc" id="L173">                return &quot;Red&quot;;</span>
+<span class="fc" id="L160">                return &quot;Red&quot;;</span>
             case &quot;b&quot;:
-<span class="fc" id="L175">                return &quot;Blue&quot;;</span>
+<span class="fc" id="L162">                return &quot;Blue&quot;;</span>
             case &quot;g&quot;:
-<span class="fc" id="L177">                return &quot;Green&quot;;</span>
+<span class="fc" id="L164">                return &quot;Green&quot;;</span>
             case &quot;y&quot;:
-<span class="fc" id="L179">                return &quot;Yellow&quot;;</span>
+<span class="fc" id="L166">                return &quot;Yellow&quot;;</span>
             default:
-<span class="fc" id="L181">                return &quot;Error&quot;; // Si no es un color válido, lo devuelve un string de error</span>
+<span class="fc" id="L168">                return &quot;Error&quot;; // Si no es un color válido, lo devuelve un string de error</span>
         }
     }
 }
