@@ -346,6 +346,11 @@ public class JuegoController {
                         interfaz.mostrarMensaje("El jugador " + jugadorActual.getNombre() + " ha jugado su turno.");
                         interfaz.mostrarCarta(carta);
                         pausar();
+
+                        // Verificar si el jugador tiene una sola carta
+                        if (jugadorActual.getMano().size() == 1) {
+                            verificarUno(5, 2);
+                        }
                     }
                 } else {
                     interfaz.mostrarMensaje("Número de carta no válido.");
@@ -373,7 +378,39 @@ public class JuegoController {
      * @return `true` si el jugador dijo "UNO" a tiempo, `false` si recibió la penalización.
      */
     private boolean verificarUno(int tiempoLimite, int cartasPenalizacion) {
-        return true;
+        String jugadorActual = partida.getJugadorActual().getNombre();
+
+        interfaz.mostrarMensaje(jugadorActual + ", ¡debes decir \"UNO\"! Tienes " + tiempoLimite + " segundos.");
+
+        // Usar un ExecutorService para manejar el tiempo límite
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Future<String> future = executor.submit(interfaz::solicitarAccion);
+
+        try {
+            // Esperar respuesta dentro del tiempo límite
+            String respuesta = future.get(tiempoLimite, TimeUnit.SECONDS);
+            
+            // Verificar si la respuesta es UNO
+            if (respuesta.trim().equalsIgnoreCase("UNO")) {
+                interfaz.mostrarMensaje("¡Correcto! Has dicho \"UNO\" a tiempo.");
+                return true;
+            } else {
+                interfaz.mostrarMensaje("¡Respuesta incorrecta! No dijiste \"UNO\".");
+            }
+        } catch (TimeoutException e) {
+            interfaz.mostrarMensaje("¡Se acabó el tiempo! No dijiste \"UNO\" a tiempo.");
+        } catch (InterruptedException | ExecutionException e) {
+            interfaz.mostrarMensaje("Error al procesar tu respuesta.");
+        } finally {
+            executor.shutdownNow(); // Liberar recursos
+        }
+
+        // Penalizar al jugador
+        interfaz.mostrarMensaje(jugadorActual + " roba " + cartasPenalizacion + " cartas como penalización.");
+        for (int i = 0; i < cartasPenalizacion; i++) {
+            partida.robarCartaJugadorActual();; // Asumimos que esta función existe
+        }
+        return false;
     }
 
     /**

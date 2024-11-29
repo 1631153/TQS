@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConsolaView.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">digitaluno</a> &gt; <a href="index.source.html" class="el_package">main.View</a> &gt; <span class="el_source">ConsolaView.java</span></div><h1>ConsolaView.java</h1><pre class="source lang-java linenums">package main.View;
+
+import main.Model.Carta;
+import main.Model.Jugador;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Scanner;
+
+public class ConsolaView implements InterfazJuego {
+
+    private Scanner scanner;
+
+    // Constructor
+<span class="fc" id="L16">    public ConsolaView() {</span>
+<span class="fc" id="L17">        this.scanner = new Scanner(System.in); // Usa el flujo estándar por defecto</span>
+<span class="fc" id="L18">    }</span>
+
+    // Constructor que permite configurar un flujo de entrada alternativo
+<span class="fc" id="L21">    public ConsolaView(InputStream inputStream) {</span>
+<span class="fc" id="L22">        this.scanner = new Scanner(inputStream);</span>
+<span class="fc" id="L23">    }</span>
+
+    @Override
+    public void mostrarEstadoPartida(
+        List&lt;Jugador&gt; jugadores, 
+        Carta ultimaCarta, 
+        String colorComodin, 
+        Jugador jugadorActual
+    ) {
+        // Limpiar la pantalla
+<span class="fc" id="L33">        clearScreen();</span>
+
+        // Mostrar el encabezado de la sección
+<span class="fc" id="L36">        mostrarMensaje(&quot;===============================&quot;);</span>
+<span class="fc" id="L37">        mostrarMensaje(&quot;       Estado de Partida       &quot;);</span>
+<span class="fc" id="L38">        mostrarMensaje(&quot;===============================&quot;);</span>
+
+        // Mostrar la lista de jugadores y sus manos
+<span class="fc" id="L41">        mostrarMensaje(&quot;Jugadores:&quot;);</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        for (Jugador jugador : jugadores) {</span>
+<span class="fc" id="L43">            String mano = &quot;Cartas en mano: &quot; + jugador.getMano().size();</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">            if (jugador.equals(jugadorActual)) {</span>
+<span class="fc" id="L45">                mostrarMensaje(&quot;-&gt; &quot; + jugador.getNombre() + &quot; (Tu turno) - &quot; + mano);</span>
+            } else {
+<span class="fc" id="L47">                mostrarMensaje(&quot;- &quot; + jugador.getNombre() + &quot; - &quot; + mano);</span>
+            }
+<span class="fc" id="L49">        }</span>
+
+        // Mostrar quién tiene el turno
+<span class="fc" id="L52">        mostrarMensaje(&quot;Es el turno de: &quot; + jugadorActual.getNombre());</span>
+
+        // Mostrar la última carta jugada
+<span class="fc" id="L55">        String color = null;</span>
+<span class="fc" id="L56">        String valor = null;</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (ultimaCarta != null) {</span>
+<span class="fc" id="L58">            mostrarMensaje(&quot;Carta en juego: &quot; + obtenerColorCompleto(ultimaCarta.getColor()) + &quot; &quot; + ultimaCarta.getValor());</span>
+            // Mostrar el color del comodín, si aplica
+<span class="fc bfc" id="L60" title="All 2 branches covered.">            if (ultimaCarta.getColor() == null) {</span>
+<span class="fc" id="L61">                mostrarMensaje(&quot;El color activo es: &quot; + obtenerColorCompleto(colorComodin));</span>
+<span class="fc" id="L62">                color = colorComodin;</span>
+            }
+            else {
+<span class="fc" id="L65">                color = ultimaCarta.getColor();</span>
+            }
+<span class="fc" id="L67">            valor = ultimaCarta.getValor();</span>
+        } else {
+<span class="fc" id="L69">            mostrarMensaje(&quot;Carta en juego: No hay carta en juego.&quot;);</span>
+        }
+
+<span class="fc" id="L72">        mostrarMensaje(&quot;===============================&quot;);</span>
+<span class="fc" id="L73">        mostrarEstado(jugadorActual.getMano(), color, valor);</span>
+<span class="fc" id="L74">    }</span>
+
+    @Override
+    public void mostrarEstado(List&lt;Carta&gt; cartasMano, String color, String valor) {
+<span class="fc" id="L78">        System.out.println(&quot;Cartas en mano:&quot;);</span>
+
+        // Mostrar cada carta con un formato alineado
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        for (int i = 0; i &lt; cartasMano.size(); i++) {</span>
+<span class="fc" id="L82">            Carta carta = cartasMano.get(i);</span>
+<span class="fc" id="L83">            String colorCompleto = obtenerColorCompleto(carta.getColor());</span>
+            // Asegura que la posición, color y valor estén alineados correctamente
+<span class="fc" id="L85">            System.out.printf(&quot;%-4d -&gt; [%-9s | %-5s]%n&quot;, i + 1, colorCompleto, carta.getValor());</span>
+        }
+<span class="fc" id="L87">    }</span>
+
+    @Override
+    public void mostrarGanador(Jugador jugador) {
+<span class="fc" id="L91">        System.out.println(&quot;¡&quot; + jugador.getNombre() + &quot; ha ganado la partida!&quot;);</span>
+<span class="fc" id="L92">    }</span>
+
+    @Override
+    public void mostrarMensaje(String mensaje) {
+<span class="fc" id="L96">        System.out.println(mensaje);</span>
+<span class="fc" id="L97">    }</span>
+
+    @Override
+    public String solicitarAccion() {
+<span class="fc" id="L101">        return scanner.nextLine().trim();</span>
+    }
+
+    @Override
+    public String solicitarColorComodin() {
+<span class="fc" id="L106">        String colorSeleccionado = &quot;&quot;;</span>
+<span class="fc" id="L107">        boolean entradaValida = false;</span>
+    
+        // Lista de colores válidos
+<span class="fc" id="L110">        String[] coloresValidos = {&quot;r&quot;, &quot;b&quot;, &quot;g&quot;, &quot;y&quot;};</span>
+    
+<span class="fc" id="L112">        System.out.println(&quot;Elige un color: (r = red, b = blue, g = green, y = yellow)&quot;);</span>
+
+        // Continuar solicitando hasta que la entrada sea válida
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        while (!entradaValida) {</span>
+            // Leer la entrada del usuario y eliminar espacios en blanco
+<span class="fc" id="L117">            colorSeleccionado = scanner.nextLine().trim().toLowerCase();</span>
+    
+            // Verificar si la entrada es válida
+<span class="fc bfc" id="L120" title="All 2 branches covered.">            for (String color : coloresValidos) {</span>
+<span class="fc bfc" id="L121" title="All 2 branches covered.">                if (colorSeleccionado.equals(color)) {</span>
+<span class="fc" id="L122">                    entradaValida = true;</span>
+<span class="fc" id="L123">                    break;</span>
+                }
+            }
+    
+<span class="fc" id="L127">            clearScreen();</span>
+
+            // Si la entrada no es válida, mostrar un mensaje y seguir pidiendo una entrada
+<span class="fc bfc" id="L130" title="All 2 branches covered.">            if (!entradaValida) {</span>
+<span class="fc" id="L131">                System.out.println(&quot;Entrada no válida. Por favor, elige un color válido: (r = red, b = blue, g = green, y = yellow)&quot;);</span>
+            }
+        }
+    
+<span class="fc" id="L135">        return colorSeleccionado;</span>
+    }
+
+    @Override
+    public void clearScreen() {
+        try {
+            // Windows
+<span class="fc" id="L142">            ProcessBuilder pb = new ProcessBuilder(&quot;cmd&quot;, &quot;/c&quot;, &quot;cls&quot;);</span>
+<span class="fc" id="L143">            pb.inheritIO().start().waitFor();</span>
+<span class="nc" id="L144">        } catch (IOException | InterruptedException ex) {</span>
+            // Si ocurre algún error al ejecutar el comando
+<span class="nc" id="L146">            System.err.println(&quot;No se pudo limpiar la pantalla.&quot;);</span>
+<span class="fc" id="L147">        }</span>
+<span class="fc" id="L148">    }</span>
+
+    @Override
+    public void mostrarCarta(Carta carta) {
+<span class="fc bfc" id="L152" title="All 2 branches covered.">        if (carta == null) {</span>
+<span class="fc" id="L153">            System.out.println(&quot;No hay carta para mostrar.&quot;);</span>
+<span class="fc" id="L154">            return;</span>
+        }
+
+        // Obtener el nombre completo del color de la carta
+<span class="fc" id="L158">        String colorCompleto = obtenerColorCompleto(carta.getColor());</span>
+
+        // Imprimir la carta en formato alineado
+<span class="fc" id="L161">        System.out.printf(&quot;Carta: [%-9s | %-5s]%n&quot;, colorCompleto, carta.getValor());</span>
+<span class="fc" id="L162">    }</span>
+
+    /**
+     * Método para convertir los colores abreviados a su nombre completo
+     */
+    public String obtenerColorCompleto(String color) {
+<span class="fc bfc" id="L168" title="All 2 branches covered.">        if (color == null) {</span>
+<span class="fc" id="L169">            return &quot;AllColors&quot;;</span>
+        }
+<span class="fc bfc" id="L171" title="All 5 branches covered.">        switch (color.toLowerCase()) {</span>
+            case &quot;r&quot;:
+<span class="fc" id="L173">                return &quot;Red&quot;;</span>
+            case &quot;b&quot;:
+<span class="fc" id="L175">                return &quot;Blue&quot;;</span>
+            case &quot;g&quot;:
+<span class="fc" id="L177">                return &quot;Green&quot;;</span>
+            case &quot;y&quot;:
+<span class="fc" id="L179">                return &quot;Yellow&quot;;</span>
+            default:
+<span class="fc" id="L181">                return &quot;Error&quot;; // Si no es un color válido, lo devuelve un string de error</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

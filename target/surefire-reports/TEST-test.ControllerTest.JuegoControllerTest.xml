@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="test.ControllerTest.JuegoControllerTest" time="1.188" tests="40" errors="0" skipped="0" failures="3">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="test.ControllerTest.JuegoControllerTest" time="6.224" tests="40" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="23"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="ES"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-23\bin"/>
-    <property name="sun.java.command" value="C:\Users\David Bonilla\AppData\Local\Temp\surefire11560601747420882973\surefirebooter-20241129130205263_3.jar C:\Users\David Bonilla\AppData\Local\Temp\surefire11560601747420882973 2024-11-29T13-02-05_125-jvmRun1 surefire-20241129130205263_1tmp surefire_0-20241129130205263_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\David Bonilla\AppData\Local\Temp\surefire5817040934774519877\surefirebooter-20241129150559893_3.jar C:\Users\David Bonilla\AppData\Local\Temp\surefire5817040934774519877 2024-11-29T15-05-59_766-jvmRun1 surefire-20241129150559893_1tmp surefire_0-20241129150559893_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\David Bonilla\OneDrive\Escritorio\Universidad\4t curs universitari\1r semestre\Test i Qualitat del Software (TQS)\Proyecto\TQS\target\test-classes;C:\Users\David Bonilla\OneDrive\Escritorio\Universidad\4t curs universitari\1r semestre\Test i Qualitat del Software (TQS)\Proyecto\TQS\target\classes;C:\Users\David Bonilla\.m2\repository\org\junit\jupiter\junit-jupiter\5.8.2\junit-jupiter-5.8.2.jar;C:\Users\David Bonilla\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.8.2\junit-jupiter-api-5.8.2.jar;C:\Users\David Bonilla\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\David Bonilla\.m2\repository\org\junit\platform\junit-platform-commons\1.8.2\junit-platform-commons-1.8.2.jar;C:\Users\David Bonilla\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\David Bonilla\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.8.2\junit-jupiter-params-5.8.2.jar;C:\Users\David Bonilla\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.8.2\junit-jupiter-engine-5.8.2.jar;C:\Users\David Bonilla\.m2\repository\org\junit\platform\junit-platform-engine\1.8.2\junit-platform-engine-1.8.2.jar;C:\Users\David Bonilla\.m2\repository\org\mockito\mockito-core\4.0.0\mockito-core-4.0.0.jar;C:\Users\David Bonilla\.m2\repository\net\bytebuddy\byte-buddy\1.11.19\byte-buddy-1.11.19.jar;C:\Users\David Bonilla\.m2\repository\net\bytebuddy\byte-buddy-agent\1.11.19\byte-buddy-agent-1.11.19.jar;C:\Users\David Bonilla\.m2\repository\org\objenesis\objenesis\3.2\objenesis-3.2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\David Bonilla\AppData\Local\Temp\surefire11560601747420882973\surefirebooter-20241129130205263_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\David Bonilla\AppData\Local\Temp\surefire5817040934774519877\surefirebooter-20241129150559893_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="23.0.1+11-39"/>
@@ -58,271 +58,43 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="67.0"/>
   </properties>
-  <testcase name="testGuardarPartida_ArchivoExistente" classname="test.ControllerTest.JuegoControllerTest" time="0.745"/>
-  <testcase name="testJugarTurno_jugarCartaValida1" classname="test.ControllerTest.JuegoControllerTest" time="0.039"/>
-  <testcase name="testJugarTurno_jugarCartaValida2" classname="test.ControllerTest.JuegoControllerTest" time="0.007"/>
-  <testcase name="testJugarTurno_jugarCartaValida3" classname="test.ControllerTest.JuegoControllerTest" time="0.004"/>
-  <testcase name="testGuardarPartida_ErrorAlGuardar" classname="test.ControllerTest.JuegoControllerTest" time="0.002"/>
+  <testcase name="testGuardarPartida_ArchivoExistente" classname="test.ControllerTest.JuegoControllerTest" time="0.775"/>
+  <testcase name="testJugarTurno_jugarCartaValida1" classname="test.ControllerTest.JuegoControllerTest" time="0.049"/>
+  <testcase name="testJugarTurno_jugarCartaValida2" classname="test.ControllerTest.JuegoControllerTest" time="0.009"/>
+  <testcase name="testJugarTurno_jugarCartaValida3" classname="test.ControllerTest.JuegoControllerTest" time="0.008"/>
+  <testcase name="testGuardarPartida_ErrorAlGuardar" classname="test.ControllerTest.JuegoControllerTest" time="0.003"/>
   <testcase name="testMostrarMenuGuardarPartida_Guardar" classname="test.ControllerTest.JuegoControllerTest" time="0.005"/>
   <testcase name="testCargarPartida_NoExisteArchivo" classname="test.ControllerTest.JuegoControllerTest" time="0.003"/>
   <testcase name="testMostrarMenuCargaPartida_Salida" classname="test.ControllerTest.JuegoControllerTest" time="0.008"/>
-  <testcase name="testJugarTurno_robarCarta" classname="test.ControllerTest.JuegoControllerTest" time="0.008"/>
-  <testcase name="testMostrarMenuCargaPartida_CarpetaNoExiste" classname="test.ControllerTest.JuegoControllerTest" time="0.102"/>
-  <testcase name="testJugarTurno_jugadorGana" classname="test.ControllerTest.JuegoControllerTest" time="0.01"/>
-  <testcase name="testVerificarUno_NoRespondeATiempo" classname="test.ControllerTest.JuegoControllerTest" time="0.008">
-    <failure message="El jugador debería ser penalizado por no responder a tiempo. ==&gt; expected: &lt;false&gt; but was: &lt;true&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: El jugador debería ser penalizado por no responder a tiempo. ==> expected: <false> but was: <true>
-	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
-	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:40)
-	at org.junit.jupiter.api.Assertions.assertFalse(Assertions.java:235)
-	at test.ControllerTest.JuegoControllerTest.testVerificarUno_NoRespondeATiempo(JuegoControllerTest.java:1088)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
-	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
-	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
-	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
-	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
-	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
-	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
-	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
-	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
-	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:214)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:210)
-	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135)
-	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:66)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
-	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
-	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
-	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
-	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
-	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:107)
-	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
-	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
-	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
-	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
-	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
-	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
-	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
-	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:50)
-	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
-	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
-	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
-	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
-	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
-	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
-	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
-]]></failure>
-  </testcase>
-  <testcase name="testVerificarFinDelJuego_ganador" classname="test.ControllerTest.JuegoControllerTest" time="0.005"/>
-  <testcase name="testMostrarMenuCargaPartida_NoHayPartidasGuardadas" classname="test.ControllerTest.JuegoControllerTest" time="0.003"/>
-  <testcase name="testMostrarMenuCargaPartida_OpcionNoValida999" classname="test.ControllerTest.JuegoControllerTest" time="0.007"/>
-  <testcase name="testMostrarMenu_Opcion1_Opcion1_IntroducirX" classname="test.ControllerTest.JuegoControllerTest" time="0.015"/>
-  <testcase name="testCargarPartida_ErrorAlCargar" classname="test.ControllerTest.JuegoControllerTest" time="0.007"/>
-  <testcase name="testMostrarMenuCargaPartida_OpcionNoNumerica" classname="test.ControllerTest.JuegoControllerTest" time="0.008"/>
-  <testcase name="testMostrarMenu_Opcion1_Opcion2" classname="test.ControllerTest.JuegoControllerTest" time="0.01"/>
+  <testcase name="testJugarTurno_robarCarta" classname="test.ControllerTest.JuegoControllerTest" time="0.004"/>
+  <testcase name="testMostrarMenuCargaPartida_CarpetaNoExiste" classname="test.ControllerTest.JuegoControllerTest" time="0.106"/>
+  <testcase name="testJugarTurno_jugadorGana" classname="test.ControllerTest.JuegoControllerTest" time="0.016"/>
+  <testcase name="testVerificarUno_NoRespondeATiempo" classname="test.ControllerTest.JuegoControllerTest" time="5.012"/>
+  <testcase name="testVerificarFinDelJuego_ganador" classname="test.ControllerTest.JuegoControllerTest" time="0.004"/>
+  <testcase name="testMostrarMenuCargaPartida_NoHayPartidasGuardadas" classname="test.ControllerTest.JuegoControllerTest" time="0.002"/>
+  <testcase name="testMostrarMenuCargaPartida_OpcionNoValida999" classname="test.ControllerTest.JuegoControllerTest" time="0.006"/>
+  <testcase name="testMostrarMenu_Opcion1_Opcion1_IntroducirX" classname="test.ControllerTest.JuegoControllerTest" time="0.008"/>
+  <testcase name="testCargarPartida_ErrorAlCargar" classname="test.ControllerTest.JuegoControllerTest" time="0.006"/>
+  <testcase name="testMostrarMenuCargaPartida_OpcionNoNumerica" classname="test.ControllerTest.JuegoControllerTest" time="0.006"/>
+  <testcase name="testMostrarMenu_Opcion1_Opcion2" classname="test.ControllerTest.JuegoControllerTest" time="0.009"/>
   <testcase name="testMostrarMenu_Opcion1_Opcion3" classname="test.ControllerTest.JuegoControllerTest" time="0.006"/>
   <testcase name="testMostrarMenu_Opcion1_Opcion1_Salir" classname="test.ControllerTest.JuegoControllerTest" time="0.005"/>
-  <testcase name="testMostrarMenu_Opcion1_Opcion1_2Jugadores_SalirSinGuardar" classname="test.ControllerTest.JuegoControllerTest" time="0.012"/>
-  <testcase name="testGuardarPartida_ErrorGuardado" classname="test.ControllerTest.JuegoControllerTest" time="0.002"/>
+  <testcase name="testMostrarMenu_Opcion1_Opcion1_2Jugadores_SalirSinGuardar" classname="test.ControllerTest.JuegoControllerTest" time="0.015"/>
+  <testcase name="testGuardarPartida_ErrorGuardado" classname="test.ControllerTest.JuegoControllerTest" time="0.001"/>
   <testcase name="testMostrarMenuCargaPartida_PartidasGuardadas" classname="test.ControllerTest.JuegoControllerTest" time="0.004"/>
-  <testcase name="testJugarTurno_jugarCartaInvalida" classname="test.ControllerTest.JuegoControllerTest" time="0.007"/>
-  <testcase name="testMostrarMenu_Opcion1_Opcion1_Introducir0y5" classname="test.ControllerTest.JuegoControllerTest" time="0.006"/>
-  <testcase name="testJugarTurno_jugarCartaFueraDeMano1" classname="test.ControllerTest.JuegoControllerTest" time="0.005"/>
-  <testcase name="testJugarTurno_jugarCartaFueraDeMano2" classname="test.ControllerTest.JuegoControllerTest" time="0.004"/>
-  <testcase name="testMostrarMenu_Opcion2" classname="test.ControllerTest.JuegoControllerTest" time="0.005"/>
+  <testcase name="testJugarTurno_jugarCartaInvalida" classname="test.ControllerTest.JuegoControllerTest" time="0.006"/>
+  <testcase name="testMostrarMenu_Opcion1_Opcion1_Introducir0y5" classname="test.ControllerTest.JuegoControllerTest" time="0.009"/>
+  <testcase name="testJugarTurno_jugarCartaFueraDeMano1" classname="test.ControllerTest.JuegoControllerTest" time="0.004"/>
+  <testcase name="testJugarTurno_jugarCartaFueraDeMano2" classname="test.ControllerTest.JuegoControllerTest" time="0.003"/>
+  <testcase name="testMostrarMenu_Opcion2" classname="test.ControllerTest.JuegoControllerTest" time="0.006"/>
   <testcase name="testMostrarMenu_Opcion3" classname="test.ControllerTest.JuegoControllerTest" time="0.003"/>
-  <testcase name="testVerificarUno_DiceUnoCorrectamente" classname="test.ControllerTest.JuegoControllerTest" time="0.013">
-    <failure message="&#10;Wanted but not invoked:&#10;interfazMock.mostrarMensaje(&#10;    &quot;Juan, ¡debes decir &quot;UNO&quot;! Tienes 5 segundos.&quot;&#10;);&#10;-&gt; at test.ControllerTest.JuegoControllerTest.testVerificarUno_DiceUnoCorrectamente(JuegoControllerTest.java:1060)&#10;Actually, there were zero interactions with this mock.&#10;" type="Wanted but not invoked"><![CDATA[Wanted but not invoked:
-interfazMock.mostrarMensaje(
-    "Juan, ¡debes decir "UNO"! Tienes 5 segundos."
-);
--> at test.ControllerTest.JuegoControllerTest.testVerificarUno_DiceUnoCorrectamente(JuegoControllerTest.java:1060)
-Actually, there were zero interactions with this mock.
-
-	at test.ControllerTest.JuegoControllerTest.testVerificarUno_DiceUnoCorrectamente(JuegoControllerTest.java:1060)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
-	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
-	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
-	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
-	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
-	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
-	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
-	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
-	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
-	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:214)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:210)
-	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135)
-	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:66)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
-	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
-	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
-	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
-	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
-	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:107)
-	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
-	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
-	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
-	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
-	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
-	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
-	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
-	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:50)
-	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
-	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
-	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
-	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
-	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
-	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
-	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
-]]></failure>
-  </testcase>
-  <testcase name="testVerificarUno_RespuestaIncorrecta" classname="test.ControllerTest.JuegoControllerTest" time="0.002">
-    <failure message="El jugador debería ser penalizado por decir algo incorrecto. ==&gt; expected: &lt;false&gt; but was: &lt;true&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: El jugador debería ser penalizado por decir algo incorrecto. ==> expected: <false> but was: <true>
-	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
-	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:40)
-	at org.junit.jupiter.api.Assertions.assertFalse(Assertions.java:235)
-	at test.ControllerTest.JuegoControllerTest.testVerificarUno_RespuestaIncorrecta(JuegoControllerTest.java:1120)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
-	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
-	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
-	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
-	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
-	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
-	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
-	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
-	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
-	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:214)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:210)
-	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135)
-	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:66)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
-	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
-	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
-	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
-	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
-	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:107)
-	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
-	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
-	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
-	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
-	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
-	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
-	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
-	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:50)
-	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
-	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
-	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
-	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
-	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
-	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
-	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
-]]></failure>
-  </testcase>
+  <testcase name="testVerificarUno_DiceUnoCorrectamente" classname="test.ControllerTest.JuegoControllerTest" time="0.004"/>
+  <testcase name="testVerificarUno_RespuestaIncorrecta" classname="test.ControllerTest.JuegoControllerTest" time="0.004"/>
   <testcase name="testMostrarMenuGuardarPartida_Cancelar" classname="test.ControllerTest.JuegoControllerTest" time="0.002"/>
-  <testcase name="testMostrarMenu_Opcion1_OpcionNoValido" classname="test.ControllerTest.JuegoControllerTest" time="0.008"/>
-  <testcase name="testMostrarMenuCargaPartida_ConPartidaGuardada" classname="test.ControllerTest.JuegoControllerTest" time="0.004"/>
-  <testcase name="testMostrarMenu_Opcion1_Opcion1_2Jugadores_SalirGuardando" classname="test.ControllerTest.JuegoControllerTest" time="0.007"/>
-  <testcase name="testGuardarPartidaYCargarPartida_Exito" classname="test.ControllerTest.JuegoControllerTest" time="0.017"/>
+  <testcase name="testMostrarMenu_Opcion1_OpcionNoValido" classname="test.ControllerTest.JuegoControllerTest" time="0.005"/>
+  <testcase name="testMostrarMenuCargaPartida_ConPartidaGuardada" classname="test.ControllerTest.JuegoControllerTest" time="0.005"/>
+  <testcase name="testMostrarMenu_Opcion1_Opcion1_2Jugadores_SalirGuardando" classname="test.ControllerTest.JuegoControllerTest" time="0.009"/>
+  <testcase name="testGuardarPartidaYCargarPartida_Exito" classname="test.ControllerTest.JuegoControllerTest" time="0.018"/>
   <testcase name="testMostrarMenu_OpcinoNoValido" classname="test.ControllerTest.JuegoControllerTest" time="0.005"/>
   <testcase name="testJugarTurno_jugarCartaNoNumerica" classname="test.ControllerTest.JuegoControllerTest" time="0.003"/>
   <testcase name="testMostrarMenuCargaPartida_OpcionNoValida0" classname="test.ControllerTest.JuegoControllerTest" time="0.005"/>
