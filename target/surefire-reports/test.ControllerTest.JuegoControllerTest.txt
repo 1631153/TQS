@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: test.ControllerTest.JuegoControllerTest
 -------------------------------------------------------------------------------
-Tests run: 40, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.224 s - in test.ControllerTest.JuegoControllerTest
+Tests run: 40, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.234 s - in test.ControllerTest.JuegoControllerTest

@@ -9,25 +9,29 @@ import java.io.Serializable;
 
 public class Mazo implements Serializable {
     private static final long serialVersionUID = 1L;  // Versión de serialización
-    private final Random random;
-    private final List<Carta> cartas;
-    private Carta ultimaCartaJugada;
+    private final Random random;  // Generador de números aleatorios para el robo de cartas
+    private final List<Carta> cartas;  // Lista de cartas en el mazo
+    private Carta ultimaCartaJugada;  // Guarda la última carta jugada
     private String comodinColor; // Almacena el color después de un comodín
 
-    private static final int TOTAL_CARTAS = 108;
+    private static final int TOTAL_CARTAS = 108;  // Total de cartas en el mazo
 
+    /**
+     * Constructor de la clase Mazo.
+     * Inicializa el mazo con todas las cartas necesarias (cartas numéricas, especiales y comodines).
+     */
     public Mazo() {
         this.random = new Random();
         this.cartas = new ArrayList<>(TOTAL_CARTAS);
         this.ultimaCartaJugada = null;
         inicializar();
-
-        // Postcondición
-        assert (this.cartas.size() == TOTAL_CARTAS) : "El mazo debe contener exactamente " + TOTAL_CARTAS + " cartas";
-        assert (this.ultimaCartaJugada == null) : "No debe haber una carta jugada al inicio";
-        assert (this.comodinColor == null) : "No debe haber un color de comodín establecido al inicio";        
     }
 
+    /**
+     * Método privado que inicializa el mazo con las cartas estándar del juego.
+     * Se añaden cartas numéricas (0-9) para cada color, cartas especiales (skip, reverse, +2)
+     * y comodines ("wild", "+4").
+     */
     private void inicializar() {
         // Agregar cartas numéricas y especiales por cada color
         for (String color : new String[]{"r", "b", "g", "y"}) {
@@ -50,52 +54,67 @@ public class Mazo implements Serializable {
             cartas.add(new Carta(null, "wild"));
             cartas.add(new Carta(null, "+4"));
         }
-
-        // Postcondición
-        assert (this.cartas.size() == TOTAL_CARTAS) : "Debe inicializarse el mazo con exactamente " + TOTAL_CARTAS + " cartas";
     }
 
-    // Devuelve una carta aleatoria respetando las probabilidades iniciales
+    /**
+     * Roba una carta aleatoria del mazo, respetando las probabilidades originales del mazo.
+     * 
+     * @return La carta robada.
+     */
     public Carta robarCarta() {
-        // Precondición
-        assert !(this.cartas.isEmpty()) : "El mazo no puede estar vacío al robar una carta";
-
+        // Se obtiene un índice aleatorio y se roba la carta correspondiente
         int cartaIndex = random.nextInt(cartas.size());
         Carta cartaRobada = cartas.get(cartaIndex);
-
-        // Postcondición
-        assert (this.cartas.contains(cartaRobada)) : "La carta robada debe estar en el mazo";
 
         return cartaRobada;
     }
 
+    /**
+     * Obtiene la lista de cartas del mazo.
+     * 
+     * @return La lista de cartas en el mazo.
+     */
     public List<Carta> getCartas() {
-        // Postcondición
-        assert (this.cartas != null) : "La lista de cartas no puede ser null";
-
-        return Collections.unmodifiableList(cartas);
+        return Collections.unmodifiableList(cartas);  // Devuelve una lista inmutable
     }
 
+    /**
+     * Obtiene la última carta que fue jugada.
+     * 
+     * @return La última carta jugada, o null si no ha habido cartas jugadas.
+     */
     public Carta obtenerUltimaCartaJugada() {
-        return ultimaCartaJugada; // Devuelve la última carta jugada
+        return ultimaCartaJugada;
     }
 
+    /**
+     * Obtiene el color de un comodín jugado, si corresponde.
+     * 
+     * @return El color del comodín, o null si no se ha jugado un comodín.
+     */
     public String obtenerComodinColor() {
-        return comodinColor; // Devuelve el color elegido al jugar un comodin
+        return comodinColor;
     }
 
-    // Actualiza la última carta jugada si es compatible con la actual, sin comodín
+    /**
+     * Actualiza la última carta jugada si es compatible con la carta actual, sin tener en cuenta los comodines.
+     * 
+     * Precondición: La carta no puede ser null.
+     * 
+     * @param carta La carta a intentar jugar.
+     * @return true si la carta fue jugada correctamente, false si no es compatible.
+     */
     public boolean actualizarUltimaCartaJugada(Carta carta) {
-        // Precondición
+        // Precondición: La carta no puede ser null
         assert (carta != null) : "La carta no puede ser null";
 
         // Si la última carta jugada fue un comodín, verifica que la nueva carta coincida con el color del comodín
         if (comodinColor != null) {
             if (carta.getColor() != null && !carta.getColor().equals(comodinColor)) {
-                return false; // La carta no es compatible con el color del comodín y no es otro comodín
+                return false;  // La carta no es compatible con el color del comodín
             }
         } else if (ultimaCartaJugada != null && !carta.esCompatible(ultimaCartaJugada)) {
-            return false; // La carta no es compatible con la última carta jugada
+            return false;  // La carta no es compatible con la última carta jugada
         }
 
         // Actualiza la última carta jugada y restablece comodinColor si se jugó una carta normal
@@ -104,20 +123,23 @@ public class Mazo implements Serializable {
             comodinColor = null;
         }
 
-        // Postcondición
-        assert (this.ultimaCartaJugada.equals(carta)) : "La última carta jugada debe actualizarse correctamente";
-
         return true;
     }
 
-    // Establece el color de un comodín jugado para condicionar la próxima carta
+    /**
+     * Establece el color de un comodín jugado para condicionar la próxima carta jugada.
+     * 
+     * Precondición: El color elegido no puede ser null, y ademas debe de ser valido.
+     * 
+     * @param colorElegido El color elegido para el comodín.
+     */
     public void establecerComodinColor(String colorElegido) {
-        // Precondición
+        // Precondición: El color elegido no puede ser null.
         assert (colorElegido != null) : "El color elegido no puede ser null";
+         // Precondición: El color elegido debe de ser valido.
+        assert (colorElegido.equals("r") || colorElegido.equals("b") || 
+                colorElegido.equals("g") || colorElegido.equals("y")) : "El color elegido debe de ser valido";
 
         this.comodinColor = colorElegido;
-
-        // Postcondición
-        assert (this.comodinColor.equals(colorElegido)) : "El color del comodín debe actualizarse correctamente";
     }
 }

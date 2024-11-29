@@ -1,111 +1,100 @@
 package main.Model;
 
 import java.util.List;
-
 import java.util.ArrayList;
 import java.util.Collections;
-
 import java.io.Serializable;
 
 public class Jugador implements Serializable {
     private static final long serialVersionUID = 1L;  // Versión de serialización
     private String nombre;           // Nombre del jugador
     private List<Carta> mano;        // Cartas en la mano del jugador
-    private boolean haDichoUNO;      // Indica si el jugador ha dicho "UNO"
 
-    // Constructor
-    public Jugador(String nom) {
-        //precondicion
-        assert (nom != null) : "El nombre no puede ser null";
+    /**
+     * Constructor de la clase Jugador.
+     * 
+     * Este constructor inicializa un nuevo jugador con un nombre especificado
+     * y una mano vacía de cartas. El nombre es obligatorio y debe ser válido.
+     * 
+     * @param nombre El nombre del jugador. No puede ser null.
+     */
+    public Jugador(String nombre) {
+        // Precondición: Garantiza que el constructor no reciba un valor null como nombre. 
+        // Es importante validar esta precondición, ya que un nombre null podría causar errores en otras operaciones.
+        assert (nombre != null) : "El nombre no puede ser null";
 
-        this.nombre = nom;
+        this.nombre = nombre;
         this.mano = new ArrayList<>();
-        this.haDichoUNO = false;
-
-        //postcondicion
-        assert (this.nombre.equals(nom)) : "El nombre no se inicializó correctamente";
-        assert (this.mano.isEmpty()) : "La mano debe estar vacía al principio";
-        assert !(this.haDichoUNO) : "El jugador no debe decir UNO al principio";
     }
 
-    // Método para que el jugador robe una carta del mazo
+    /**
+     * Permite al jugador robar una carta del mazo.
+     * 
+     * Precondición: El mazo no puede ser null.
+     * 
+     * Precondición: La carta robada puede ser null.
+     * 
+     * @param mazo El mazo del cual el jugador robará una carta.
+     */
     public void robarCarta(Mazo mazo) {
-        // Precondición
+        // Precondición: Garantiza que el mazo pasado como argumento no sea null. 
+        // Es una precondición importante para evitar errores al intentar interactuar con un objeto inexistente.
         assert (mazo != null) : "El mazo no puede ser null";
 
+        // Robar la carta del mazo
         Carta cartaRobada = mazo.robarCarta();
-        this.mano.add(cartaRobada);
-        haDichoUNO = false;
 
-        // Postcondición
-        assert (this.mano.contains(cartaRobada)) : "La carta robada debe añadirse a la mano";
-        assert (!this.haDichoUNO) : "Decir 'UNO' debe restablecerse al robar una carta";
+        // Precondición: Garantiza que la carta robada del mazo pasado como argumento no sea null. 
+        // Es una precondición importante para evitar errores al intentar interactuar con un objeto inexistente.
+        assert (cartaRobada != null) : "El mazo no puede ser null";
+
+        this.mano.add(cartaRobada);
     }
 
-    // Método para que el jugador juegue una carta
+    /**
+     * Permite al jugador jugar una carta desde su mano al mazo.
+     * 
+     * Precondición: La carta no puede ser null, el mazo no puede ser null, y la carta debe estar en la mano del jugador.
+     * 
+     * @param carta La carta que el jugador desea jugar.
+     * @param mazo El mazo al que el jugador jugará la carta.
+     * @return true si la carta fue jugada exitosamente, false si no fue compatible.
+     */
     public boolean jugarCarta(Carta carta, Mazo mazo) {
-        // Precondición
+        // Precondición: Garantizan que los argumentos son válidos y que el jugador tiene la carta que quiere jugar. 
+        // Sin estas validaciones, podrían ocurrir errores al intentar jugar una carta no válida.
         assert (carta != null) : "La carta no puede ser null";
         assert (mazo != null) : "El mazo no puede ser null";
         assert (this.mano.contains(carta)) : "La carta debe estar en la mano del jugador";
 
-        int FrecuanciaAntes = Collections.frequency(this.mano, carta);
-        boolean jugada = false;
+        // Si la carta es compatible, actualizar la última carta jugada y quitarla de la mano
         if (mazo.actualizarUltimaCartaJugada(carta)) {
-            int cantidadAntes = mano.size();
             this.mano.remove(carta);
-            int cantidadDespues = mano.size();
-            assert (cantidadDespues == cantidadAntes - 1) : "Solo una carta deberia eliminarse";
-            jugada = true;
-        }
-        int FrecuanciaDespues = Collections.frequency(this.mano, carta);
-        // Postcondición
-        if (jugada) {
-            assert (!this.mano.contains(carta) || (FrecuanciaDespues < FrecuanciaAntes)) : "La carta jugada no debe estar en la mano";
-            assert (mazo.obtenerUltimaCartaJugada().equals(carta)) : "La carta jugada debe ser la última en el mazo";
-        } else {
-            assert (this.mano.contains(carta)) : "La mano debe permanecer sin cambios si no se jugó la carta";
+            return true;
         }
 
-        return jugada;  // Coloca la carta en el mazo
+        return false;  // Retorna si la carta fue jugada exitosamente
     }
 
-    // Método para que el jugador diga "UNO"
-    public void decirUNO() {
-        // Precondición
-        assert (this.mano.size() == 1) : "El jugador solo puede decir 'UNO' si tiene una sola carta";
+    // Getter para el nombre del jugador
 
-        if (this.mano.size() == 1) {
-            this.haDichoUNO = true;
-        } else {
-            throw new IllegalStateException("El jugador solo puede decir 'UNO' cuando tiene una sola carta.");
-        }
-
-        // Postcondición
-        assert (this.haDichoUNO) : "El jugador debe haber dicho 'UNO'";
-    }
-
-    // Getter para la nombre del jugador
+    /**
+     * Obtiene el nombre del jugador.
+     * 
+     * @return El nombre del jugador.
+     */
     public String getNombre() {
-        // Postcondición
-        assert (this.nombre != null) : "El nombre no puede ser null";
-
         return nombre;
     }
 
     // Getter para la mano del jugador
+
+    /**
+     * Obtiene la mano del jugador.
+     * 
+     * @return Una lista inmutable de las cartas en la mano del jugador.
+     */
     public List<Carta> getMano() {
-        // Postcondición
-        assert (this.mano != null) : "La mano no puede ser null";
-
-        return Collections.unmodifiableList(mano);
-    }
-
-    // Método para verificar si el jugador ha dicho UNO
-    public boolean haDichoUNO() {
-        // Postcondición
-        assert (this.haDichoUNO == (this.mano.size() == 1)) : "El estado de 'UNO' debe ser consistente con el tamaño de la mano";
-
-        return haDichoUNO;
+        return Collections.unmodifiableList(mano);  // Retorna una lista inmutable
     }
 }

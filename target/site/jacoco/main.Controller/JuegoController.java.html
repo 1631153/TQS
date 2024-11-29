@@ -393,24 +393,26 @@ public class JuegoController {
             // Verificar si la respuesta es UNO
 <span class="fc bfc" id="L394" title="All 2 branches covered.">            if (respuesta.trim().equalsIgnoreCase(&quot;UNO&quot;)) {</span>
 <span class="fc" id="L395">                interfaz.mostrarMensaje(&quot;¡Correcto! Has dicho \&quot;UNO\&quot; a tiempo.&quot;);</span>
-<span class="fc" id="L396">                return true;</span>
+<span class="fc" id="L396">                pausar();</span>
+<span class="fc" id="L397">                return true;</span>
             } else {
-<span class="fc" id="L398">                interfaz.mostrarMensaje(&quot;¡Respuesta incorrecta! No dijiste \&quot;UNO\&quot;.&quot;);</span>
+<span class="fc" id="L399">                interfaz.mostrarMensaje(&quot;¡Respuesta incorrecta! No dijiste \&quot;UNO\&quot;.&quot;);</span>
             }
-<span class="fc" id="L400">        } catch (TimeoutException e) {</span>
-<span class="fc" id="L401">            interfaz.mostrarMensaje(&quot;¡Se acabó el tiempo! No dijiste \&quot;UNO\&quot; a tiempo.&quot;);</span>
-<span class="nc" id="L402">        } catch (InterruptedException | ExecutionException e) {</span>
-<span class="nc" id="L403">            interfaz.mostrarMensaje(&quot;Error al procesar tu respuesta.&quot;);</span>
+<span class="fc" id="L401">        } catch (TimeoutException e) {</span>
+<span class="fc" id="L402">            interfaz.mostrarMensaje(&quot;¡Se acabó el tiempo! No dijiste \&quot;UNO\&quot; a tiempo.&quot;);</span>
+<span class="nc" id="L403">        } catch (InterruptedException | ExecutionException e) {</span>
+<span class="nc" id="L404">            interfaz.mostrarMensaje(&quot;Error al procesar tu respuesta.&quot;);</span>
         } finally {
-<span class="fc" id="L405">            executor.shutdownNow(); // Liberar recursos</span>
+<span class="fc" id="L406">            executor.shutdownNow(); // Liberar recursos</span>
         }
 
         // Penalizar al jugador
-<span class="fc" id="L409">        interfaz.mostrarMensaje(jugadorActual + &quot; roba &quot; + cartasPenalizacion + &quot; cartas como penalización.&quot;);</span>
-<span class="fc bfc" id="L410" title="All 2 branches covered.">        for (int i = 0; i &lt; cartasPenalizacion; i++) {</span>
-<span class="fc" id="L411">            partida.robarCartaJugadorActual();; // Asumimos que esta función existe</span>
+<span class="fc" id="L410">        interfaz.mostrarMensaje(jugadorActual + &quot; roba &quot; + cartasPenalizacion + &quot; cartas como penalización.&quot;);</span>
+<span class="fc bfc" id="L411" title="All 2 branches covered.">        for (int i = 0; i &lt; cartasPenalizacion; i++) {</span>
+<span class="fc" id="L412">            partida.robarCartaJugadorActual();; // Asumimos que esta función existe</span>
         }
-<span class="fc" id="L413">        return false;</span>
+<span class="fc" id="L414">        pausar();</span>
+<span class="fc" id="L415">        return false;</span>
     }
 
     /**
@@ -419,16 +421,16 @@ public class JuegoController {
      * @return `true` si la partida ha terminado, `false` en caso contrario.
      */
     public boolean verificarFinDelJuego() {
-<span class="fc bfc" id="L422" title="All 2 branches covered.">        if (partida.esFinPartida()) {</span>
-<span class="fc" id="L423">            interfaz.clearScreen();</span>
-<span class="fc" id="L424">            Jugador ganador = partida.getJugadores().stream()</span>
-<span class="fc" id="L425">                    .filter(j -&gt; j.getMano().isEmpty())</span>
-<span class="fc" id="L426">                    .findFirst().orElse(null);</span>
-<span class="fc" id="L427">            interfaz.mostrarGanador(ganador);</span>
-<span class="fc" id="L428">            pausar(); // Pausar para mostrar el ganador</span>
-<span class="fc" id="L429">            return true;</span>
+<span class="fc bfc" id="L424" title="All 2 branches covered.">        if (partida.esFinPartida()) {</span>
+<span class="fc" id="L425">            interfaz.clearScreen();</span>
+<span class="fc" id="L426">            Jugador ganador = partida.getJugadores().stream()</span>
+<span class="fc" id="L427">                    .filter(j -&gt; j.getMano().isEmpty())</span>
+<span class="fc" id="L428">                    .findFirst().orElse(null);</span>
+<span class="fc" id="L429">            interfaz.mostrarGanador(ganador);</span>
+<span class="fc" id="L430">            pausar(); // Pausar para mostrar el ganador</span>
+<span class="fc" id="L431">            return true;</span>
         }
-<span class="fc" id="L431">        return false;</span>
+<span class="fc" id="L433">        return false;</span>
     }
 
     /**
@@ -436,11 +438,11 @@ public class JuegoController {
      */
     private void pausar() {
         // Muestra el mensaje solicitando que presione Enter para continuar
-<span class="fc" id="L439">        interfaz.mostrarMensaje(&quot;Presiona Enter para continuar...&quot;);</span>
+<span class="fc" id="L441">        interfaz.mostrarMensaje(&quot;Presiona Enter para continuar...&quot;);</span>
         
         // Espera hasta que el usuario presione Enter
-<span class="fc" id="L442">        interfaz.solicitarAccion();  // Aquí espera que el usuario presione Enter</span>
-<span class="fc" id="L443">        interfaz.clearScreen();</span>
-<span class="fc" id="L444">    }</span>
+<span class="fc" id="L444">        interfaz.solicitarAccion();  // Aquí espera que el usuario presione Enter</span>
+<span class="fc" id="L445">        interfaz.clearScreen();</span>
+<span class="fc" id="L446">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

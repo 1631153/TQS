@@ -3,8 +3,7 @@ package main.Model;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
-
-import java.io.Serializable;  // Importa la interfaz Serializable
+import java.io.Serializable;
 
 public class Partida implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -13,36 +12,47 @@ public class Partida implements Serializable {
     private boolean sentidoHorario;      // Dirección del juego (true = horario, false = antihorario)
     private Mazo mazo;                   // Mazo de cartas
 
-
-    // Constructor
+    /**
+     * Constructor de la clase Partida.
+     * Inicializa la partida con una lista vacía de jugadores, el primer jugador como el jugadorActual,
+     * la dirección del turno (sentidoHorario) a horario y inicializa el mazo correctamente.
+     */
     public Partida() {
-        //Precondicion o Invariant?
-        assert (jugadores == null || jugadores.isEmpty()) : "La lista de jugadores debe estar vacía";
-        assert (mazo == null) : "El mazo debe inicializarse como null";
-        
         this.jugadores = new ArrayList<>();
         this.jugadorActual = 0;
         this.sentidoHorario = true;
         this.mazo = new Mazo();
-
-        //PostCondicion o Invariant?
-        assert (mazo != null) : "El mazo debe estar inicializado.";
     }
 
-    public void setMazoMock(Mazo m) {
-        //Precondicion
-        assert (m != null) : "El mazo mock no puede ser null";
+    /**
+     * Establece un mazo mock para la partida.
+     * 
+     * Precondición: El mazo mock no puede ser null.
+     * 
+     * @param mazo El mazo mock que se quiere establecer.
+     */
+    public void setMazoMock(Mazo mazo) {
+        // Precondición: Valida que el parámetro mazo no sea null, ya que no tiene sentido establecer un mazo null como mock.
+        assert (mazo != null) : "El mazo mock no puede ser null";
 
-        this.mazo = m;
+        this.mazo = mazo;
     }
 
-    // Método para iniciar la partida
+    /**
+     * Inicia la partida con el número de jugadores especificado.
+     * Crea los jugadores, les reparte cartas y establece las condiciones iniciales del juego.
+     * 
+     * Precondición: El número de jugadores debe estar entre 2 y 4.
+     * 
+     * Postcondición: La lista de jugadores debe tener el número adecuado de jugadores y cada uno debe tener 7 cartas.
+     * 
+     * @param num_jugadores El número de jugadores en la partida.
+     */
     public void iniciarPartida(int num_jugadores) {
-        //Precondicion
-        assert (num_jugadores >= 2 && num_jugadores <= 4) : "El numero de jugadores debe estar entre 2 y 4";
-        assert (mazo != null) : "El mazo debe estar inicializado antes de iniciar la partida";
+        // Precondición: Es una validación crítica para el correcto funcionamiento del juego.
+        assert (num_jugadores >= 2 && num_jugadores <= 4) : "El número de jugadores debe estar entre 2 y 4";
 
-        // Crear 4 jugadores y añadirlos a la lista
+        // Crear los jugadores y añadirlos a la lista
         for (int i = 1; i <= num_jugadores; i++) {
             jugadores.add(new Jugador("Jugador" + i));
         }
@@ -54,42 +64,49 @@ public class Partida implements Serializable {
             }
         }
 
-        //Postcondición
+        // Postcondición: El número de jugadores debe ser el correcto y cada jugador debe tener 7 cartas
         assert (jugadores.size() == num_jugadores) : "El número de jugadores debe ser igual al número inicial";
         for (Jugador jugador : jugadores) {
             assert jugador.getMano().size() == 7 : "Cada jugador debe tener 7 cartas al iniciar la partida";
         }
     }
 
-    // Sobrecarga que usa colorElegido como null (simulando un valor por defecto)
+    /**
+     * Permite que el jugador actual juegue una carta sin seleccionar un color para un comodín.
+     * 
+     * @param carta La carta a jugar.
+     * @return true si la carta fue jugada correctamente, false si no fue posible.
+     */
     public boolean jugarCarta(Carta carta) {
-        //Precondicion
-        assert (carta != null) : "La carta a jugar no puede ser null";
-        assert jugadores.contains(getJugadorActual()) : "El jugador actual debe ser parte de la lista de jugadores";
-
         return jugarCarta(carta, null);  // Llama al método principal con colorElegido en null
     }
 
-    // Método para que el jugador actual juegue una carta, con elección de color en caso de comodín
+    /**
+     * Permite que el jugador actual juegue una carta, con la opción de elegir un color si la carta es un comodín.
+     * 
+     * Precondición: La carta no puede ser null.
+     * 
+     * Postcondición: Si la carta es válida, se juega correctamente y se elimina de su mano.
+     * 
+     * @param carta La carta a jugar.
+     * @param colorElegido El color elegido en caso de que la carta sea un comodín (puede ser null).
+     * @return true si la carta fue jugada correctamente, false si no fue válida.
+     */
     public boolean jugarCarta(Carta carta, String colorElegido) {
-        //Precondicion
+        // Precondición: La carta no puede ser null
         assert (carta != null) : "La carta a jugar no puede ser null";
-        assert getJugadorActual().getMano().contains(carta) :  "La carta debe estar en la mano del jugador actual";
-        assert jugadores.contains(getJugadorActual()) : "El jugador actual debe ser parte de la lista de jugadores";
         
-        Jugador jugadorActual = getJugadorActual();
-        int FrecuanciaAntes = Collections.frequency(jugadorActual.getMano(), carta);
-        // Jugar la carta: remover de la mano del jugador y actualizar el mazo
-        if (jugadorActual.jugarCarta(carta, mazo)) {
-            // Si es una carta especial, aplicar su efecto
-            int FrecuanciaDespues = Collections.frequency(jugadorActual.getMano(), carta);
+        int frecuenciaAntes = Collections.frequency(getJugadorActual().getMano(), carta);
+        // Intentar jugar la carta
+        if (getJugadorActual().jugarCarta(carta, mazo)) {
+            // Postcondición: La carta jugada debe eliminarse de la mano del jugador
+            int frecuenciaDespues = Collections.frequency(getJugadorActual().getMano(), carta);
+            assert (!getJugadorActual().getMano().contains(carta) || (frecuenciaDespues < frecuenciaAntes)) : "La carta jugada no debe estar en la mano del jugador actual.";
+            
+            // Si la carta es especial, aplicar su efecto
             if (carta.isValorEspecial(carta.getValor())) {
-                //Postconidicon
-                assert (!getJugadorActual().getMano().contains(carta) || (FrecuanciaDespues < FrecuanciaAntes)) : "La carta jugada no debe estar en la mano del jugador actual.";
                 aplicarCartaEspecial(carta, colorElegido);
             } else {
-                //Postconidicon
-                assert (!getJugadorActual().getMano().contains(carta) || (FrecuanciaDespues < FrecuanciaAntes)) : "La carta jugada no debe estar en la mano del jugador actual.";
                 cambiarTurno();
             }
             return true;
@@ -97,16 +114,24 @@ public class Partida implements Serializable {
         return false;
     }
 
-    // Método para aplicar el efecto de una carta especial, incluyendo elección de color para comodines
+    /**
+     * Aplica el efecto de una carta especial, incluyendo la elección de color para los comodines.
+     * 
+     * Precondición: Si la carta es un comodín, el colorElegido no debe ser null.
+     * 
+     * Postcondición: El efecto de la carta especial debe aplicarse correctamente.
+     * 
+     * @param carta La carta especial a aplicar.
+     * @param colorElegido El color elegido en caso de que sea un comodín (null si no aplica).
+     */
     private void aplicarCartaEspecial(Carta carta, String colorElegido) {
-         // Precondición
-         if (carta.getValor().equals("+4") || carta.getValor().equals("wild")) {
-            assert (colorElegido != null && !colorElegido.isEmpty()) : "Debe elegirse un color válido al jugar un comodín";
+        // Precondición: Si la carta es comodín, el colorElegido debe ser válido
+        if (carta.getValor().equals("+4") || carta.getValor().equals("wild")) {
+            assert (colorElegido != null) : "Debe elegirse un color válido al jugar un comodín";
         }
         
         switch (carta.getValor()) {
             case "+4":
-                // Configurar el color deseado y hacer que el siguiente jugador robe 4 cartas
                 mazo.establecerComodinColor(colorElegido);
                 cambiarTurno();
                 for (int i = 0; i < 4; i++) {
@@ -114,7 +139,6 @@ public class Partida implements Serializable {
                 }
                 break;
             case "wild":
-                // Configurar el color deseado para el comodín
                 mazo.establecerComodinColor(colorElegido);
                 cambiarTurno();
                 break;
@@ -134,44 +158,53 @@ public class Partida implements Serializable {
                 break;
         }
 
-        // Postcondición
+        // Postcondición: Si es un comodín, verificar que el color haya sido asignado correctamente
         if (carta.getValor().equals("+4") || carta.getValor().equals("wild")) {
             assert (mazo.obtenerComodinColor().equals(colorElegido)) : "El color del comodín debe coincidir con el elegido";
         }
     }
 
+    /**
+     * Permite que el jugador actual robe una carta del mazo.
+     * 
+     * Precondición: El mazo no debe estar vacío al robar una carta.
+     */
     public void robarCartaJugadorActual() {
-         // Precondición
-         assert !(mazo.getCartas().isEmpty()) : "El mazo no puede estar vacío";
+        // Precondición: El mazo no puede estar vacío
+        assert !(mazo.getCartas().isEmpty()) : "El mazo no puede estar vacío";
         
-         getJugadorActual().robarCarta(mazo);
-
-         // Postcondición
-        assert (getJugadorActual().getMano().size() > 0) : "La mano del jugador debe contener al menos una carta más";
+        getJugadorActual().robarCarta(mazo);
     }
 
-    // Método para cambiar el turno al siguiente jugador
-    private void cambiarTurno() {
-        // Precondición
-        assert (jugadores.size() >= 2) : "Debe haber al menos dos jugadores para cambiar el turno";
-
+    /**
+     * Cambia el turno al siguiente jugador, siguiendo la dirección del juego (sentido horario o antihorario).
+     */
+    private void cambiarTurno() {;
         if (sentidoHorario) {
             jugadorActual = (jugadorActual + 1) % jugadores.size();
         } else {
             jugadorActual = (jugadorActual - 1 + jugadores.size()) % jugadores.size();
         }
-
-        // Postcondición
-        assert (jugadorActual >= 0 && jugadorActual < jugadores.size()) : "El índice del jugador actual debe ser válido";
     }
 
+    /**
+     * Devuelve la dirección actual del turno (horario o antihorario).
+     * 
+     * @return true si el turno es horario, false si es antihorario.
+     */
     public boolean getSentidoHorario() {
         return sentidoHorario;
     }
 
-    // Método para verificar si la partida ha terminado
+    /**
+     * Verifica si la partida ha terminado. La partida termina si algún jugador se queda sin cartas.
+     * 
+     * Precondición: Debe haber al menos un jugador en la partida.
+     * 
+     * @return true si algún jugador se ha quedado sin cartas, false si la partida continúa.
+     */
     public boolean esFinPartida() {
-        // Precondición
+        // Precondición: Debe haber jugadores en la partida
         assert !(jugadores.isEmpty()) : "Debe haber jugadores en la partida";
 
         for (Jugador jugador : jugadores) {
@@ -182,31 +215,47 @@ public class Partida implements Serializable {
         return false;
     }
 
-    // Getter para los jugadores de la partida
+    /**
+     * Devuelve la lista de jugadores en la partida.
+     * 
+     * @return La lista de jugadores.
+     */
     public List<Jugador> getJugadores() {
-        // Precondición
-        assert (jugadores != null) : "La lista de jugadores no puede ser nula";
-
         return jugadores;
     }
 
-    // Getter para el jugador actual
+    /**
+     * Devuelve el jugador actual (quien tiene el turno).
+     * 
+     * @return El jugador actual.
+     */
     public Jugador getJugadorActual() {
-         // Precondición
-         assert (jugadorActual >= 0 && jugadorActual < jugadores.size()) : "El índice del jugador actual debe ser válido";
-
         return jugadores.get(jugadorActual);
     }
 
-    // Getter para el numero del jugador actual
+    /**
+     * Devuelve el número del jugador actual.
+     * 
+     * @return El número del jugador actual.
+     */
     public int getNumeroJugadorActual() {
         return jugadorActual;
     }
 
+    /**
+     * Obtiene la última carta jugada del mazo.
+     * 
+     * @return La última carta jugada en el mazo.
+     */
     public Carta obtenerUltimaCartaJugada() {
         return mazo.obtenerUltimaCartaJugada(); // Devuelve la última carta jugada
     }
 
+    /**
+     * Obtiene el color de un comodín jugado, si corresponde.
+     * 
+     * @return El color del comodín, o null si no se ha jugado un comodín.
+     */
     public String obtenerComodinColor() {
         return mazo.obtenerComodinColor(); // Devuelve el color elegido al jugar un comodin
     }
