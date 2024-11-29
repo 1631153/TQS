@@ -69,4 +69,12 @@ public interface InterfazJuego {
      * mejorando la experiencia de usuario en la aplicación.
      */
     public void clearScreen();
+
+    /**
+     * Muestra una representación visual o textual de una carta específica.
+     * Este método se utiliza para resaltar o detallar una carta en particular en la interfaz de usuario.
+     *
+     * @param carta La carta que se desea mostrar. Contiene información como color y valor.
+     */
+    public void mostrarCarta(Carta carta);
 }

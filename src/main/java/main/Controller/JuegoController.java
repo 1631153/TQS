@@ -11,6 +11,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public class JuegoController {
     private Partida partida;
@@ -285,7 +291,8 @@ public class JuegoController {
 
     /**
      * Controla el flujo de un turno completo para el jugador actual.
-     * Permite al usuario salir y guardar la partida en cualquier momento. (proximamente)
+     * Permite al usuario salir y guardar la partida en cualquier momento.
+     * Además, verifica si el jugador dice "UNO" al quedar con una carta.
      */
     private boolean jugarTurno() {
         interfaz.clearScreen();
@@ -296,7 +303,8 @@ public class JuegoController {
             partida.getJugadores(), 
             partida.obtenerUltimaCartaJugada(), 
             partida.obtenerComodinColor(), 
-            jugadorActual);
+            jugadorActual
+        );
 
         // Solicitar acción del jugador (un número, '+', o salir)
         interfaz.mostrarMensaje("Escribe un número para jugar una carta, '+' para robar una carta, o 'S' para salir: ");
@@ -334,12 +342,9 @@ public class JuegoController {
                     if (!partida.jugarCarta(carta, colorComodin)) {
                         interfaz.mostrarMensaje("Carta no válida.");
                         pausar();
-                    }
-                    else {
-                        interfaz.mostrarMensaje("El jugador " + jugadorActual.getNombre() + " uso la carta: " + "    [%-9s | %-5s]".formatted(carta.getColor(), carta.getValor()));
-                        if (colorComodin != null) {
-                            interfaz.mostrarMensaje("El color selecionado es: " + colorComodin);
-                        }
+                    } else {
+                        interfaz.mostrarMensaje("El jugador " + jugadorActual.getNombre() + " ha jugado su turno.");
+                        interfaz.mostrarCarta(carta);
                         pausar();
                     }
                 } else {
@@ -355,6 +360,19 @@ public class JuegoController {
         if (verificarFinDelJuego()) {
             return false;
         }
+        return true;
+    }
+
+    /**
+     * Verifica que el jugador diga "UNO" dentro del tiempo límite.
+     * Si no lo hace, roba cartas como penalización.
+     *
+     * @param jugadorActual El jugador que debe decir "UNO".
+     * @param tiempoLimite Tiempo límite en segundos para que diga "UNO".
+     * @param cartasPenalizacion Número de cartas a robar si no dice "UNO" a tiempo.
+     * @return `true` si el jugador dijo "UNO" a tiempo, `false` si recibió la penalización.
+     */
+    private boolean verificarUno(int tiempoLimite, int cartasPenalizacion) {
         return true;
     }
 
