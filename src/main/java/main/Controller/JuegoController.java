@@ -393,6 +393,7 @@ public class JuegoController {
             // Verificar si la respuesta es UNO
             if (respuesta.trim().equalsIgnoreCase("UNO")) {
                 interfaz.mostrarMensaje("¡Correcto! Has dicho \"UNO\" a tiempo.");
+                pausar();
                 return true;
             } else {
                 interfaz.mostrarMensaje("¡Respuesta incorrecta! No dijiste \"UNO\".");
@@ -410,6 +411,7 @@ public class JuegoController {
         for (int i = 0; i < cartasPenalizacion; i++) {
             partida.robarCartaJugadorActual();; // Asumimos que esta función existe
         }
+        pausar();
         return false;
     }
 

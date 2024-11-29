@@ -258,4 +258,19 @@ public class MazoTest {
         assertFalse(resultado, "La carta roja no debería ser válida ya que no coincide con la carta amarilla y no hay color condicionado.");
         assertEquals(cartaAmarilla, mazo.obtenerUltimaCartaJugada(), "La última carta jugada debería seguir siendo la carta amarilla.");
     }
+
+    @Test
+    public void testActualizarUltimaCartaJugadaConNull() {
+        assertThrows(AssertionError.class, () -> mazo.actualizarUltimaCartaJugada(null), "No se debería poder jugar un null como carta");
+    }
+
+    @Test
+    public void testEstablecerComodinColorNull() {
+        assertThrows(AssertionError.class, () -> mazo.establecerComodinColor(null), "No se debería poder pasar un null como color");
+    }
+
+    @Test
+    public void testEstablecerComodinColorIncorrecto() {
+        assertThrows(AssertionError.class, () -> mazo.establecerComodinColor("j"), "No se debería poder pasar un null como color");
+    }
 }

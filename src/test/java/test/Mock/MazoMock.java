@@ -5,23 +5,30 @@ import main.Model.Mazo;
 
 public class MazoMock extends Mazo{
     private Carta cartaParaRobar;
+    private boolean robar;
 
     public MazoMock() {
         super();
         this.cartaParaRobar = null;
+        robar = true;
     }
 
     @Override
     public Carta robarCarta() {
-        // Si hay una carta para robar definida, devuélve esa carta
-        if (cartaParaRobar != null) {
-            return cartaParaRobar;
+        if (robar) {
+            if (cartaParaRobar != null) {
+                return cartaParaRobar;
+            }
+            return super.robarCarta();
         }
-        // Si no hay carta definida, llama al comportamiento original
-        return super.robarCarta();
+        return null;
     }
 
     public void definirCartaParaRobar(Carta carta) {
         this.cartaParaRobar = carta;
+    }
+
+    public void robar() {
+        this.robar = !this.robar;
     }
 }

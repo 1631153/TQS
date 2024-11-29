@@ -1,7 +1,6 @@
 package main.Model;
 
 import java.util.Objects;
-
 import java.io.Serializable;
 
 public class Carta implements Serializable {
@@ -10,91 +9,116 @@ public class Carta implements Serializable {
     private String valor;  // "0" a "9" para números, "skip", "reverse", "+2", "wild", "+4" para especiales
 
     /*
-     * Cartas Numéricas: 
-     *      Las cartas que tienen un valor numérico (del "0" al "9") deben tener un color válido (rojo, azul, verde o amarillo) x2.
-     * Cartas Especiales:
-     *      Las cartas de acción especiales como "skip", "reverse" y "+2" deben tener un color válido (rojo, azul, verde o amarillo) x2. 
-     * Comodines: 
-     *      Los comodines (valores "wild" x4 y "+4" x4) no pueden tener un color asociado (es decir, el atributo color debe ser null).
+     * La clase Carta representa una carta en un juego de cartas tipo UNO.
+     * Las cartas pueden ser de un color específico o comodines. Los comodines
+     * no deben tener color asociado, y su valor será "wild" o "+4".
+     * Los valores de las cartas pueden ser números entre "0" y "9", 
+     * o cartas especiales como "skip", "reverse", y "+2".
      */
 
-     public Carta(String color, String valor) {
-        //Precondiciones
-        assert (valor != null && !valor.isEmpty()) : "El valor no puede ser nulo o vacío";
-        assert (color == null && (valor.equals("wild") || valor.equals("+4"))) || (color != null && isColorValido(color)) : "El color debe ser válido o null para comodines";
+    /**
+     * Crea una nueva carta con un color y un valor específicos.
+     * 
+     * @param color El color de la carta (puede ser "r", "b", "g", "y", o null para comodines).
+     * @param valor El valor de la carta (puede ser un número entre "0" y "9", o valores especiales como 
+     *              "skip", "reverse", "+2", "wild", "+4").
+     * 
+     * @throws AssertionError Si el color o valor no son válidos según las reglas del juego.
+     */
+    public Carta(String color, String valor) {
+        // Precondiciones para color y valor:
 
-        // Verificamos si el valor de la carta es uno de los comodines ("wild" o "+4")
-        if (valor.equals("wild") || valor.equals("+4")) {
-            // Un comodín no debe tener un color asociado
-            if (color != null) {
-                throw new IllegalArgumentException("Un comodín no debe tener color");
-            }
-        } 
-        // Si el color es null, verificamos que el valor no sea numérico
-        else if (color == null) {
-            throw new IllegalArgumentException("Las cartas numéricas no pueden ser comodines (color debe ser no nulo)");
-        } 
-        // Verificamos que el color proporcionado sea válido
-        else if (!isColorValido(color)) {
-            throw new IllegalArgumentException("Color no válido: " + color);
-        }
-    
-        // Validamos que el valor de la carta sea un valor permitido
-        if (!isValorValido(valor)) {
-            throw new IllegalArgumentException("Valor no válido: " + valor);
-        }
-        
-        // Asignamos el color y el valor a la carta si todas las validaciones han pasado
+        // Valida el valor de la carta y asegura que el valor sea uno de los válidos (número o carta especial).
+        assert isValorValido(valor) : "Valor no válido: " + valor;
+
+        // Valida el color de la carta y asegura que el color sea válido (si el color es null, debe ser comodín)
+        assert (valor.equals("wild") || valor.equals("+4")) ? (color == null) : (color != null && isColorValido(color)) : "El color debe ser válido o null para comodines";
+
+        // Asignar color y valor a la carta
         this.color = color;
         this.valor = valor;
-
-        //Postcondicion
-        assert (this.valor != null && !this.valor.isEmpty()) : "El valor de la carta debe ser válido y no vacío.";
-        assert (this.color == null && (this.valor.equals("wild") || this.valor.equals("+4"))) || isColorValido(this.color) : "El estado de la carta es inconsistente"; 
     }
-    
+
     // Getters
+
+    /**
+     * Obtiene el color de la carta.
+     * 
+     * @return El color de la carta, o null si es un comodín.
+     */
     public String getColor() {
         return color;
     }
 
+    /**
+     * Obtiene el valor de la carta.
+     * 
+     * @return El valor de la carta (número o especial).
+     */
     public String getValor() {
         return valor;
     }
 
-    // Método para verificar si la carta es compatible con otra
+    /**
+     * Verifica si la carta es compatible con otra.
+     * 
+     * Dos cartas son compatibles si tienen el mismo color o el mismo valor. 
+     * Las cartas comodín siempre son compatibles con cualquier otra carta.
+     * 
+     * @param otraCarta La carta con la que se va a comparar.
+     * @return true si las cartas son compatibles, false si no lo son.
+     * 
+     * @throws AssertionError Si la carta comparada es null.
+     */
     public boolean esCompatible(Carta otraCarta) {
-        // Precondición
+        // Precondicion: Se asegura que la carta a comparar no sea null.
         assert (otraCarta != null) : "La carta comparada no puede ser null";
-        assert (otraCarta.getColor() == null || isColorValido(otraCarta.getColor())) : "El color de la carta comparada debe ser válido o null para comodines";
-        assert (otraCarta.getValor() != null && !otraCarta.getValor().isEmpty()) : "El valor de la carta comparada debe ser válido y no vacío";
-    
-        //Esto es para casos comodin
+       
+        // Verificar compatibilidad
         if (this.color == null || otraCarta.color == null) {
-            return true;
+            return true;  // Los comodines son compatibles con cualquier otra carta
         }
 
         // Dos cartas son compatibles si tienen el mismo color o el mismo valor
-        boolean res = Objects.equals(this.color, otraCarta.color) || Objects.equals(this.valor, otraCarta.valor);
-    
-        // Postcondición
-        assert res == (Objects.equals(this.color, otraCarta.color) || Objects.equals(this.valor, otraCarta.valor)) : "Compatibilidad inconsistente entre cartas";
-    
-        return res;
+        return Objects.equals(this.color, otraCarta.color) || Objects.equals(this.valor, otraCarta.valor);
     }
-    
 
-    // Método para verificar si el color es válido
+    /**
+     * Verifica si un color es válido en el juego.
+     * 
+     * Los colores válidos son: "r" (rojo), "b" (azul), "g" (verde), "y" (amarillo).
+     * 
+     * @param color El color a verificar.
+     * @return true si el color es válido, false si no lo es.
+     */
     private boolean isColorValido(String color) {
         return color.equals("r") || color.equals("b") || color.equals("g") || color.equals("y");
     }
 
-    // Método para verificar si el valor es válido
+    /**
+     * Verifica si el valor de la carta es válido.
+     * 
+     * Un valor válido puede ser un número de "0" a "9", o una carta especial como "skip", "reverse", "+2", "wild", "+4".
+     * 
+     * @param valor El valor de la carta a verificar.
+     * @return true si el valor es válido, false si no lo es.
+     */
     private boolean isValorValido(String valor) {
+        if (valor == null) {
+            return false;
+        }
+
         return valor.matches("[0-9]") || isValorEspecial(valor);
     }
 
-    // Método para verificar si el valor es una acción especial
+    /**
+     * Verifica si el valor de la carta es una acción especial.
+     * 
+     * Las cartas con valores especiales son: "skip", "reverse", "+2", "wild", "+4".
+     * 
+     * @param valor El valor a verificar.
+     * @return true si el valor es una carta especial, false si no lo es.
+     */
     public boolean isValorEspecial(String valor) {
         return valor.equals("skip") || valor.equals("reverse") || valor.equals("+2") || 
                valor.equals("wild") || valor.equals("+4");

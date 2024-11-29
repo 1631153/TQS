@@ -9,13 +9,11 @@ import main.Model.Mazo;
 
 public class JugadorMock extends Jugador {
     private List<Carta> cartasEnMano;
-    private boolean decirUNO;
     private List<Carta> CartasPredeterminadas;
 
     public JugadorMock(String nom) {
         super(nom);
         this.cartasEnMano = new ArrayList<>();
-        this.decirUNO = false;
         this.CartasPredeterminadas = new ArrayList<>();
     }
 
@@ -23,7 +21,6 @@ public class JugadorMock extends Jugador {
     public void robarCarta(Mazo mazo) { //mazo aqui no hace nada
         Carta cartaRobada = CartasPredeterminadas.remove(0);
         cartasEnMano.add(cartaRobada);
-        decirUNO = false;
     }
 
     @Override
@@ -36,22 +33,8 @@ public class JugadorMock extends Jugador {
         return false;
     }
 
-    @Override
-    public void decirUNO() {
-        if (cartasEnMano.size() == 1) {
-            decirUNO = true;
-        } else {
-            throw new IllegalStateException("El jugador solo puede decir 'UNO' cuando tiene una sola carta.");
-        }
-    }
-
-
     public List<Carta> getCartasEnMano() {
         return cartasEnMano;
-    }
-
-    public boolean haDichoUNO() {
-        return decirUNO;
     }
 
     public void setCartasPredeterminadas(List<Carta> cartas) {
