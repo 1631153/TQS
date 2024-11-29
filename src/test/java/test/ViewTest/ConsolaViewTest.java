@@ -249,4 +249,44 @@ public class ConsolaViewTest {
 
         assertEquals("jugar", accion); // Verifica que la acción seleccionada es "jugar"
     }
+
+    @Test
+    public void testMostrarCarta() {
+        // Crear una instancia de ConsolaView
+        ConsolaView consolaView = new ConsolaView();
+
+        // Redirigir la salida estándar para capturar la impresión
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+        // Caso 1: Carta normal
+        Carta cartaNormal = new Carta("r", "6");
+        consolaView.mostrarCarta(cartaNormal);
+
+        // Verificar la salida esperada
+        assertTrue(outputStream.toString().contains("[Red "));
+        assertTrue(outputStream.toString().contains("| 6 "));
+        assertTrue(outputStream.toString().contains(" ]"));
+        outputStream.reset();
+
+        // Caso 2: Carta comodín
+        Carta cartaComodin = new Carta(null, "wild");
+        consolaView.mostrarCarta(cartaComodin);
+
+        // Verificar la salida esperada
+        assertTrue(outputStream.toString().contains("[AllColors "));
+        assertTrue(outputStream.toString().contains("| wild "));
+        assertTrue(outputStream.toString().contains(" ]"));
+        outputStream.reset();
+
+        // Caso 3: Carta nula
+        consolaView.mostrarCarta(null);
+
+        // Verificar la salida esperada
+        assertTrue(outputStream.toString().contains("No hay carta para mostrar."));
+        outputStream.reset();
+
+        // Restaurar la salida estándar
+        System.setOut(System.out);
+    }
 }

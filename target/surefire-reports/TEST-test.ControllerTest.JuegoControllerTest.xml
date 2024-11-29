@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="test.ControllerTest.JuegoControllerTest" time="1.16" tests="37" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="test.ControllerTest.JuegoControllerTest" time="6.224" tests="40" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="23"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="ES"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-23\bin"/>
-    <property name="sun.java.command" value="C:\Users\David Bonilla\AppData\Local\Temp\surefire11025726152794358168\surefirebooter-20241128214157969_3.jar C:\Users\David Bonilla\AppData\Local\Temp\surefire11025726152794358168 2024-11-28T21-41-57_852-jvmRun1 surefire-20241128214157969_1tmp surefire_0-20241128214157969_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\David Bonilla\AppData\Local\Temp\surefire5817040934774519877\surefirebooter-20241129150559893_3.jar C:\Users\David Bonilla\AppData\Local\Temp\surefire5817040934774519877 2024-11-29T15-05-59_766-jvmRun1 surefire-20241129150559893_1tmp surefire_0-20241129150559893_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\David Bonilla\OneDrive\Escritorio\Universidad\4t curs universitari\1r semestre\Test i Qualitat del Software (TQS)\Proyecto\TQS\target\test-classes;C:\Users\David Bonilla\OneDrive\Escritorio\Universidad\4t curs universitari\1r semestre\Test i Qualitat del Software (TQS)\Proyecto\TQS\target\classes;C:\Users\David Bonilla\.m2\repository\org\junit\jupiter\junit-jupiter\5.8.2\junit-jupiter-5.8.2.jar;C:\Users\David Bonilla\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.8.2\junit-jupiter-api-5.8.2.jar;C:\Users\David Bonilla\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\David Bonilla\.m2\repository\org\junit\platform\junit-platform-commons\1.8.2\junit-platform-commons-1.8.2.jar;C:\Users\David Bonilla\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\David Bonilla\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.8.2\junit-jupiter-params-5.8.2.jar;C:\Users\David Bonilla\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.8.2\junit-jupiter-engine-5.8.2.jar;C:\Users\David Bonilla\.m2\repository\org\junit\platform\junit-platform-engine\1.8.2\junit-platform-engine-1.8.2.jar;C:\Users\David Bonilla\.m2\repository\org\mockito\mockito-core\4.0.0\mockito-core-4.0.0.jar;C:\Users\David Bonilla\.m2\repository\net\bytebuddy\byte-buddy\1.11.19\byte-buddy-1.11.19.jar;C:\Users\David Bonilla\.m2\repository\net\bytebuddy\byte-buddy-agent\1.11.19\byte-buddy-agent-1.11.19.jar;C:\Users\David Bonilla\.m2\repository\org\objenesis\objenesis\3.2\objenesis-3.2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\David Bonilla\AppData\Local\Temp\surefire11025726152794358168\surefirebooter-20241128214157969_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\David Bonilla\AppData\Local\Temp\surefire5817040934774519877\surefirebooter-20241129150559893_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="23.0.1+11-39"/>
@@ -58,41 +58,44 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="67.0"/>
   </properties>
-  <testcase name="testGuardarPartida_ArchivoExistente" classname="test.ControllerTest.JuegoControllerTest" time="0.755"/>
-  <testcase name="testJugarTurno_jugarCartaValida1" classname="test.ControllerTest.JuegoControllerTest" time="0.043"/>
-  <testcase name="testJugarTurno_jugarCartaValida2" classname="test.ControllerTest.JuegoControllerTest" time="0.007"/>
-  <testcase name="testJugarTurno_jugarCartaValida3" classname="test.ControllerTest.JuegoControllerTest" time="0.007"/>
+  <testcase name="testGuardarPartida_ArchivoExistente" classname="test.ControllerTest.JuegoControllerTest" time="0.775"/>
+  <testcase name="testJugarTurno_jugarCartaValida1" classname="test.ControllerTest.JuegoControllerTest" time="0.049"/>
+  <testcase name="testJugarTurno_jugarCartaValida2" classname="test.ControllerTest.JuegoControllerTest" time="0.009"/>
+  <testcase name="testJugarTurno_jugarCartaValida3" classname="test.ControllerTest.JuegoControllerTest" time="0.008"/>
   <testcase name="testGuardarPartida_ErrorAlGuardar" classname="test.ControllerTest.JuegoControllerTest" time="0.003"/>
-  <testcase name="testMostrarMenuGuardarPartida_Guardar" classname="test.ControllerTest.JuegoControllerTest" time="0.007"/>
+  <testcase name="testMostrarMenuGuardarPartida_Guardar" classname="test.ControllerTest.JuegoControllerTest" time="0.005"/>
   <testcase name="testCargarPartida_NoExisteArchivo" classname="test.ControllerTest.JuegoControllerTest" time="0.003"/>
-  <testcase name="testMostrarMenuCargaPartida_Salida" classname="test.ControllerTest.JuegoControllerTest" time="0.009"/>
+  <testcase name="testMostrarMenuCargaPartida_Salida" classname="test.ControllerTest.JuegoControllerTest" time="0.008"/>
   <testcase name="testJugarTurno_robarCarta" classname="test.ControllerTest.JuegoControllerTest" time="0.004"/>
-  <testcase name="testMostrarMenuCargaPartida_CarpetaNoExiste" classname="test.ControllerTest.JuegoControllerTest" time="0.096"/>
-  <testcase name="testJugarTurno_jugadorGana" classname="test.ControllerTest.JuegoControllerTest" time="0.01"/>
-  <testcase name="testVerificarFinDelJuego_ganador" classname="test.ControllerTest.JuegoControllerTest" time="0.005"/>
+  <testcase name="testMostrarMenuCargaPartida_CarpetaNoExiste" classname="test.ControllerTest.JuegoControllerTest" time="0.106"/>
+  <testcase name="testJugarTurno_jugadorGana" classname="test.ControllerTest.JuegoControllerTest" time="0.016"/>
+  <testcase name="testVerificarUno_NoRespondeATiempo" classname="test.ControllerTest.JuegoControllerTest" time="5.012"/>
+  <testcase name="testVerificarFinDelJuego_ganador" classname="test.ControllerTest.JuegoControllerTest" time="0.004"/>
   <testcase name="testMostrarMenuCargaPartida_NoHayPartidasGuardadas" classname="test.ControllerTest.JuegoControllerTest" time="0.002"/>
-  <testcase name="testMostrarMenuCargaPartida_OpcionNoValida999" classname="test.ControllerTest.JuegoControllerTest" time="0.009"/>
-  <testcase name="testMostrarMenu_Opcion1_Opcion1_IntroducirX" classname="test.ControllerTest.JuegoControllerTest" time="0.012"/>
-  <testcase name="testCargarPartida_ErrorAlCargar" classname="test.ControllerTest.JuegoControllerTest" time="0.007"/>
-  <testcase name="testMostrarMenuCargaPartida_OpcionNoNumerica" classname="test.ControllerTest.JuegoControllerTest" time="0.005"/>
-  <testcase name="testMostrarMenu_Opcion1_Opcion2" classname="test.ControllerTest.JuegoControllerTest" time="0.01"/>
-  <testcase name="testMostrarMenu_Opcion1_Opcion3" classname="test.ControllerTest.JuegoControllerTest" time="0.007"/>
+  <testcase name="testMostrarMenuCargaPartida_OpcionNoValida999" classname="test.ControllerTest.JuegoControllerTest" time="0.006"/>
+  <testcase name="testMostrarMenu_Opcion1_Opcion1_IntroducirX" classname="test.ControllerTest.JuegoControllerTest" time="0.008"/>
+  <testcase name="testCargarPartida_ErrorAlCargar" classname="test.ControllerTest.JuegoControllerTest" time="0.006"/>
+  <testcase name="testMostrarMenuCargaPartida_OpcionNoNumerica" classname="test.ControllerTest.JuegoControllerTest" time="0.006"/>
+  <testcase name="testMostrarMenu_Opcion1_Opcion2" classname="test.ControllerTest.JuegoControllerTest" time="0.009"/>
+  <testcase name="testMostrarMenu_Opcion1_Opcion3" classname="test.ControllerTest.JuegoControllerTest" time="0.006"/>
   <testcase name="testMostrarMenu_Opcion1_Opcion1_Salir" classname="test.ControllerTest.JuegoControllerTest" time="0.005"/>
-  <testcase name="testMostrarMenu_Opcion1_Opcion1_2Jugadores_SalirSinGuardar" classname="test.ControllerTest.JuegoControllerTest" time="0.012"/>
+  <testcase name="testMostrarMenu_Opcion1_Opcion1_2Jugadores_SalirSinGuardar" classname="test.ControllerTest.JuegoControllerTest" time="0.015"/>
   <testcase name="testGuardarPartida_ErrorGuardado" classname="test.ControllerTest.JuegoControllerTest" time="0.001"/>
   <testcase name="testMostrarMenuCargaPartida_PartidasGuardadas" classname="test.ControllerTest.JuegoControllerTest" time="0.004"/>
-  <testcase name="testJugarTurno_jugarCartaInvalida" classname="test.ControllerTest.JuegoControllerTest" time="0.008"/>
-  <testcase name="testMostrarMenu_Opcion1_Opcion1_Introducir0y5" classname="test.ControllerTest.JuegoControllerTest" time="0.007"/>
+  <testcase name="testJugarTurno_jugarCartaInvalida" classname="test.ControllerTest.JuegoControllerTest" time="0.006"/>
+  <testcase name="testMostrarMenu_Opcion1_Opcion1_Introducir0y5" classname="test.ControllerTest.JuegoControllerTest" time="0.009"/>
   <testcase name="testJugarTurno_jugarCartaFueraDeMano1" classname="test.ControllerTest.JuegoControllerTest" time="0.004"/>
-  <testcase name="testJugarTurno_jugarCartaFueraDeMano2" classname="test.ControllerTest.JuegoControllerTest" time="0.004"/>
-  <testcase name="testMostrarMenu_Opcion2" classname="test.ControllerTest.JuegoControllerTest" time="0.005"/>
+  <testcase name="testJugarTurno_jugarCartaFueraDeMano2" classname="test.ControllerTest.JuegoControllerTest" time="0.003"/>
+  <testcase name="testMostrarMenu_Opcion2" classname="test.ControllerTest.JuegoControllerTest" time="0.006"/>
   <testcase name="testMostrarMenu_Opcion3" classname="test.ControllerTest.JuegoControllerTest" time="0.003"/>
-  <testcase name="testMostrarMenuGuardarPartida_Cancelar" classname="test.ControllerTest.JuegoControllerTest" time="0.001"/>
+  <testcase name="testVerificarUno_DiceUnoCorrectamente" classname="test.ControllerTest.JuegoControllerTest" time="0.004"/>
+  <testcase name="testVerificarUno_RespuestaIncorrecta" classname="test.ControllerTest.JuegoControllerTest" time="0.004"/>
+  <testcase name="testMostrarMenuGuardarPartida_Cancelar" classname="test.ControllerTest.JuegoControllerTest" time="0.002"/>
   <testcase name="testMostrarMenu_Opcion1_OpcionNoValido" classname="test.ControllerTest.JuegoControllerTest" time="0.005"/>
-  <testcase name="testMostrarMenuCargaPartida_ConPartidaGuardada" classname="test.ControllerTest.JuegoControllerTest" time="0.004"/>
-  <testcase name="testMostrarMenu_Opcion1_Opcion1_2Jugadores_SalirGuardando" classname="test.ControllerTest.JuegoControllerTest" time="0.007"/>
-  <testcase name="testGuardarPartidaYCargarPartida_Exito" classname="test.ControllerTest.JuegoControllerTest" time="0.017"/>
-  <testcase name="testMostrarMenu_OpcinoNoValido" classname="test.ControllerTest.JuegoControllerTest" time="0.004"/>
-  <testcase name="testJugarTurno_jugarCartaNoNumerica" classname="test.ControllerTest.JuegoControllerTest" time="0.004"/>
-  <testcase name="testMostrarMenuCargaPartida_OpcionNoValida0" classname="test.ControllerTest.JuegoControllerTest" time="0.004"/>
+  <testcase name="testMostrarMenuCargaPartida_ConPartidaGuardada" classname="test.ControllerTest.JuegoControllerTest" time="0.005"/>
+  <testcase name="testMostrarMenu_Opcion1_Opcion1_2Jugadores_SalirGuardando" classname="test.ControllerTest.JuegoControllerTest" time="0.009"/>
+  <testcase name="testGuardarPartidaYCargarPartida_Exito" classname="test.ControllerTest.JuegoControllerTest" time="0.018"/>
+  <testcase name="testMostrarMenu_OpcinoNoValido" classname="test.ControllerTest.JuegoControllerTest" time="0.005"/>
+  <testcase name="testJugarTurno_jugarCartaNoNumerica" classname="test.ControllerTest.JuegoControllerTest" time="0.003"/>
+  <testcase name="testMostrarMenuCargaPartida_OpcionNoValida0" classname="test.ControllerTest.JuegoControllerTest" time="0.005"/>
 </testsuite>

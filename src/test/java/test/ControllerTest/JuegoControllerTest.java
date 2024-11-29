@@ -16,7 +16,9 @@ import org.mockito.MockitoAnnotations;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -1026,5 +1028,103 @@ class JuegoControllerTest {
         // Verificar que se detectó el fin de la partida y se mostró el ganador
         assertTrue(finDelJuego, "La partida no detectó correctamente el fin del juego.");
         verify(interfazMock).mostrarGanador(ganadorMock);
+    }
+
+    @Test
+    void testVerificarUno_DiceUnoCorrectamente() throws Exception {
+        // Configurar al jugador actual
+        when(jugadorMock.getNombre()).thenReturn("Juan");
+
+        // Configurar comportamiento del mock de Partida
+        List<Jugador> jugadoresMock = new ArrayList<>(Arrays.asList(jugadorMock, mock(Jugador.class)));
+
+        when(partidaMock.getJugadores()).thenReturn(jugadoresMock);
+        when(partidaMock.getJugadorActual()).thenReturn(jugadorMock);
+
+        // Simular la entrada del jugador
+        when(interfazMock.solicitarAccion()).thenReturn("UNO");
+
+        // Usamos reflexión para invocar el método privado `verificarUno`
+        Method metodoVerificarUno = JuegoController.class.getDeclaredMethod("verificarUno", int.class, int.class);
+        metodoVerificarUno.setAccessible(true);
+
+        // Ejecutar el método privado verificarFinDelJuego
+        boolean resultado = (boolean) metodoVerificarUno.invoke(juegoController, 5, 2);
+
+        // Verificar resultados
+        assertTrue(resultado, "El jugador debería decir \"UNO\" correctamente.");
+
+        // Verificar que los mensajes ocurrieron en este orden específico
+        InOrder inOrder = inOrder(interfazMock);
+
+        inOrder.verify(interfazMock).mostrarMensaje("Juan, ¡debes decir \"UNO\"! Tienes 5 segundos.");
+        inOrder.verify(interfazMock).mostrarMensaje("¡Correcto! Has dicho \"UNO\" a tiempo.");    
+    }
+
+    @Test
+    void testVerificarUno_NoRespondeATiempo() throws Exception {
+        // Configurar al jugador actual
+        when(jugadorMock.getNombre()).thenReturn("Juan");
+
+        // Configurar comportamiento del mock de Partida
+        List<Jugador> jugadoresMock = new ArrayList<>(Arrays.asList(jugadorMock, mock(Jugador.class)));
+        when(partidaMock.getJugadores()).thenReturn(jugadoresMock);
+        when(partidaMock.getJugadorActual()).thenReturn(jugadorMock);
+
+        // Simular un tiempo de espera que excede el límite
+        doAnswer(invocation -> {
+            TimeUnit.SECONDS.sleep(6); // Simular un retraso que excede el tiempo límite
+            return null;
+        }).when(interfazMock).solicitarAccion();
+
+        // Usamos reflexión para invocar el método privado `verificarUno`
+        Method metodoVerificarUno = JuegoController.class.getDeclaredMethod("verificarUno", int.class, int.class);
+        metodoVerificarUno.setAccessible(true);  // Hacemos el método accesible
+
+        // Ejecutar el método privado `verificarUno`
+        boolean resultado = (boolean) metodoVerificarUno.invoke(juegoController, 5, 2);
+
+        // Verificar resultados
+        assertFalse(resultado, "El jugador debería ser penalizado por no responder a tiempo.");
+
+        // Verificar que los mensajes ocurrieron en este orden específico
+        InOrder inOrder = inOrder(interfazMock);
+
+        inOrder.verify(interfazMock).mostrarMensaje("Juan, ¡debes decir \"UNO\"! Tienes 5 segundos.");
+        inOrder.verify(interfazMock).mostrarMensaje("¡Se acabó el tiempo! No dijiste \"UNO\" a tiempo.");
+        inOrder.verify(interfazMock).mostrarMensaje("Juan roba 2 cartas como penalización.");
+        verify(partidaMock, times(2)).robarCartaJugadorActual(); // El jugador debería robar 2 cartas
+    }
+
+    @Test
+    void testVerificarUno_RespuestaIncorrecta() throws Exception {
+        // Configurar al jugador actual
+        when(jugadorMock.getNombre()).thenReturn("Juan");
+
+        // Configurar comportamiento del mock de Partida
+        List<Jugador> jugadoresMock = new ArrayList<>(Arrays.asList(jugadorMock, mock(Jugador.class)));
+        when(partidaMock.getJugadores()).thenReturn(jugadoresMock);
+        when(partidaMock.getJugadorActual()).thenReturn(jugadorMock);
+
+        // Simular que el jugador responde algo incorrecto
+        when(interfazMock.solicitarAccion()).thenReturn("DOS");
+
+        // Usamos reflexión para invocar el método privado `verificarUno`
+        Method metodoVerificarUno = JuegoController.class.getDeclaredMethod("verificarUno", int.class, int.class);
+        metodoVerificarUno.setAccessible(true);  // Hacemos el método accesible
+
+        // Ejecutar el método privado `verificarUno`
+        boolean resultado = (boolean) metodoVerificarUno.invoke(juegoController, 5, 2);
+
+        // Verificar resultados
+        assertFalse(resultado, "El jugador debería ser penalizado por decir algo incorrecto.");
+
+        // Verificar que los mensajes ocurrieron en este orden específico
+        InOrder inOrder = inOrder(interfazMock);
+
+        inOrder.verify(interfazMock).mostrarMensaje("Juan, ¡debes decir \"UNO\"! Tienes 5 segundos.");
+        inOrder.verify(interfazMock).mostrarMensaje("¡Respuesta incorrecta! No dijiste \"UNO\".");
+        inOrder.verify(interfazMock).mostrarMensaje("Juan roba 2 cartas como penalización.");
+        verify(partidaMock, times(2)).robarCartaJugadorActual(); // El jugador debería robar 2 cartas
     }
 }
