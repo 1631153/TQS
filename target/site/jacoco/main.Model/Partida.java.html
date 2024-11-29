@@ -2,10 +2,9 @@
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.io.Serializable;
 
-<span class="fc" id="L8">public class Partida implements Serializable {</span>
+<span class="fc" id="L7">public class Partida implements Serializable {</span>
     private static final long serialVersionUID = 1L;
     private List&lt;Jugador&gt; jugadores;     // Lista de jugadores en la partida
     private int jugadorActual;           // Índice del jugador con el turno actual
@@ -17,12 +16,12 @@ import java.io.Serializable;
      * Inicializa la partida con una lista vacía de jugadores, el primer jugador como el jugadorActual,
      * la dirección del turno (sentidoHorario) a horario y inicializa el mazo correctamente.
      */
-<span class="fc" id="L20">    public Partida() {</span>
-<span class="fc" id="L21">        this.jugadores = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L22">        this.jugadorActual = 0;</span>
-<span class="fc" id="L23">        this.sentidoHorario = true;</span>
-<span class="fc" id="L24">        this.mazo = new Mazo();</span>
-<span class="fc" id="L25">    }</span>
+<span class="fc" id="L19">    public Partida() {</span>
+<span class="fc" id="L20">        this.jugadores = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L21">        this.jugadorActual = 0;</span>
+<span class="fc" id="L22">        this.sentidoHorario = true;</span>
+<span class="fc" id="L23">        this.mazo = new Mazo();</span>
+<span class="fc" id="L24">    }</span>
 
     /**
      * Establece un mazo mock para la partida.
@@ -33,10 +32,10 @@ import java.io.Serializable;
      */
     public void setMazoMock(Mazo mazo) {
         // Precondición: Valida que el parámetro mazo no sea null, ya que no tiene sentido establecer un mazo null como mock.
-<span class="pc bpc" id="L36" title="1 of 2 branches missed.">        assert (mazo != null) : &quot;El mazo mock no puede ser null&quot;;</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        assert (mazo != null) : &quot;El mazo mock no puede ser null&quot;;</span>
 
-<span class="fc" id="L38">        this.mazo = mazo;</span>
-<span class="fc" id="L39">    }</span>
+<span class="fc" id="L37">        this.mazo = mazo;</span>
+<span class="fc" id="L38">    }</span>
 
     /**
      * Inicia la partida con el número de jugadores especificado.
@@ -44,32 +43,29 @@ import java.io.Serializable;
      * 
      * Precondición: El número de jugadores debe estar entre 2 y 4.
      * 
-     * Postcondición: La lista de jugadores debe tener el número adecuado de jugadores y cada uno debe tener 7 cartas.
-     * 
      * @param num_jugadores El número de jugadores en la partida.
      */
     public void iniciarPartida(int num_jugadores) {
         // Precondición: Es una validación crítica para el correcto funcionamiento del juego.
-<span class="fc bfc" id="L53" title="All 4 branches covered.">        assert (num_jugadores &gt;= 2 &amp;&amp; num_jugadores &lt;= 4) : &quot;El número de jugadores debe estar entre 2 y 4&quot;;</span>
+<span class="fc bfc" id="L50" title="All 4 branches covered.">        assert (num_jugadores &gt;= 2 &amp;&amp; num_jugadores &lt;= 4) : &quot;El número de jugadores debe estar entre 2 y 4&quot;;</span>
+
+        // Implementado para poder reutilizar la misma partida (borrando los jugadores anteriores antes de comenzar)
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        if (!jugadores.isEmpty()) {</span>
+<span class="fc" id="L54">            jugadores.clear();</span>
+        }
 
         // Crear los jugadores y añadirlos a la lista
-<span class="fc bfc" id="L56" title="All 2 branches covered.">        for (int i = 1; i &lt;= num_jugadores; i++) {</span>
-<span class="fc" id="L57">            jugadores.add(new Jugador(&quot;Jugador&quot; + i));</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        for (int i = 1; i &lt;= num_jugadores; i++) {</span>
+<span class="fc" id="L59">            jugadores.add(new Jugador(&quot;Jugador&quot; + i));</span>
         }
         
         // Repartir cartas iniciales a cada jugador
-<span class="fc bfc" id="L61" title="All 2 branches covered.">        for (Jugador jugador : jugadores) {</span>
-<span class="fc bfc" id="L62" title="All 2 branches covered.">            for (int j = 0; j &lt; 7; j++) {</span>
-<span class="fc" id="L63">                jugador.robarCarta(mazo);</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        for (Jugador jugador : jugadores) {</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">            for (int j = 0; j &lt; 7; j++) {</span>
+<span class="fc" id="L65">                jugador.robarCarta(mazo);</span>
             }
-<span class="fc" id="L65">        }</span>
-
-        // Postcondición: El número de jugadores debe ser el correcto y cada jugador debe tener 7 cartas
-<span class="pc bpc" id="L68" title="1 of 2 branches missed.">        assert (jugadores.size() == num_jugadores) : &quot;El número de jugadores debe ser igual al número inicial&quot;;</span>
-<span class="fc bfc" id="L69" title="All 2 branches covered.">        for (Jugador jugador : jugadores) {</span>
-<span class="pc bpc" id="L70" title="1 of 2 branches missed.">            assert jugador.getMano().size() == 7 : &quot;Cada jugador debe tener 7 cartas al iniciar la partida&quot;;</span>
-<span class="fc" id="L71">        }</span>
-<span class="fc" id="L72">    }</span>
+<span class="fc" id="L67">        }</span>
+<span class="fc" id="L68">    }</span>
 
     /**
      * Permite que el jugador actual juegue una carta sin seleccionar un color para un comodín.
@@ -78,7 +74,7 @@ import java.io.Serializable;
      * @return true si la carta fue jugada correctamente, false si no fue posible.
      */
     public boolean jugarCarta(Carta carta) {
-<span class="fc" id="L81">        return jugarCarta(carta, null);  // Llama al método principal con colorElegido en null</span>
+<span class="fc" id="L77">        return jugarCarta(carta, null);  // Llama al método principal con colorElegido en null</span>
     }
 
     /**
@@ -86,32 +82,25 @@ import java.io.Serializable;
      * 
      * Precondición: La carta no puede ser null.
      * 
-     * Postcondición: Si la carta es válida, se juega correctamente y se elimina de su mano.
-     * 
      * @param carta La carta a jugar.
      * @param colorElegido El color elegido en caso de que la carta sea un comodín (puede ser null).
      * @return true si la carta fue jugada correctamente, false si no fue válida.
      */
     public boolean jugarCarta(Carta carta, String colorElegido) {
         // Precondición: La carta no puede ser null
-<span class="pc bpc" id="L97" title="1 of 2 branches missed.">        assert (carta != null) : &quot;La carta a jugar no puede ser null&quot;;</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        assert (carta != null) : &quot;La carta a jugar no puede ser null&quot;;</span>
         
-<span class="fc" id="L99">        int frecuenciaAntes = Collections.frequency(getJugadorActual().getMano(), carta);</span>
         // Intentar jugar la carta
-<span class="fc bfc" id="L101" title="All 2 branches covered.">        if (getJugadorActual().jugarCarta(carta, mazo)) {</span>
-            // Postcondición: La carta jugada debe eliminarse de la mano del jugador
-<span class="fc" id="L103">            int frecuenciaDespues = Collections.frequency(getJugadorActual().getMano(), carta);</span>
-<span class="pc bpc" id="L104" title="1 of 4 branches missed.">            assert (!getJugadorActual().getMano().contains(carta) || (frecuenciaDespues &lt; frecuenciaAntes)) : &quot;La carta jugada no debe estar en la mano del jugador actual.&quot;;</span>
-            
+<span class="fc bfc" id="L94" title="All 2 branches covered.">        if (getJugadorActual().jugarCarta(carta, mazo)) {</span>
             // Si la carta es especial, aplicar su efecto
-<span class="fc bfc" id="L107" title="All 2 branches covered.">            if (carta.isValorEspecial(carta.getValor())) {</span>
-<span class="fc" id="L108">                aplicarCartaEspecial(carta, colorElegido);</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">            if (carta.isValorEspecial(carta.getValor())) {</span>
+<span class="fc" id="L97">                aplicarCartaEspecial(carta, colorElegido);</span>
             } else {
-<span class="fc" id="L110">                cambiarTurno();</span>
+<span class="fc" id="L99">                cambiarTurno();</span>
             }
-<span class="fc" id="L112">            return true;</span>
+<span class="fc" id="L101">            return true;</span>
         }
-<span class="fc" id="L114">        return false;</span>
+<span class="fc" id="L103">        return false;</span>
     }
 
     /**
@@ -119,73 +108,61 @@ import java.io.Serializable;
      * 
      * Precondición: Si la carta es un comodín, el colorElegido no debe ser null.
      * 
-     * Postcondición: El efecto de la carta especial debe aplicarse correctamente.
-     * 
      * @param carta La carta especial a aplicar.
      * @param colorElegido El color elegido en caso de que sea un comodín (null si no aplica).
      */
     private void aplicarCartaEspecial(Carta carta, String colorElegido) {
         // Precondición: Si la carta es comodín, el colorElegido debe ser válido
-<span class="fc bfc" id="L129" title="All 4 branches covered.">        if (carta.getValor().equals(&quot;+4&quot;) || carta.getValor().equals(&quot;wild&quot;)) {</span>
-<span class="pc bpc" id="L130" title="1 of 2 branches missed.">            assert (colorElegido != null) : &quot;Debe elegirse un color válido al jugar un comodín&quot;;</span>
+<span class="fc bfc" id="L116" title="All 4 branches covered.">        if (carta.getValor().equals(&quot;+4&quot;) || carta.getValor().equals(&quot;wild&quot;)) {</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">            assert (colorElegido != null) : &quot;Debe elegirse un color válido al jugar un comodín&quot;;</span>
         }
         
-<span class="pc bpc" id="L133" title="1 of 6 branches missed.">        switch (carta.getValor()) {</span>
+<span class="pc bpc" id="L120" title="1 of 6 branches missed.">        switch (carta.getValor()) {</span>
             case &quot;+4&quot;:
-<span class="fc" id="L135">                mazo.establecerComodinColor(colorElegido);</span>
-<span class="fc" id="L136">                cambiarTurno();</span>
-<span class="fc bfc" id="L137" title="All 2 branches covered.">                for (int i = 0; i &lt; 4; i++) {</span>
-<span class="fc" id="L138">                    robarCartaJugadorActual();</span>
+<span class="fc" id="L122">                mazo.establecerComodinColor(colorElegido);</span>
+<span class="fc" id="L123">                cambiarTurno();</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">                for (int i = 0; i &lt; 4; i++) {</span>
+<span class="fc" id="L125">                    robarCartaJugadorActual();</span>
                 }
-<span class="fc" id="L140">                break;</span>
+<span class="fc" id="L127">                break;</span>
             case &quot;wild&quot;:
-<span class="fc" id="L142">                mazo.establecerComodinColor(colorElegido);</span>
-<span class="fc" id="L143">                cambiarTurno();</span>
-<span class="fc" id="L144">                break;</span>
+<span class="fc" id="L129">                mazo.establecerComodinColor(colorElegido);</span>
+<span class="fc" id="L130">                cambiarTurno();</span>
+<span class="fc" id="L131">                break;</span>
             case &quot;skip&quot;:
-<span class="fc" id="L146">                cambiarTurno();</span>
-<span class="fc" id="L147">                cambiarTurno();</span>
-<span class="fc" id="L148">                break;</span>
+<span class="fc" id="L133">                cambiarTurno();</span>
+<span class="fc" id="L134">                cambiarTurno();</span>
+<span class="fc" id="L135">                break;</span>
             case &quot;reverse&quot;:
-<span class="fc bfc" id="L150" title="All 2 branches covered.">                sentidoHorario = !sentidoHorario;</span>
-<span class="fc" id="L151">                cambiarTurno();</span>
-<span class="fc" id="L152">                break;</span>
+<span class="fc bfc" id="L137" title="All 2 branches covered.">                sentidoHorario = !sentidoHorario;</span>
+<span class="fc" id="L138">                cambiarTurno();</span>
+<span class="fc" id="L139">                break;</span>
             case &quot;+2&quot;:
-<span class="fc" id="L154">                cambiarTurno();</span>
-<span class="fc bfc" id="L155" title="All 2 branches covered.">                for (int i = 0; i &lt; 2; i++) {</span>
-<span class="fc" id="L156">                    robarCartaJugadorActual();</span>
+<span class="fc" id="L141">                cambiarTurno();</span>
+<span class="fc bfc" id="L142" title="All 2 branches covered.">                for (int i = 0; i &lt; 2; i++) {</span>
+<span class="fc" id="L143">                    robarCartaJugadorActual();</span>
                 }
                 break;
         }
-
-        // Postcondición: Si es un comodín, verificar que el color haya sido asignado correctamente
-<span class="fc bfc" id="L162" title="All 4 branches covered.">        if (carta.getValor().equals(&quot;+4&quot;) || carta.getValor().equals(&quot;wild&quot;)) {</span>
-<span class="pc bpc" id="L163" title="1 of 2 branches missed.">            assert (mazo.obtenerComodinColor().equals(colorElegido)) : &quot;El color del comodín debe coincidir con el elegido&quot;;</span>
-        }
-<span class="fc" id="L165">    }</span>
+<span class="fc" id="L147">    }</span>
 
     /**
      * Permite que el jugador actual robe una carta del mazo.
-     * 
-     * Precondición: El mazo no debe estar vacío al robar una carta.
      */
-    public void robarCartaJugadorActual() {
-        // Precondición: El mazo no puede estar vacío
-<span class="pc bpc" id="L174" title="1 of 2 branches missed.">        assert !(mazo.getCartas().isEmpty()) : &quot;El mazo no puede estar vacío&quot;;</span>
-        
-<span class="fc" id="L176">        getJugadorActual().robarCarta(mazo);</span>
-<span class="fc" id="L177">    }</span>
+    public void robarCartaJugadorActual() {      
+<span class="fc" id="L153">        getJugadorActual().robarCarta(mazo);</span>
+<span class="fc" id="L154">    }</span>
 
     /**
      * Cambia el turno al siguiente jugador, siguiendo la dirección del juego (sentido horario o antihorario).
      */
     private void cambiarTurno() {;
-<span class="fc bfc" id="L183" title="All 2 branches covered.">        if (sentidoHorario) {</span>
-<span class="fc" id="L184">            jugadorActual = (jugadorActual + 1) % jugadores.size();</span>
+<span class="fc bfc" id="L160" title="All 2 branches covered.">        if (sentidoHorario) {</span>
+<span class="fc" id="L161">            jugadorActual = (jugadorActual + 1) % jugadores.size();</span>
         } else {
-<span class="fc" id="L186">            jugadorActual = (jugadorActual - 1 + jugadores.size()) % jugadores.size();</span>
+<span class="fc" id="L163">            jugadorActual = (jugadorActual - 1 + jugadores.size()) % jugadores.size();</span>
         }
-<span class="fc" id="L188">    }</span>
+<span class="fc" id="L165">    }</span>
 
     /**
      * Devuelve la dirección actual del turno (horario o antihorario).
@@ -193,7 +170,7 @@ import java.io.Serializable;
      * @return true si el turno es horario, false si es antihorario.
      */
     public boolean getSentidoHorario() {
-<span class="fc" id="L196">        return sentidoHorario;</span>
+<span class="fc" id="L173">        return sentidoHorario;</span>
     }
 
     /**
@@ -205,14 +182,14 @@ import java.io.Serializable;
      */
     public boolean esFinPartida() {
         // Precondición: Debe haber jugadores en la partida
-<span class="pc bpc" id="L208" title="1 of 2 branches missed.">        assert !(jugadores.isEmpty()) : &quot;Debe haber jugadores en la partida&quot;;</span>
+<span class="fc bfc" id="L185" title="All 2 branches covered.">        assert !(jugadores.isEmpty()) : &quot;Debe haber jugadores en la partida&quot;;</span>
 
-<span class="fc bfc" id="L210" title="All 2 branches covered.">        for (Jugador jugador : jugadores) {</span>
-<span class="fc bfc" id="L211" title="All 2 branches covered.">            if (jugador.getMano().isEmpty()) {</span>
-<span class="fc" id="L212">                return true; // La partida termina si un jugador se queda sin cartas</span>
+<span class="fc bfc" id="L187" title="All 2 branches covered.">        for (Jugador jugador : jugadores) {</span>
+<span class="fc bfc" id="L188" title="All 2 branches covered.">            if (jugador.getMano().isEmpty()) {</span>
+<span class="fc" id="L189">                return true; // La partida termina si un jugador se queda sin cartas</span>
             }
-<span class="fc" id="L214">        }</span>
-<span class="fc" id="L215">        return false;</span>
+<span class="fc" id="L191">        }</span>
+<span class="fc" id="L192">        return false;</span>
     }
 
     /**
@@ -221,7 +198,7 @@ import java.io.Serializable;
      * @return La lista de jugadores.
      */
     public List&lt;Jugador&gt; getJugadores() {
-<span class="fc" id="L224">        return jugadores;</span>
+<span class="fc" id="L201">        return jugadores;</span>
     }
 
     /**
@@ -230,7 +207,7 @@ import java.io.Serializable;
      * @return El jugador actual.
      */
     public Jugador getJugadorActual() {
-<span class="fc" id="L233">        return jugadores.get(jugadorActual);</span>
+<span class="fc" id="L210">        return jugadores.get(jugadorActual);</span>
     }
 
     /**
@@ -239,7 +216,7 @@ import java.io.Serializable;
      * @return El número del jugador actual.
      */
     public int getNumeroJugadorActual() {
-<span class="fc" id="L242">        return jugadorActual;</span>
+<span class="fc" id="L219">        return jugadorActual;</span>
     }
 
     /**
@@ -248,7 +225,7 @@ import java.io.Serializable;
      * @return La última carta jugada en el mazo.
      */
     public Carta obtenerUltimaCartaJugada() {
-<span class="fc" id="L251">        return mazo.obtenerUltimaCartaJugada(); // Devuelve la última carta jugada</span>
+<span class="fc" id="L228">        return mazo.obtenerUltimaCartaJugada(); // Devuelve la última carta jugada</span>
     }
 
     /**
@@ -257,7 +234,7 @@ import java.io.Serializable;
      * @return El color del comodín, o null si no se ha jugado un comodín.
      */
     public String obtenerComodinColor() {
-<span class="fc" id="L260">        return mazo.obtenerComodinColor(); // Devuelve el color elegido al jugar un comodin</span>
+<span class="fc" id="L237">        return mazo.obtenerComodinColor(); // Devuelve el color elegido al jugar un comodin</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

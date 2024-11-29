@@ -2,6 +2,8 @@ package test.ModelTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Collections;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,6 +32,13 @@ public class PartidaTest {
         for (Jugador jugador : partida.getJugadores()) {
             assertEquals(7, jugador.getMano().size(), "Cada jugador debe tener 7 cartas al inicio");
         }
+
+        partida.iniciarPartida(2);  // Inicializar partida con 4 jugadores
+        assertEquals(2, partida.getJugadores().size(), "La partida debería tener 4 jugadores");
+        for (Jugador jugador : partida.getJugadores()) {
+            assertEquals(7, jugador.getMano().size(), "Cada jugador debe tener 7 cartas al inicio");
+        }
+
         // Se tiene que probar con un tamaño inferior a 2
         assertThrows(AssertionError.class, () -> {
             partida.iniciarPartida(1);
@@ -75,7 +84,12 @@ public class PartidaTest {
         mazo.definirCartaParaRobar(cartaCompatible);
         partida.robarCartaJugadorActual();
 
+        int frecuenciaAntes = Collections.frequency(partida.getJugadorActual().getMano(), cartaCompatible);
+
         boolean resultado = partida.jugarCarta(cartaCompatible);
+
+        int frecuenciaDespues = Collections.frequency(partida.getJugadorActual().getMano(), cartaCompatible);
+        assertTrue(frecuenciaDespues < frecuenciaAntes, "La carta jugada debe eliminarse de la mano del jugador");
         assertTrue(resultado, "La carta compatible debería poder jugarse.");
         assertEquals(cartaCompatible, partida.obtenerUltimaCartaJugada(), "La última carta jugada debería actualizarse a la carta compatible.");
     }
@@ -111,6 +125,28 @@ public class PartidaTest {
         assertEquals("g", partida.obtenerComodinColor(), "El comodin debe haber establecido el color en amarillo.");
         assertTrue(mazo.actualizarUltimaCartaJugada(new Carta("g", "5")), "El color del comodín debería establecerse en verde.");
     }
+
+    @Test
+    public void testJugarCarta_ComodinConColorElegidoNull() {
+        Carta cartaComodin = new Carta(null, "wild");
+       
+        mazo.definirCartaParaRobar(cartaComodin);
+        partida.robarCartaJugadorActual();
+
+        // Jugar comodín y establecer null comocolor
+        assertThrows(AssertionError.class, () -> {
+            partida.jugarCarta(cartaComodin, null);
+        },"No se deberia poder establecer null como color.");
+    }
+
+    @Test
+    public void testJugarCarta_CartaNull() {
+        // Jugar null como carta
+        assertThrows(AssertionError.class, () -> {
+            partida.jugarCarta(null, null);
+        },"No se deberia poder establecer null como carta.");
+    }
+
 
     @Test
     public void testAplicarCartaEspecial_CambioSentido() {
@@ -216,6 +252,10 @@ public class PartidaTest {
     public void testEsFinPartida() {
         partida = new Partida();
         mazo = new MazoMock();
+
+        assertThrows(AssertionError.class, () -> {
+            partida.esFinPartida();
+        },"No se deberia poder llamar a esta funcion si no hay jugadores.");
         
         Carta cartaComodin = new Carta(null, "wild");
         mazo.definirCartaParaRobar(cartaComodin);
@@ -234,5 +274,12 @@ public class PartidaTest {
             turnosJugados++;
         }
         assertTrue(partida.esFinPartida(), "La partida debería terminar si un jugador se queda sin cartas.");
+    }
+
+    @Test
+    public void testSetMazoMockNull() {
+        assertThrows(AssertionError.class, () -> {
+            partida.setMazoMock(null);
+        },"No se deberia poder vincular un null como mazo.");
     }
 }

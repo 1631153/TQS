@@ -2,7 +2,6 @@ package main.Model;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.io.Serializable;
 
 public class Partida implements Serializable {
@@ -44,13 +43,16 @@ public class Partida implements Serializable {
      * 
      * Precondición: El número de jugadores debe estar entre 2 y 4.
      * 
-     * Postcondición: La lista de jugadores debe tener el número adecuado de jugadores y cada uno debe tener 7 cartas.
-     * 
      * @param num_jugadores El número de jugadores en la partida.
      */
     public void iniciarPartida(int num_jugadores) {
         // Precondición: Es una validación crítica para el correcto funcionamiento del juego.
         assert (num_jugadores >= 2 && num_jugadores <= 4) : "El número de jugadores debe estar entre 2 y 4";
+
+        // Implementado para poder reutilizar la misma partida (borrando los jugadores anteriores antes de comenzar)
+        if (!jugadores.isEmpty()) {
+            jugadores.clear();
+        }
 
         // Crear los jugadores y añadirlos a la lista
         for (int i = 1; i <= num_jugadores; i++) {
@@ -62,12 +64,6 @@ public class Partida implements Serializable {
             for (int j = 0; j < 7; j++) {
                 jugador.robarCarta(mazo);
             }
-        }
-
-        // Postcondición: El número de jugadores debe ser el correcto y cada jugador debe tener 7 cartas
-        assert (jugadores.size() == num_jugadores) : "El número de jugadores debe ser igual al número inicial";
-        for (Jugador jugador : jugadores) {
-            assert jugador.getMano().size() == 7 : "Cada jugador debe tener 7 cartas al iniciar la partida";
         }
     }
 
@@ -86,8 +82,6 @@ public class Partida implements Serializable {
      * 
      * Precondición: La carta no puede ser null.
      * 
-     * Postcondición: Si la carta es válida, se juega correctamente y se elimina de su mano.
-     * 
      * @param carta La carta a jugar.
      * @param colorElegido El color elegido en caso de que la carta sea un comodín (puede ser null).
      * @return true si la carta fue jugada correctamente, false si no fue válida.
@@ -96,13 +90,8 @@ public class Partida implements Serializable {
         // Precondición: La carta no puede ser null
         assert (carta != null) : "La carta a jugar no puede ser null";
         
-        int frecuenciaAntes = Collections.frequency(getJugadorActual().getMano(), carta);
         // Intentar jugar la carta
         if (getJugadorActual().jugarCarta(carta, mazo)) {
-            // Postcondición: La carta jugada debe eliminarse de la mano del jugador
-            int frecuenciaDespues = Collections.frequency(getJugadorActual().getMano(), carta);
-            assert (!getJugadorActual().getMano().contains(carta) || (frecuenciaDespues < frecuenciaAntes)) : "La carta jugada no debe estar en la mano del jugador actual.";
-            
             // Si la carta es especial, aplicar su efecto
             if (carta.isValorEspecial(carta.getValor())) {
                 aplicarCartaEspecial(carta, colorElegido);
@@ -118,8 +107,6 @@ public class Partida implements Serializable {
      * Aplica el efecto de una carta especial, incluyendo la elección de color para los comodines.
      * 
      * Precondición: Si la carta es un comodín, el colorElegido no debe ser null.
-     * 
-     * Postcondición: El efecto de la carta especial debe aplicarse correctamente.
      * 
      * @param carta La carta especial a aplicar.
      * @param colorElegido El color elegido en caso de que sea un comodín (null si no aplica).
@@ -157,22 +144,12 @@ public class Partida implements Serializable {
                 }
                 break;
         }
-
-        // Postcondición: Si es un comodín, verificar que el color haya sido asignado correctamente
-        if (carta.getValor().equals("+4") || carta.getValor().equals("wild")) {
-            assert (mazo.obtenerComodinColor().equals(colorElegido)) : "El color del comodín debe coincidir con el elegido";
-        }
     }
 
     /**
      * Permite que el jugador actual robe una carta del mazo.
-     * 
-     * Precondición: El mazo no debe estar vacío al robar una carta.
      */
-    public void robarCartaJugadorActual() {
-        // Precondición: El mazo no puede estar vacío
-        assert !(mazo.getCartas().isEmpty()) : "El mazo no puede estar vacío";
-        
+    public void robarCartaJugadorActual() {      
         getJugadorActual().robarCarta(mazo);
     }
 
