@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Partida {
+import java.io.Serializable;  // Importa la interfaz Serializable
+
+public class Partida implements Serializable {
+    private static final long serialVersionUID = 1L;
     private List<Jugador> jugadores;     // Lista de jugadores en la partida
     private int jugadorActual;           // Índice del jugador con el turno actual
     private boolean sentidoHorario;      // Dirección del juego (true = horario, false = antihorario)
