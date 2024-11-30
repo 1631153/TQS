@@ -10,21 +10,31 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import main.Model.Partida;
+import test.Mock.JugadorMock;
 import test.Mock.MazoMock;
 import main.Model.Carta;
 import main.Model.Jugador;
 
 public class PartidaTest {
 
-    private Partida partida;
-    private MazoMock mazo; //para pruebas
+    private Partida partida, partidaConMock;
+    private JugadorMock jugador1, jugador2, jugador3, jugador4; //para pruebas
+    private MazoMock mazo;
 
     @BeforeEach
     public void setUp() {
         partida = new Partida();
-        partida.iniciarPartida(4);  // Inicializar partida con 4 jugadores
         mazo = new MazoMock();
         partida.setMazoMock(mazo);
+        partida.iniciarPartida(4);
+        
+        partidaConMock = new Partida();
+
+        jugador1 = new JugadorMock("P1");
+        jugador2 = new JugadorMock("P2");
+        jugador3 = new JugadorMock("P3");
+        jugador4 = new JugadorMock("P4");
+        partidaConMock.setJugadoresMock(List.of(jugador1, jugador2, jugador3, jugador4));
     }
 
     /**
@@ -339,10 +349,9 @@ public class PartidaTest {
 
         // Avanzar el turno 8 veces (jugando una carta válida cada vez)
         for (int i = 0; i < secuenciaEsperada.length; i++) {
-            secuenciaReal[i] = partida.getNumeroJugadorActual();
-            mazo.definirCartaParaRobar(carta);
-            partida.robarCartaJugadorActual();
-            assertTrue(partida.jugarCarta(carta), "El jugador debería poder jugar una carta válida.");
+            secuenciaReal[i] = partidaConMock.getNumeroJugadorActual();
+            partidaConMock.getJugadorActual().getMano().add(carta);
+            assertTrue(partidaConMock.jugarCarta(carta), "El jugador debería poder jugar una carta válida.");
         }
 
         assertArrayEquals(secuenciaEsperada, secuenciaReal, "El ciclo de turnos no sigue el orden esperado.");
@@ -354,25 +363,25 @@ public class PartidaTest {
      */
     @Test
     public void testJugarCarta_CartaCompatible() {
+        partidaConMock.setJugadoresMock(List.of(jugador1));
+
+        // Crear cartas de prueba
         Carta cartaActual = new Carta("r", "7");
+        Carta cartaCompatible = new Carta("r", "5"); // Carta compatible por color
 
-        mazo.definirCartaParaRobar(cartaActual);
-        partida.robarCartaJugadorActual();
-        partida.jugarCarta(cartaActual);
+        partidaConMock.getJugadorActual().getMano().add(cartaActual);
+        partidaConMock.getJugadorActual().getMano().add(cartaCompatible);
 
-        // Suponemos que el jugador tiene una carta compatible
-        Carta cartaCompatible = new Carta(cartaActual.getColor(), "5");  // Carta del mismo color
-        mazo.definirCartaParaRobar(cartaCompatible);
-        partida.robarCartaJugadorActual();
+        partidaConMock.jugarCarta(cartaActual);
 
-        int frecuenciaAntes = Collections.frequency(partida.getJugadorActual().getMano(), cartaCompatible);
+        int frecuenciaAntes = Collections.frequency(partidaConMock.getJugadorActual().getMano(), cartaCompatible);
 
-        boolean resultado = partida.jugarCarta(cartaCompatible);
+        boolean resultado = partidaConMock.jugarCarta(cartaCompatible);
 
-        int frecuenciaDespues = Collections.frequency(partida.getJugadorActual().getMano(), cartaCompatible);
+        int frecuenciaDespues = Collections.frequency(partidaConMock.getJugadorActual().getMano(), cartaCompatible);
         assertTrue(frecuenciaDespues < frecuenciaAntes, "La carta jugada debe eliminarse de la mano del jugador");
         assertTrue(resultado, "La carta compatible debería poder jugarse.");
-        assertEquals(cartaCompatible, partida.obtenerUltimaCartaJugada(), "La última carta jugada debería actualizarse a la carta compatible.");
+        assertEquals(cartaCompatible, partidaConMock.obtenerUltimaCartaJugada(), "La última carta jugada debería actualizarse a la carta compatible.");
     }
 
     /**
@@ -382,18 +391,17 @@ public class PartidaTest {
     @Test
     public void testJugarCarta_CartaIncompatible() {
         Carta cartaActual = new Carta("b", "7");
-
-        mazo.definirCartaParaRobar(cartaActual);
-        partida.robarCartaJugadorActual();
-        partida.jugarCarta(cartaActual);
-        
         Carta cartaIncompatible = new Carta("r", "9"); // Una carta no compatible con la última jugada
-        mazo.definirCartaParaRobar(cartaIncompatible);
-        partida.robarCartaJugadorActual();
 
-        boolean resultado = partida.jugarCarta(cartaIncompatible);
+        partidaConMock.getJugadorActual().getMano().add(cartaActual);
+        
+        partidaConMock.jugarCarta(cartaActual);
+
+        partidaConMock.getJugadorActual().getMano().add(cartaIncompatible);
+
+        boolean resultado = partidaConMock.jugarCarta(cartaIncompatible);
         assertFalse(resultado, "La carta incompatible no debería poder jugarse.");
-        assertNotEquals(cartaIncompatible, partida.obtenerUltimaCartaJugada(), "La última carta jugada no debería actualizarse.");
+        assertNotEquals(cartaIncompatible, partidaConMock.obtenerUltimaCartaJugada(), "La última carta jugada no debería actualizarse.");
     }
 
     /**
@@ -402,16 +410,16 @@ public class PartidaTest {
      */
     @Test
     public void testJugarCarta_ComodinConColorElegido() {
+        partidaConMock.setJugadoresMock(List.of(jugador1));
+
         Carta cartaComodin = new Carta(null, "wild");
-       
-        mazo.definirCartaParaRobar(cartaComodin);
-        partida.robarCartaJugadorActual();
+        partidaConMock.getJugadorActual().getMano().add(cartaComodin);
 
         // Jugar comodín y establecer color a verde
-        boolean resultado = partida.jugarCarta(cartaComodin, "g");
+        boolean resultado = partidaConMock.jugarCarta(cartaComodin, "g");
         assertTrue(resultado, "El comodín debería poder jugarse.");
-        assertEquals(cartaComodin, partida.obtenerUltimaCartaJugada(), "La última carta jugada debería ser el comodín.");
-        assertEquals("g", partida.obtenerComodinColor(), "El comodín debe haber establecido el color en verde.");
+        assertEquals(cartaComodin, partidaConMock.obtenerUltimaCartaJugada(), "La última carta jugada debería ser el comodín.");
+        assertEquals("g", partidaConMock.obtenerComodinColor(), "El comodín debe haber establecido el color en verde.");
     }
 
     /**
@@ -422,12 +430,11 @@ public class PartidaTest {
     public void testJugarCarta_ComodinConColorElegidoNull() {
         Carta cartaComodin = new Carta(null, "wild");
        
-        mazo.definirCartaParaRobar(cartaComodin);
-        partida.robarCartaJugadorActual();
+        partidaConMock.getJugadorActual().getMano().add(cartaComodin);
 
         // Jugar comodín y establecer null como color
         assertThrows(AssertionError.class, () -> {
-            partida.jugarCarta(cartaComodin, null);
+            partidaConMock.jugarCarta(cartaComodin, null);
         },"No se debería poder establecer null como color.");
     }
 
@@ -439,7 +446,7 @@ public class PartidaTest {
     public void testJugarCarta_CartaNull() {
         // Jugar null como carta
         assertThrows(AssertionError.class, () -> {
-            partida.jugarCarta(null, null);
+            partidaConMock.jugarCarta(null, null);
         },"No se debería poder establecer null como carta.");
     }
 
@@ -449,24 +456,21 @@ public class PartidaTest {
      */
     @Test
     public void testAplicarCartaEspecial_CambioSentido() {
-        assertTrue(partida.getSentidoHorario(), "El sentido de juego debería iniciar en horario.");
+        assertTrue(partidaConMock.getSentidoHorario(), "El sentido de juego debería iniciar en horario.");
 
         Carta cartaReverse = new Carta("r", "reverse");
-        
-        mazo.definirCartaParaRobar(cartaReverse);
-        partida.robarCartaJugadorActual();
+        partidaConMock.getJugadorActual().getMano().add(cartaReverse);
 
-        boolean resultado = partida.jugarCarta(cartaReverse);
+        boolean resultado = partidaConMock.jugarCarta(cartaReverse);
         assertTrue(resultado, "La carta 'reverse' debería poder jugarse.");
-        assertFalse(partida.getSentidoHorario(), "El sentido de juego debería cambiar a antihorario.");
+        assertFalse(partidaConMock.getSentidoHorario(), "El sentido de juego debería cambiar a antihorario.");
     
         Carta cartaReverseNueva = new Carta("b", "reverse");
-        mazo.definirCartaParaRobar(cartaReverseNueva);
-        partida.robarCartaJugadorActual();
+        partidaConMock.getJugadorActual().getMano().add(cartaReverseNueva);
 
-        resultado = partida.jugarCarta(cartaReverseNueva);
+        resultado = partidaConMock.jugarCarta(cartaReverseNueva);
         assertTrue(resultado, "La carta 'reverse' debería poder jugarse.");
-        assertTrue(partida.getSentidoHorario(), "El sentido de juego debería cambiar a horario.");
+        assertTrue(partidaConMock.getSentidoHorario(), "El sentido de juego debería cambiar a horario.");
     }
 
     /**
@@ -480,23 +484,21 @@ public class PartidaTest {
         int[] secuenciaReal = new int[secuenciaEsperada.length];
     
         // Inicializamos la secuencia real con el jugador que comienza la partida
-        secuenciaReal[0] = partida.getNumeroJugadorActual();
+        secuenciaReal[0] = partidaConMock.getNumeroJugadorActual();
     
         // Jugamos una carta "reverse" para cambiar la dirección de los turnos a antihorario
         Carta reverse = new Carta("r", "reverse");  // Carta especial "reverse"
-        mazo.definirCartaParaRobar(reverse);
-        partida.robarCartaJugadorActual();  // Añadimos la carta a la mano del jugador
-        assertTrue(partida.jugarCarta(reverse), "El jugador debería poder jugar una carta 'reverse'.");
+        partidaConMock.getJugadorActual().getMano().add(reverse);
+        assertTrue(partidaConMock.jugarCarta(reverse), "El jugador debería poder jugar una carta 'reverse'.");
     
         // Ahora seguimos avanzando el turno en sentido antihorario con cartas comunes
         for (int i = 1; i < secuenciaEsperada.length; i++) {
-            secuenciaReal[i] = partida.getNumeroJugadorActual();
+            secuenciaReal[i] = partidaConMock.getNumeroJugadorActual();
     
             // Jugamos una carta común (de valor "5" del color rojo)
             Carta cartaComún = new Carta("r", "5");
-            mazo.definirCartaParaRobar(cartaComún);
-            partida.robarCartaJugadorActual();  // Añadimos la carta a la mano
-            assertTrue(partida.jugarCarta(cartaComún), "El jugador debería poder jugar una carta común.");
+            partidaConMock.getJugadorActual().getMano().add(cartaComún);
+            assertTrue(partidaConMock.jugarCarta(cartaComún), "El jugador debería poder jugar una carta común.");
         }
     
         // Comprobamos que la secuencia real de jugadores coincida con la secuencia esperada
@@ -511,15 +513,14 @@ public class PartidaTest {
     @Test
     public void testAplicarCartaEspecial_SkipTurno() {
         Carta cartaSkip = new Carta("r", "skip");
-        mazo.definirCartaParaRobar(cartaSkip);
-        partida.robarCartaJugadorActual();
+        partidaConMock.getJugadorActual().getMano().add(cartaSkip);
 
-        int jugadorAntesDeSkip = partida.getNumeroJugadorActual();
-        boolean resultado = partida.jugarCarta(cartaSkip);
+        int jugadorAntesDeSkip = partidaConMock.getNumeroJugadorActual();
+        boolean resultado = partidaConMock.jugarCarta(cartaSkip);
         assertTrue(resultado, "La carta 'skip' debería poder jugarse.");
 
         // Verificar que se salta un turno completo
-        int jugadorDespuesDeSkip = partida.getNumeroJugadorActual();
+        int jugadorDespuesDeSkip = partidaConMock.getNumeroJugadorActual();
         assertNotEquals(jugadorAntesDeSkip, jugadorDespuesDeSkip, "El turno debería haber avanzado.");
         assertNotEquals((jugadorAntesDeSkip + 1) % 4, jugadorDespuesDeSkip, "Debería saltarse al siguiente jugador.");
     }
@@ -531,14 +532,13 @@ public class PartidaTest {
     @Test
     public void testAplicarCartaEspecial_RobarDosCartas() {
         Carta cartaMasDos = new Carta("r", "+2");
-        mazo.definirCartaParaRobar(cartaMasDos);
-        partida.robarCartaJugadorActual();
+        partidaConMock.getJugadorActual().getMano().add(cartaMasDos);
 
-        int jugadorObjetivo = (partida.getNumeroJugadorActual() + 1) % 4;
-        Jugador siguienteJugador = partida.getJugadores().get(jugadorObjetivo);
+        int jugadorObjetivo = (partidaConMock.getNumeroJugadorActual() + 1) % 4;
+        Jugador siguienteJugador = partidaConMock.getJugadores().get(jugadorObjetivo);
         int cartasAntes = siguienteJugador.getMano().size();
 
-        boolean resultado = partida.jugarCarta(cartaMasDos);
+        boolean resultado = partidaConMock.jugarCarta(cartaMasDos);
         assertTrue(resultado, "La carta '+2' debería poder jugarse.");
         assertEquals(cartasAntes + 2, siguienteJugador.getMano().size(), "El siguiente jugador debería robar 2 cartas.");
     }
@@ -550,17 +550,16 @@ public class PartidaTest {
     @Test
     public void testAplicarCartaEspecial_RobarCuatroCartas() {
         Carta cartaMasCuatro = new Carta(null, "+4");
-        mazo.definirCartaParaRobar(cartaMasCuatro);
-        partida.robarCartaJugadorActual();
+        partidaConMock.getJugadorActual().getMano().add(cartaMasCuatro);
 
-        int jugadorObjetivo = (partida.getNumeroJugadorActual() + 1) % 4;
-        Jugador siguienteJugador = partida.getJugadores().get(jugadorObjetivo);
+        int jugadorObjetivo = (partidaConMock.getNumeroJugadorActual() + 1) % 4;
+        Jugador siguienteJugador = partidaConMock.getJugadores().get(jugadorObjetivo);
         int cartasAntes = siguienteJugador.getMano().size();
 
-        boolean resultado = partida.jugarCarta(cartaMasCuatro, "b");  // Jugar +4 y elegir color azul
+        boolean resultado = partidaConMock.jugarCarta(cartaMasCuatro, "b");  // Jugar +4 y elegir color azul
         assertTrue(resultado, "La carta '+4' debería poder jugarse.");
         assertEquals(cartasAntes + 4, siguienteJugador.getMano().size(), "El siguiente jugador debería robar 4 cartas.");
-        assertTrue(mazo.actualizarUltimaCartaJugada(new Carta("b", "5")), "El color del comodín debería establecerse en azul.");
+        assertTrue(partidaConMock.obtenerComodinColor() == "b", "El color del comodín debería establecerse en azul.");
     }
 
     /**
@@ -570,7 +569,6 @@ public class PartidaTest {
     @Test
     public void testEsFinPartida() {
         partida = new Partida();
-        mazo = new MazoMock();
 
         assertThrows(AssertionError.class, () -> {
             partida.esFinPartida();
@@ -604,5 +602,20 @@ public class PartidaTest {
         assertThrows(AssertionError.class, () -> {
             partida.setMazoMock(null);
         },"No se debería poder vincular un null como mazo.");
+    }
+
+    /**
+     * 18. Test para verificar que no se puede vincular una lista de jugadores null o vacia a la partida.
+     * Se asegura de que pasar una lista de jugadores null a la función `setJugadoresMock` lance una excepción.
+     */
+    @Test
+    public void testSetJugadoresMockNullYEmpty() {
+        assertThrows(AssertionError.class, () -> {
+            partida.setJugadoresMock(null);
+        },"No se debería poder vincular un null como lista de jugadores.");
+
+        assertThrows(AssertionError.class, () -> {
+            partida.setJugadoresMock(new ArrayList<>());
+        },"La lista de jugadores no deberia de poder estar vacia");
     }
 }

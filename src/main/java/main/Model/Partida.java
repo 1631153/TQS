@@ -38,6 +38,20 @@ public class Partida implements Serializable {
     }
 
     /**
+     * Establece una lista de jugadore mock para la partida.
+     * 
+     * Precondición: La lista de jugadores mock no puede ser null ni estar vacia.
+     * 
+     * @param jugadores La lista de jugadores mock que se quiere establecer.
+     */
+    public void setJugadoresMock(List<Jugador> jugadores) {
+        // Precondición: La lista de jugadores mock no puede ser null ni estar vacia.
+        assert (jugadores != null && !jugadores.isEmpty()) : "La lista de jugadores mock no puede ser null ni estar vacia";
+
+        this.jugadores = jugadores;
+    }
+
+    /**
      * Inicia la partida con los nombres de jugadores especificados. 
      * También establece el número de cartas para cada jugador.
      * 
