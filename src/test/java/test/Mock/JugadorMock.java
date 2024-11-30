@@ -9,36 +9,40 @@ import main.Model.Mazo;
 
 public class JugadorMock extends Jugador {
     private List<Carta> cartasEnMano;
-    private List<Carta> CartasPredeterminadas;
+    private Carta cartaParaRobar;
 
     public JugadorMock(String nom) {
         super(nom);
         this.cartasEnMano = new ArrayList<>();
-        this.CartasPredeterminadas = new ArrayList<>();
+        this.cartaParaRobar = null;
     }
 
     @Override
-    public void robarCarta(Mazo mazo) { //mazo aqui no hace nada
-        Carta cartaRobada = CartasPredeterminadas.remove(0);
-        cartasEnMano.add(cartaRobada);
+    public void robarCarta(Mazo mazo) { //Si hay cartaParaRobar entonces mazo aqui no hace nada
+        if (cartaParaRobar != null) {
+            cartasEnMano.add(cartaParaRobar);
+        }
+        else {
+            cartasEnMano.add(mazo.robarCarta());
+        }
     }
 
     @Override
-    public boolean jugarCarta(Carta carta, Mazo mazo) {//mazo aqui no hace nada
-        if (cartasEnMano.contains(carta)) {
+    public boolean jugarCarta(Carta carta, Mazo mazo) { // mazo aqui no hace nada
+        if (cartasEnMano.contains(carta) && mazo.actualizarUltimaCartaJugada(carta)) {
             cartasEnMano.remove(carta);
-            mazo.actualizarUltimaCartaJugada(carta);
             return true;
         }
         return false;
     }
 
-    public List<Carta> getCartasEnMano() {
+    @Override
+    public List<Carta> getMano() {
         return cartasEnMano;
     }
 
-    public void setCartasPredeterminadas(List<Carta> cartas) {
-        this.CartasPredeterminadas = new ArrayList<>(cartas);
+    public void setCartaParaRobar(Carta carta) {
+        this.cartaParaRobar = carta;
     }
 
 }
