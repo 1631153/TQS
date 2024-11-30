@@ -22,6 +22,11 @@ public class JugadorTest {
         mazo = new MazoMock();
     }
 
+    /**
+     * 1. Test que valida la correcta inicialización de un jugador. Verifica que el nombre del jugador se asigne 
+     * correctamente, que la mano del jugador no sea nula y que esté vacía al inicio. También comprueba que se 
+     * lanza una excepción si se intenta crear un jugador con un nombre nulo.
+     */
     @Test
     public void testConstructor() {
         assertEquals("Player1", jugador.getNombre(), "El nombre del jugador debería coincidir con el nombre asignado en la inicialización");
@@ -31,6 +36,10 @@ public class JugadorTest {
         assertThrows(AssertionError.class, () -> new Jugador(null), "No se debería poder introducir null como nombre");
     }
 
+    /**
+     * 2. Test que verifica que el jugador pueda robar una carta del mazo.
+     * Comprueba que después de robar una carta, la mano del jugador aumente en tamaño.
+     */
     @Test
     public void testRobarCarta() {
         int tamanoInicialMano = jugador.getMano().size();
@@ -39,6 +48,10 @@ public class JugadorTest {
         assertEquals(tamanoInicialMano + 1, jugador.getMano().size(), "El jugador debería tener una carta más tras robar");
     }
 
+    /**
+     * 3. Test para verificar que se lance una excepción si se intenta 
+     * robar una carta cuando el mazo es null o cuando el mazo ya está vacío.
+     */
     @Test
     public void testRobarCartaError() {
         assertThrows(AssertionError.class, () -> jugador.robarCarta(null), "No se debería poder introducir null como mazo");
@@ -47,6 +60,11 @@ public class JugadorTest {
         assertThrows(AssertionError.class, () -> jugador.robarCarta(mazo), "No se debería poder introducir null como mazo");
     }
 
+    /**
+     * 4. Test que verifica si el jugador puede jugar una carta válida.
+     * Comprueba que la carta se juegue correctamente, que se actualice la última carta jugada,
+     * y que la mano del jugador se actualice (se elimine la carta jugada).
+     */
     @Test
     public void testJugarCartaValida() {
         Carta cartaValida = new Carta("r", "5");
@@ -69,6 +87,11 @@ public class JugadorTest {
         assertTrue(FrecuanciaDespues < FrecuanciaAntes, "La carta jugada no debe estar en la mano");
     }
 
+    /**
+     * 5. Test que verifica que el jugador no pueda jugar una carta inválida.
+     * Si la carta no es compatible con la última carta jugada, debe devolverse `false` y 
+     * la carta no debe ser removida de la mano del jugador.
+     */
     @Test
     public void testJugarCartaInvalida() {
         Carta cartaInvalida = new Carta("b", "5");  // Carta incompatible con la última en el mazo
@@ -90,8 +113,12 @@ public class JugadorTest {
         assertTrue(jugador.getMano().contains(cartaInvalida), "La carta incompatible debería permanecer en la mano del jugador");
         assertTrue(cantidadDespues == cantidadAntes, "Solo una carta deberia eliminarse");
         assertTrue(FrecuanciaDespues == FrecuanciaAntes, "La carta jugada no debe estar en la mano");
-        }
+    }
 
+    /**
+     * 6. Test para comprobar que se lanza una excepción cuando se pasan parámetros nulos 
+     * al intentar jugar una carta (como carta o mazo nulo).
+     */
     @Test
     public void testJugarCartaError() {
         Carta carta = new Carta(null, "wild");

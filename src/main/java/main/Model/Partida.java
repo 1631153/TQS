@@ -38,34 +38,105 @@ public class Partida implements Serializable {
     }
 
     /**
-     * Inicia la partida con el número de jugadores especificado.
-     * Crea los jugadores, les reparte cartas y establece las condiciones iniciales del juego.
+     * Inicia la partida con los nombres de jugadores especificados. 
+     * También establece el número de cartas para cada jugador.
+     * 
+     * Precondición: El número de cartas debe ser mayor que 0 pero menor a 100 (sino la partida no acaba nunca)
+     * 
+     * Precondición: La lista de nombres no debe ser null.
+     * 
+     * Precondición: La lista de nombres no debe estar vacía.
      * 
      * Precondición: El número de jugadores debe estar entre 2 y 4.
      * 
-     * @param num_jugadores El número de jugadores en la partida.
+     * @param nombres Lista de nombres de los jugadores.
+     * @param numCartas Número de cartas que recibirán todos los jugadores al inicio (por defecto 7).
      */
-    public void iniciarPartida(int num_jugadores) {
-        // Precondición: Es una validación crítica para el correcto funcionamiento del juego.
-        assert (num_jugadores >= 2 && num_jugadores <= 4) : "El número de jugadores debe estar entre 2 y 4";
+    public void iniciarPartida(List<String> nombres, int numCartas) {
+        // Precondición: El número de cartas debe ser mayor que 0 pero menor a 101 (sino la partida no acaba nunca)
+        assert (numCartas > 0 && numCartas < 101) : "El número de cartas debe ser mayor que 0 pero menor a 101";
+
+        // Precondición: La lista de nombres no debe ser null
+        assert (nombres != null) : "La lista de nombres no debe ser null";
+
+        // Precondición: La lista de nombres no debe estar vacía
+        assert (!nombres.isEmpty()) : "La lista de nombres no debe estar vacía";
+
+        // Precondición: El número de jugadores debe estar entre 2 y 4
+        assert (nombres.size() >= 2 && nombres.size() <= 4) : "El número de jugadores debe ser entre 2 y 4";
 
         // Implementado para poder reutilizar la misma partida (borrando los jugadores anteriores antes de comenzar)
         if (!jugadores.isEmpty()) {
             jugadores.clear();
         }
 
-        // Crear los jugadores y añadirlos a la lista
-        for (int i = 1; i <= num_jugadores; i++) {
-            jugadores.add(new Jugador("Jugador" + i));
+        for (String nombre : nombres) {
+            jugadores.add(new Jugador(nombre));
         }
-        
-        // Repartir cartas iniciales a cada jugador
+
+        // Repartir las cartas iniciales a cada jugador
         for (Jugador jugador : jugadores) {
-            for (int j = 0; j < 7; j++) {
+            for (int i = 0; i < numCartas; i++) {
                 jugador.robarCarta(mazo);
             }
         }
     }
+
+    /**
+     * Inicia la partida con el número de jugadores especificado y 7 cartas por defecto para cada uno.
+     * 
+     * Precondición: El número de jugadores debe estar entre 2 y 4.
+     * 
+     * @param num_jugadores El número de jugadores en la partida.
+     */
+    public void iniciarPartida(int num_jugadores) {
+        // Precondición: El número de jugadores debe estar entre 2 y 4
+        assert (num_jugadores >= 2 && num_jugadores <= 4) : "El número de jugadores debe ser entre 2 y 4";
+
+        List<String> nombres = new ArrayList<>();
+
+        // Crear lista de nombres para jugadores predeterminados
+        for (int i = 0; i < num_jugadores; i++) {
+            nombres.add("Jugador" + (i + 1));
+        }
+
+        this.iniciarPartida(nombres, 7); // Llamada con los valores por defecto (7 cartas)
+    }
+
+    /**
+     * Inicia la partida con la lista de jugadores especificada y 7 cartas por defecto para cada jugador.
+     * 
+     * @param nombres Lista de nombres de los jugadores.
+     */
+    public void iniciarPartida(List<String> nombres) {
+        // Llamada al método iniciarPartida con 7 cartas por defecto
+        this.iniciarPartida(nombres, 7); // Llamada con los valores por defecto (7 cartas)
+    }
+
+    /**
+     * Inicia la partida con el número de jugadores especificado y un número personalizado de cartas por jugador.
+     * Este método permite definir tanto el número de jugadores como el número de cartas que recibirán al inicio.
+     * 
+     * Precondición: El número de jugadores debe estar entre 2 y 4.
+     * 
+     * @param num_jugadores El número de jugadores en la partida.
+     * @param numCartas El número de cartas que recibirán todos los jugadores.
+     */
+    public void iniciarPartida(int num_jugadores, int numCartas) {
+        // Precondición: El número de jugadores debe estar entre 2 y 4
+        assert (num_jugadores >= 2 && num_jugadores <= 4) : "El número de jugadores debe estar entre 2 y 4";
+
+        List<String> nombres = new ArrayList<>();
+
+        // Crear lista de nombres para jugadores predeterminados
+        for (int i = 0; i < num_jugadores; i++) {
+            nombres.add("Jugador" + (i + 1));
+        }
+
+        // Llamada al método iniciarPartida con los nombres generados y el número de cartas especificado
+        this.iniciarPartida(nombres, numCartas);
+    }
+
 
     /**
      * Permite que el jugador actual juegue una carta sin seleccionar un color para un comodín.
