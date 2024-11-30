@@ -3,6 +3,6 @@ digitaluno,main.launcher,Main,17,0,0,0,6,0,2,0,2,0
 digitaluno,main.Model,Carta,0,142,0,46,0,19,0,31,0,8
 digitaluno,main.Model,Jugador,0,92,0,14,0,20,0,13,0,6
 digitaluno,main.Model,Mazo,0,252,0,32,0,42,0,25,0,9
-digitaluno,main.Model,Partida,0,294,1,45,0,67,1,40,0,16
+digitaluno,main.Model,Partida,0,402,1,65,0,85,1,53,0,19
 digitaluno,main.Controller,JuegoController,5,781,0,72,2,230,0,55,0,17
 digitaluno,main.View,ConsolaView,4,318,0,27,2,74,0,26,0,11
