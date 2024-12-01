@@ -312,8 +312,17 @@ public class CartaTest {
         for (Object[] fila : tablaPairwise) {
             Carta carta1 = new Carta((String) fila[0], (String) fila[1]);
             Carta carta2 = new Carta((String) fila[2], (String) fila[3]);
+            
+            boolean esperado;
+            if (carta1.getColor() == null || carta2.getColor() == null) {
+                esperado = true;
+            } else {
+                esperado = carta1.getColor().equals(carta2.getColor()) || carta1.getValor().equals(carta2.getValor());
+            }
+            boolean resultado = carta1.esCompatible(carta2);
 
-            assertTrue(carta1.esCompatible(carta2), "El pairwise testing ha fallado");
+            // Validar el resultado
+            assertEquals(esperado, resultado, "Combinación erronea: " + carta1 + " y " + carta2);
         }
     }
 }
