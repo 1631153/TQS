@@ -1,8 +1,5 @@
 package main.Controller;
 
-import main.Model.*;
-import main.View.*;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -17,6 +14,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+
+import main.Model.Carta;
+import main.Model.Jugador;
+import main.Model.Partida;
+import main.View.InterfazJuego;
 
 public class JuegoController {
     private Partida partida;

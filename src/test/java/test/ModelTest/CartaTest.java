@@ -1,6 +1,10 @@
 package test.ModelTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -262,40 +266,54 @@ public class CartaTest {
      * - Casos de incompatibilidad de color y valor.
      */
     @Test
-    public void testPairwiseEsCompatible() {
-        // Diferentes tipos de cartas, sabiendo que solo existe cartas con color y comodines sin color
-        // Cartas con color
-        Carta cartaRoja5 = new Carta("r", "5");
-        Carta cartaRojaSkip = new Carta("r", "skip");
-        Carta cartaAzul5 = new Carta("b", "5");
-        Carta cartaAzulSkip = new Carta("b", "skip");
+    void testEsCompatiblePairwise() {
+        // Tabla generada con PICT
+        Object[][] tablaPairwise = {
+            {"r", "reverse", "g", "5"},
+            {null, "+4", "r", "+2"},
+            {null, "wild", "b", "5"},
+            {"y", "skip", "g", "5"},
+            {"r", "5", "y", "5"},
+            {null, "+4", "b", "skip"},
+            {null, "+4", "g", "5"},
+            {null, "+4", "y", "reverse"},
+            {"b", "skip", null, "+4"},
+            {"g", "skip", "b", "reverse"},
+            {"r", "skip", "y", "+2"},
+            {"b", "+2", "y", "skip"},
+            {"g", "+2", "r", "5"},
+            {"y", "reverse", "b", "+2"},
+            {"b", "5", "g", "skip"},
+            {"r", "reverse", "r", "reverse"},
+            {"y", "5", "r", "reverse"},
+            {"r", "+2", null, "wild"},
+            {null, "wild", "g", "reverse"},
+            {"g", "reverse", null, "+4"},
+            {null, "+4", null, "wild"},
+            {"g", "skip", "y", "skip"},
+            {null, "+4", null, "+4"},
+            {"y", "reverse", "r", "skip"},
+            {null, "wild", null, "+4"},
+            {"r", "5", null, "+4"},
+            {"b", "reverse", null, "wild"},
+            {null, "wild", null, "wild"},
+            {"r", "+2", "b", "5"},
+            {"g", "skip", null, "wild"},
+            {null, "wild", "r", "+2"},
+            {"b", "+2", "y", "+2"},
+            {"g", "5", "b", "+2"},
+            {null, "wild", "b", "skip"},
+            {"y", "+2", "g", "reverse"},
+            {"g", "5", null, "wild"},
+            {"y", "5", "g", "+2"}
+        };
 
-        // Comodines sin color
-        Carta cartaComodinWild = new Carta(null, "wild");
-        Carta cartaComodinMas4 = new Carta(null, "+4");
+        // Probar todas las combinaciones
+        for (Object[] fila : tablaPairwise) {
+            Carta carta1 = new Carta((String) fila[0], (String) fila[1]);
+            Carta carta2 = new Carta((String) fila[2], (String) fila[3]);
 
-        // Combinaciones con Pairwise:
-
-        // Mismo color, mismo valor: Las cartas del mismo color y valor deben ser compatibles.
-        assertTrue(cartaRoja5.esCompatible(new Carta("r", "5")), "Mismo color y valor deberían ser compatibles.");
-
-        // Mismo valor, diferente color: Las cartas con el mismo valor y diferente color deben ser compatibles.
-        assertTrue(cartaRoja5.esCompatible(cartaAzul5), "Mismo valor, diferente color deberían ser compatibles.");
-
-        // Mismo color, diferente valor: Las cartas con el mismo color y valor diferente deben ser compatibles.
-        assertTrue(cartaRoja5.esCompatible(cartaRojaSkip), "Mismo color, diferente valor deberían ser compatibles.");
-
-        // Diferente color y valor: Las cartas con diferentes colores y valores deben ser incompatibles.
-        assertFalse(cartaRoja5.esCompatible(cartaAzulSkip), "Diferente color y valor no deberían ser compatibles.");
-
-        // Comodines con cualquier carta: Un comodín debe ser compatible con cualquier carta, independientemente del color o valor.
-        assertTrue(cartaRoja5.esCompatible(cartaComodinMas4), "Comodín debería ser compatible con cualquier carta.");
-        assertTrue(cartaComodinWild.esCompatible(cartaAzulSkip), "Comodín debería ser compatible con cualquier carta.");
-
-        // Dos comodines deben ser siempre compatibles entre sí.
-        assertTrue(cartaComodinMas4.esCompatible(cartaComodinWild), "Dos comodines deberían ser compatibles.");
-
-        // Probar combinaciones con cartas especiales iguales
-        assertTrue(cartaRojaSkip.esCompatible(cartaAzulSkip), "Las cartas especiales del mismo tipo deben ser compatibles");
+            assertTrue(carta1.esCompatible(carta2), "El pairwise testing ha fallado");
+        }
     }
 }

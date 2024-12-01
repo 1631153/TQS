@@ -1,0 +1,8 @@
+#
+# This is a sample model for testing volume creation
+#
+
+Color:          r, b, g, y, null
+Valor:          5, skip, reverse, +2, wild, +4
+Otro color:     r, b, g, y, null
+Otro valor:     5, skip, reverse, +2, wild, +4

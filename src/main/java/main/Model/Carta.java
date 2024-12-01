@@ -1,7 +1,7 @@
 package main.Model;
 
-import java.util.Objects;
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Carta implements Serializable {
     private static final long serialVersionUID = 1L;  // Versión de serialización

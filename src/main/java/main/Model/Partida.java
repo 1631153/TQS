@@ -1,8 +1,8 @@
 package main.Model;
 
-import java.util.List;
-import java.util.ArrayList;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Partida implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -241,7 +241,7 @@ public class Partida implements Serializable {
     /**
      * Cambia el turno al siguiente jugador, siguiendo la dirección del juego (sentido horario o antihorario).
      */
-    private void cambiarTurno() {;
+    private void cambiarTurno() {
         if (sentidoHorario) {
             jugadorActual = (jugadorActual + 1) % jugadores.size();
         } else {
